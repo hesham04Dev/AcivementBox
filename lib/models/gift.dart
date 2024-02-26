@@ -1,21 +1,21 @@
 import 'tileWithCounter.dart';
 
 class Gift extends TileWithCounter {
-  static Function Clicked = (num price) {
-    //TODO provide this to the coins by provider
-    //TODO alert a message to undo buying this gift
-    aa(price);
-  };
-  void aa(price) {
-    //TODO return this to the coins
-  }
-  static Function OpenEditPage = () {
+  void openEditPage() {
     // TODO gift edit page note no remove on this
-  };
+  }
+  void clicked() {
+    //TODO minus the price of the gift
+    // show alert to undo
+  }
+  void undo() {
+    // add the price to the coins
+    // minus the totalTimes
+  }
 
   Gift({
     required super.icon,
     required super.name,
     required super.price,
-  }) : super(openEditPage: OpenEditPage, clicked: Clicked);
+  });
 }
