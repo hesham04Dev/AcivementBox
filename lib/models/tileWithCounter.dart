@@ -11,8 +11,11 @@ abstract class TileWithCounter extends StatefulWidget {
     openEditPage();
     clicked();
   }
+
   void openEditPage();
+
   void clicked();
+
   final IconData? icon;
   final String name;
   final num price;
@@ -33,7 +36,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
   @override
   Widget build(BuildContext context) {
     return badges.Badge(
-      position: badges.BadgePosition.topEnd(top: 0, end: 0),
+      position: badges.BadgePosition.topEnd(top: 2, end: 2),
       badgeAnimation: const badges.BadgeAnimation.fade(
         animationDuration: Duration(seconds: 1),
         colorChangeAnimationDuration: Duration(seconds: 1),
@@ -43,7 +46,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
       ),
       badgeStyle: badges.BadgeStyle(
         shape: badges.BadgeShape.twitter,
-        badgeColor: Colors.blue,
+        badgeColor: Colors.lightGreen,
         padding: const EdgeInsets.all(5),
         borderRadius: BorderRadius.circular(4),
         borderSide: BorderSide(color: Colors.white, width: 2),
@@ -66,19 +69,12 @@ class _TileWithCounterState extends State<TileWithCounter> {
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(25),
+            color: Colors.lightGreen[200],
+            borderRadius: BorderRadius.circular(40),
           ),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.end,
-            //crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              /* Row(
-                  mainAxisSize: MainAxisSize.max,
-                  //crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [*/
               const SizedBox(
                 height: 10,
               ),
@@ -87,29 +83,22 @@ class _TileWithCounterState extends State<TileWithCounter> {
                 widget.icon,
                 size: 50,
               )),
-              /*Container(
-                      margin: EdgeInsets.only(top: 0),
-                      child: IconButton(
-                        icon: Text("$totalTimes"),
-                        iconSize: 10,
-                        onPressed: used,
-                      ),
-                    ),*/
-              /* ]),*/
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(widget.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    //textAlign: TextAlign.left,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12)),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Center(
+                    child: Text(widget.name,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 12)),
+                  ),
+                ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 0),
                 child: GestureDetector(
-                  //constraints: BoxConstraints(maxHeight: 20),
-
                   child: const Icon(
                     // opticalSize: 5,
                     size: 20,

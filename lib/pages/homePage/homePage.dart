@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       hardness: 1,
       icon: Icons.sports_baseball,
       isBadHabit: false,
-      name: " something with a long text",
+      name: " some long text pla pla",
       price: 10,
       priority: 5,
     );
