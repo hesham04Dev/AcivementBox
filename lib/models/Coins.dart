@@ -8,7 +8,6 @@ class CoinsBar extends StatelessWidget {
     int totalCoins = 0;
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
       padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: Colors.yellow[200]),

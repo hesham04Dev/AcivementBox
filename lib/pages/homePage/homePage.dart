@@ -43,12 +43,16 @@ class HomePage extends StatelessWidget {
             elevation: 0,
           ),
         ),
-        body: GridView.builder(
-            itemBuilder: (context, index) => h1,
-            itemCount: 10,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 100,
-                childAspectRatio: 0.50,
-                crossAxisSpacing: 5)));
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: GridView.builder(
+              itemBuilder: (context, index) => h1,
+              itemCount: 10,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 121,
+                  mainAxisExtent: 130,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 8)),
+        ));
   }
 }
