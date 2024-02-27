@@ -1,3 +1,5 @@
+import "package:achivement_box/models/Coins.dart";
+import "package:achivement_box/models/levelBar.dart";
 import "package:flutter/material.dart";
 
 import "../../models/habit.dart";
@@ -16,15 +18,37 @@ class HomePage extends StatelessWidget {
       priority: 5,
     );
     return Scaffold(
-        body: /*GridView(
-        gridDelegate:
-            SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 20),
-        children: [
-          h1,
-        ],
-      ),*/
-            Column(
-      children: [h1],
-    ));
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60.0), // here the desired height
+          child: AppBar(
+            //backgroundColor: Colors.cyan,
+            title: Column(
+              children: [
+                Text(
+                  "Achivement Box",
+                  style: TextStyle(fontSize: 16),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                        width: 110,
+                        child: VerticalChartBar(value: 1, percent: 0.2)),
+                    CoinsBar(),
+                  ],
+                ),
+              ],
+            ),
+            elevation: 0,
+          ),
+        ),
+        body: GridView.builder(
+            itemBuilder: (context, index) => h1,
+            itemCount: 10,
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 100,
+                childAspectRatio: 0.50,
+                crossAxisSpacing: 5)));
   }
 }
