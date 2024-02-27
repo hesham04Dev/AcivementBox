@@ -37,20 +37,9 @@ class _TileWithCounterState extends State<TileWithCounter> {
   Widget build(BuildContext context) {
     return badges.Badge(
       position: badges.BadgePosition.topEnd(top: 2, end: 2),
-      /*badgeAnimation: badges.BadgeAnimation.slide(
-        animationDuration: Duration(seconds: 1),
-        colorChangeAnimationDuration: Duration(seconds: 1),
-        //loopAnimation: true,
-        curve: Curves.fastOutSlowIn,
-        colorChangeAnimationCurve: Curves.easeInCubic,
-      ),*/
       badgeStyle: badges.BadgeStyle(
         shape: badges.BadgeShape.twitter,
         badgeColor: Colors.lightGreen.withOpacity(0.6),
-
-        //padding: const EdgeInsets.all(5),
-        //borderRadius: BorderRadius.circular(4),
-        //borderSide: BorderSide(color: Colors.lightGreen, width: 2),
         elevation: 0,
       ),
       badgeContent: SizedBox(
