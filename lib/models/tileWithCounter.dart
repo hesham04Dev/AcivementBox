@@ -1,6 +1,6 @@
+import 'package:achivement_box/models/imageIcon.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 abstract class TileWithCounter extends StatefulWidget {
   TileWithCounter(
@@ -89,12 +89,8 @@ class _TileWithCounterState extends State<TileWithCounter> {
               Container(
                 margin: const EdgeInsets.only(top: 0),
                 child: GestureDetector(
-                  child: const Icon(
-                    // opticalSize: 5,
-                    size: 20,
-                    FontAwesomeIcons.ellipsis,
-                  ),
-                  //iconSize: 20,
+                  child: IconImage(
+                      path: "assets/icons/ellipsis-stroke.png", size: 20),
                   onTap: () {
                     widget.openEditPage;
                   },

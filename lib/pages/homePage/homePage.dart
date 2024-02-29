@@ -3,9 +3,11 @@ import "package:achivement_box/models/levelBar.dart";
 import "package:flutter/material.dart";
 
 import "../../models/habit.dart";
+import "../../models/imageIcon.dart";
 
 class HomePage extends StatelessWidget {
   const HomePage() : super();
+
   @override
   Widget build(BuildContext context) {
     Habit h1 = new Habit(
@@ -18,41 +20,68 @@ class HomePage extends StatelessWidget {
       priority: 5,
     );
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.0), // here the desired height
-          child: AppBar(
-            //backgroundColor: Colors.cyan,
-            title: Column(
-              children: [
-                Text(
-                  "Achivement Box",
-                  style: TextStyle(fontSize: 16),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                        width: 110,
-                        child: VerticalChartBar(value: 1, percent: 0.2)),
-                    CoinsBar(),
-                  ],
-                ),
-              ],
-            ),
-            elevation: 0,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0), // here the desired height
+        child: AppBar(
+          //backgroundColor: Colors.cyan,
+          title: Column(
+            children: [
+              Text(
+                "Achivement Box",
+                style: TextStyle(fontSize: 16),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                      width: 110,
+                      child: VerticalChartBar(value: 1, percent: 0.2)),
+                  CoinsBar(),
+                ],
+              ),
+            ],
           ),
+          elevation: 0,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: GridView.builder(
-              itemBuilder: (context, index) => h1,
-              itemCount: 10,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 121,
-                  mainAxisExtent: 130,
-                  childAspectRatio: 0.8,
-                  crossAxisSpacing: 8)),
-        ));
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: GridView.builder(
+            itemBuilder: (context, index) => h1,
+            itemCount: 10,
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 121,
+                mainAxisExtent: 130,
+                childAspectRatio: 0.8,
+                crossAxisSpacing: 8)),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        iconSize: 25,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.lightGreen,
+        items: [
+          BottomNavigationBarItem(
+              icon: IconImage(
+                path: "assets/icons/gear.png",
+              ),
+              label: "dd"),
+          BottomNavigationBarItem(
+              icon: IconImage(
+                path: "assets/icons/house-blank.png",
+              ),
+              label: "dd"),
+          BottomNavigationBarItem(
+              icon: IconImage(
+                path: "assets/icons/gift.png",
+              ),
+              label: "dd"),
+          BottomNavigationBarItem(
+              icon: IconImage(path: "assets/icons/chart-simple.png"),
+              label: "dd"),
+        ],
+      ),
+    );
   }
 }
