@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
+
 import 'tileWithCounter.dart';
 
 class Gift extends TileWithCounter {
-  void openEditPage() {
+  void openEditPage(BuildContext context) {
     // TODO gift edit page note no remove on this
   }
   void clicked() {

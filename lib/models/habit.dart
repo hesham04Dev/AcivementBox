@@ -1,3 +1,6 @@
+import 'package:achivement_box/pages/newHabit.dart';
+import 'package:flutter/material.dart';
+
 import 'tileWithCounter.dart';
 
 class Habit extends TileWithCounter {
@@ -6,8 +9,10 @@ class Habit extends TileWithCounter {
   final int hardness;
   final List<String> categories;
 
-  void openEditPage() {
-    // TODO habit edit page
+  void openEditPage(context) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return NewHabitPage();
+    }));
   }
 
   void clicked() {

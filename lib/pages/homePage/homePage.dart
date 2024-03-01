@@ -1,9 +1,10 @@
-import "package:achivement_box/models/Coins.dart";
-import "package:achivement_box/models/levelBar.dart";
+import "package:achivement_box/models/MyBottomNavBar.dart";
+import "package:achivement_box/pages/newHabit.dart";
 import "package:flutter/material.dart";
 
+import "../../models/Coins.dart";
 import "../../models/habit.dart";
-import "../../models/imageIcon.dart";
+import "../../models/levelBar.dart";
 
 class HomePage extends StatelessWidget {
   const HomePage() : super();
@@ -20,68 +21,59 @@ class HomePage extends StatelessWidget {
       priority: 5,
     );
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0), // here the desired height
-        child: AppBar(
-          //backgroundColor: Colors.cyan,
-          title: Column(
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          title: const Column(
             children: [
               Text(
-                "Achivement Box",
-                style: TextStyle(fontSize: 16),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                      width: 110,
-                      child: VerticalChartBar(value: 1, percent: 0.2)),
-                  CoinsBar(),
-                ],
+                "Achievement Box",
               ),
             ],
           ),
-          elevation: 0,
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: GridView.builder(
-            itemBuilder: (context, index) => h1,
-            itemCount: 10,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 121,
-                mainAxisExtent: 130,
-                childAspectRatio: 0.8,
-                crossAxisSpacing: 8)),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        iconSize: 25,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.lightGreen,
-        items: [
-          BottomNavigationBarItem(
-              icon: IconImage(
-                path: "assets/icons/gear.png",
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LevelBar(),
+                    CoinsBar(),
+                  ],
+                ),
               ),
-              label: "dd"),
-          BottomNavigationBarItem(
-              icon: IconImage(
-                path: "assets/icons/house-blank.png",
+              Expanded(
+                child: GridView.builder(
+                    itemBuilder: (context, index) => h1,
+                    itemCount: 30,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 121,
+                            mainAxisExtent: 130,
+                            childAspectRatio: 0.8,
+                            crossAxisSpacing: 8)),
               ),
-              label: "dd"),
-          BottomNavigationBarItem(
-              icon: IconImage(
-                path: "assets/icons/gift.png",
-              ),
-              label: "dd"),
-          BottomNavigationBarItem(
-              icon: IconImage(path: "assets/icons/chart-simple.png"),
-              label: "dd"),
-        ],
-      ),
-    );
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+            shape: ContinuousRectangleBorder(
+                borderRadius: BorderRadius.circular(50)),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return const NewHabitPage();
+              }));
+            },
+            child: const Icon(
+              Icons.add_rounded,
+              size: 25,
+              color: Colors.white54,
+            )),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: MyBottomNavBar());
   }
 }

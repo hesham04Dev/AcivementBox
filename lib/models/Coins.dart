@@ -5,7 +5,7 @@ class CoinsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int totalCoins = 0;
+    int totalCoins = 100;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5),

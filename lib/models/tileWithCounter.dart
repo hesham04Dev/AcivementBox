@@ -8,11 +8,10 @@ abstract class TileWithCounter extends StatefulWidget {
       required this.icon,
       required this.name,
       required this.price}) {
-    openEditPage();
     clicked();
   }
 
-  void openEditPage();
+  void openEditPage(BuildContext context);
 
   void clicked();
 
@@ -38,7 +37,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
     return badges.Badge(
       position: badges.BadgePosition.topEnd(top: 2, end: 2),
       badgeStyle: badges.BadgeStyle(
-        shape: badges.BadgeShape.twitter,
+        shape: badges.BadgeShape.circle,
         badgeColor: Colors.lightGreen.withOpacity(0.6),
         elevation: 0,
       ),
@@ -51,7 +50,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
             textAlign: TextAlign.center,
           ))),
       child: GestureDetector(
-        onLongPress: widget.openEditPage,
+        onLongPress: () => widget.openEditPage(context),
         onTap: used,
         child: Container(
           width: 100,
@@ -60,7 +59,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color: Colors.lightGreen[200],
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(50),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -92,7 +91,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
                   child: IconImage(
                       path: "assets/icons/ellipsis-stroke.png", size: 20),
                   onTap: () {
-                    widget.openEditPage;
+                    widget.openEditPage(context);
                   },
                 ),
               )
