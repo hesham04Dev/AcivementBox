@@ -1,3 +1,4 @@
+import 'package:achivement_box/pages/setting/settingPage.dart';
 import 'package:flutter/material.dart';
 
 import 'imageIcon.dart';
@@ -21,42 +22,15 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
       iconSize: 25,
       onTap: (value) {
         setState(() {
+          if (value == 0)
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingPage()));
           widget.page = value;
         });
       },
       unselectedItemColor: Colors.grey,
       selectedItemColor: Colors.lightGreen,
       items: [
-        /* TODO make the taped one like this
-    BottomNavigationBarItem(
-        icon: Container(
-          width: 70,
-          padding: EdgeInsets.all(2),
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 2,
-              ),
-              IconImage(
-                path: "assets/icons/gear.png",
-                size: 11,
-              ),
-              SizedBox(
-                width: 2,
-              ),
-              Text(
-                "settings",
-                style: TextStyle(fontSize: 11),
-              )
-            ],
-          ),
-        ),
-        label: "dd"),*/
         BottomNavigationBarItem(
             icon: IconImage(
               path: "assets/icons/gear.png",

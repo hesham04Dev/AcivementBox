@@ -45,6 +45,10 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("something changed every time"),
+              ),
               Expanded(
                 child: GridView.builder(
                     itemBuilder: (context, index) => h1,
