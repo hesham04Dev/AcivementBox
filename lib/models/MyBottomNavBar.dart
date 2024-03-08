@@ -1,6 +1,8 @@
+/*import 'package:achivement_box/pages/satisticBody/statisticBody.dart';
 import 'package:achivement_box/pages/setting/settingPage.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/giftsPage/giftsPage.dart';
 import 'imageIcon.dart';
 
 class MyBottomNavBar extends StatefulWidget {
@@ -24,7 +26,13 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         setState(() {
           if (value == 0)
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingPage()));
+                MaterialPageRoute(builder: (context) => SettingBody()));
+          else if (value == 2)
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => GiftsBody()));
+          else if (value == 3)
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => StatisticsBody()));
           widget.page = value;
         });
       },
@@ -38,7 +46,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
             label: "settings"),
         BottomNavigationBarItem(
             icon: IconImage(
-              path: "assets/icons/house-blank.png",
+              path: "assets/icons/igoo.png",
             ),
             label: "home"),
         /* BottomNavigationBarItem(
@@ -58,3 +66,4 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
     );
   }
 }
+*/

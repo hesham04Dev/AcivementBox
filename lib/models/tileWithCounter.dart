@@ -54,7 +54,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
         onTap: used,
         child: Container(
           width: 100,
-          height: 120,
+          height: 140,
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -84,6 +84,20 @@ class _TileWithCounterState extends State<TileWithCounter> {
                             fontWeight: FontWeight.bold, fontSize: 12)),
                   ),
                 ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconImage(
+                    path: "assets/icons/coin128.png",
+                    size: 15,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text("${widget.price}"),
+                ],
               ),
               Container(
                 margin: const EdgeInsets.only(top: 0),

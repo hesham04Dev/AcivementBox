@@ -1,25 +1,30 @@
-import "package:achivement_box/models/MyBottomNavBar.dart";
-import "package:achivement_box/pages/newHabit.dart";
 import "package:flutter/material.dart";
 
-import "../../models/Coins.dart";
-import "../../models/habit.dart";
-import "../../models/levelBar.dart";
+import "../../models/imageIcon.dart";
+import "../giftsBody/giftsPage.dart";
+import "../newHabit.dart";
+import "../satisticBody/statisticBody.dart";
+import "../settingBody/settingPage.dart";
+import "widget/homeBody.dart";
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage() : super();
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int pageIndex = 1;
+
+  @override
   Widget build(BuildContext context) {
-    Habit h1 = new Habit(
-      categories: ["none"],
-      hardness: 1,
-      icon: Icons.sports_baseball,
-      isBadHabit: false,
-      name: " some long text pla pla",
-      price: 10,
-      priority: 5,
-    );
+    const List<Widget> bodies = [
+      SettingBody(),
+      HomeBody(),
+      GiftsBody(),
+      StatisticsBody()
+    ];
     return Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,
@@ -33,35 +38,7 @@ class HomePage extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    LevelBar(),
-                    CoinsBar(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("something changed every time"),
-              ),
-              Expanded(
-                child: GridView.builder(
-                    itemBuilder: (context, index) => h1,
-                    itemCount: 30,
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 121,
-                            mainAxisExtent: 130,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 8)),
-              ),
-            ],
-          ),
+          child: bodies[pageIndex],
         ),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
@@ -78,6 +55,49 @@ class HomePage extends StatelessWidget {
               color: Colors.white54,
             )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: MyBottomNavBar());
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: false,
+          elevation: 0,
+          currentIndex: pageIndex,
+          iconSize: 25,
+          onTap: (value) {
+            setState(() {
+              /*if (value == 0)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingBody()));
+              else if (value == 2)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => GiftsBody()));
+              else if (value == 3)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => StatisticsBody()));*/
+              pageIndex = value;
+            });
+          },
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.lightGreen,
+          items: [
+            BottomNavigationBarItem(
+                icon: IconImage(
+                  path: "assets/icons/gear.png",
+                ),
+                label: "settings"),
+            BottomNavigationBarItem(
+                icon: IconImage(
+                  path: "assets/icons/igoo.png",
+                ),
+                label: "home"),
+            BottomNavigationBarItem(
+                icon: IconImage(
+                  path: "assets/icons/gift.png",
+                ),
+                label: "gifts"),
+            BottomNavigationBarItem(
+                icon: IconImage(path: "assets/icons/chart-simple.png"),
+                label: "statistics"),
+          ],
+        ));
   }
 }
