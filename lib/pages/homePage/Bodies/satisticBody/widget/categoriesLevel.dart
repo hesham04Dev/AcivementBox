@@ -1,8 +1,8 @@
 import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/imageIcon.dart';
-import '../../../models/levelBar.dart';
+import '../../../../../models/imageIcon.dart';
+import '../../../../../models/levelBar.dart';
 
 class CategoriesLevel extends StatelessWidget {
   const CategoriesLevel({super.key});
@@ -26,7 +26,9 @@ class CategoriesLevel extends StatelessWidget {
               ),
               Text("math"),
               Expanded(child: SizedBox()),
-              LevelBar(),
+              LevelBar(
+                canChange: false,
+              ),
             ],
           ),
         ),

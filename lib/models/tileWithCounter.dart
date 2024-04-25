@@ -7,18 +7,19 @@ abstract class TileWithCounter extends StatefulWidget {
       {super.key,
       required this.icon,
       required this.name,
-      required this.price}) {
-    clicked();
+      required this.price,
+      required this.context}) {
+    //clicked;
   }
 
-  void openEditPage(BuildContext context);
+  void openEditPage();
 
   void clicked();
 
-  final IconData? icon;
+  final Widget icon;
   final String name;
-  final num price;
-
+  final int price;
+  final BuildContext context;
   @override
   State<TileWithCounter> createState() => _TileWithCounterState();
 }
@@ -28,7 +29,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
 
   void used() {
     totalTimes++;
-    widget.clicked;
+    widget.clicked();
     setState(() {});
   }
 
@@ -50,7 +51,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
             textAlign: TextAlign.center,
           ))),
       child: GestureDetector(
-        onLongPress: () => widget.openEditPage(context),
+        onLongPress: () => widget.openEditPage(),
         onTap: used,
         child: Container(
           width: 100,
@@ -67,11 +68,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                  child: Icon(
-                widget.icon,
-                size: 50,
-              )),
+              Container(child: widget.icon),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -105,7 +102,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
                   child: IconImage(
                       path: "assets/icons/ellipsis-stroke.png", size: 20),
                   onTap: () {
-                    widget.openEditPage(context);
+                    widget.openEditPage();
                   },
                 ),
               )

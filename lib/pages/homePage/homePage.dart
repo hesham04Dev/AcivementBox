@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 
 import "../../models/imageIcon.dart";
-import "../giftsBody/giftsPage.dart";
 import "../newHabit.dart";
-import "../satisticBody/statisticBody.dart";
-import "../settingBody/settingPage.dart";
-import "widget/homeBody.dart";
+import "Bodies/HomeBody/homeBody.dart";
+import "Bodies/giftsBody/giftsPage.dart";
+import "Bodies/satisticBody/statisticBody.dart";
+import "Bodies/settingBody/settingPage.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage() : super();
@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const List<Widget> bodies = [
+    List<Widget> bodies = [
       SettingBody(),
       HomeBody(),
       GiftsBody(),
@@ -28,12 +28,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,
-          title: const Column(
-            children: [
-              Text(
-                "Achievement Box",
-              ),
-            ],
+          title: const Text(
+            "Achievement Box",
           ),
         ),
         body: Padding(
@@ -46,7 +42,8 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(50)),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return const NewHabitPage();
+                return NewHabitPage();
+                //TODO return pageIndex != 2 ? NewHabitPage() : NewGiftPage;
               }));
             },
             child: const Icon(
@@ -64,15 +61,6 @@ class _HomePageState extends State<HomePage> {
           iconSize: 25,
           onTap: (value) {
             setState(() {
-              /*if (value == 0)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingBody()));
-              else if (value == 2)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GiftsBody()));
-              else if (value == 3)
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StatisticsBody()));*/
               pageIndex = value;
             });
           },

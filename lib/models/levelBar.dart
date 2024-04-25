@@ -1,16 +1,22 @@
 import 'package:achivement_box/models/chartBar.dart';
+import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../db.dart';
 
 class LevelBar extends StatelessWidget {
-  final double percent = 0.1;
-  final int level = 2;
-  final int maxXp = 200;
-  final int currentXp = 40;
-
-  const LevelBar({super.key});
+  const LevelBar({super.key, required this.canChange});
+  final bool canChange;
 
   @override
   Widget build(BuildContext context) {
+    canChange ? context.watch<LevelProvider>().x : null;
+    Map<String, dynamic> r = getLevel();
+    final double percent = r['EarnedXp'] / r['MaxXp'];
+    final int level = r['Level'];
+    final int maxXp = r['MaxXp'];
+    final int currentXp = r['EarnedXp'];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5.0),

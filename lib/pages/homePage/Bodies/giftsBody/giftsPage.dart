@@ -1,37 +1,40 @@
-import "package:achivement_box/models/PrimaryContainer.dart";
+import "package:achivement_box/models/gift.dart";
 import "package:flutter/material.dart";
 
-import "../../models/Coins.dart";
-import "../../models/habit.dart";
-import "../../models/levelBar.dart";
+import "../../../../models/Coins.dart";
+import "../../../../models/PrimaryContainer.dart";
+import "../../../../models/imageIcon.dart";
+import "../../../../models/levelBar.dart";
 
 class GiftsBody extends StatelessWidget {
   const GiftsBody() : super();
 
   @override
   Widget build(BuildContext context) {
-    Habit h1 = new Habit(
-      categories: ["none"],
-      hardness: 1,
-      icon: Icons.sports_baseball,
-      isBadHabit: false,
+    Gift h1 = new Gift(
+      context: context,
+      icon: IconImage(
+        path: "assets/icons/gift.png",
+        size: 50,
+      ),
       name: " some long text pla pla",
       price: 10,
-      priority: 5,
     );
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              LevelBar(),
-              CoinsBar(),
+              LevelBar(
+                canChange: false,
+              ),
+              const CoinsBar(),
             ],
           ),
         ),
-        Text("recent"),
+        const Text("recent"),
         PrimaryContainer(
           opacity: 0.1,
           height: 150,
@@ -41,7 +44,7 @@ class GiftsBody extends StatelessWidget {
               scrollDirection: Axis.horizontal),
         ),
         //TODO if null dont show any
-        Text("all items"),
+        const Text("all items"),
         Expanded(
           child: PrimaryContainer(
             opacity: 0.1,

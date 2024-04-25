@@ -1,7 +1,7 @@
 import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/chartBar.dart';
+import '../../../../../models/chartBar.dart';
 
 class WeeklyBar extends StatelessWidget {
   const WeeklyBar({super.key});

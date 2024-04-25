@@ -1,6 +1,9 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
+import 'package:achivement_box/pages/homePage/provider/homePageProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../db.dart';
 import '../models/select with name.dart';
 
 class NewHabitPage extends StatelessWidget {
@@ -63,6 +66,8 @@ class NewHabitPage extends StatelessWidget {
                     length: 5,
                   ),
                 ),
+                /*SegmentedButton(
+                    segments: [ButtonSegment(value: 1)], selected: Set()),*/
                 Container(
                   margin: const EdgeInsets.all(5),
                   padding:
@@ -104,7 +109,20 @@ class NewHabitPage extends StatelessWidget {
                   height: 10,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (name.text.isNotEmpty && coins.text.isNotEmpty)
+                      newHabit(
+                          name: name.text,
+                          category: 0,
+                          isBad: false,
+                          price: int.parse(coins.text),
+                          iconId: 1,
+                          priority: 5,
+                          hardness: 5,
+                          timeInMinutes: 10);
+                    context.read<HomePageProvider>().newItem();
+                    Navigator.pop(context);
+                  },
                   child: const Text("save"),
                   //color: Theme.of(context).primaryColor.withOpacity(0.5),
                 )

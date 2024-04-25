@@ -1,7 +1,8 @@
-import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:achivement_box/pages/satisticBody/widget/categoriesLevel.dart';
-import 'package:achivement_box/pages/satisticBody/widget/weeklyBar.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../models/PrimaryContainer.dart';
+import 'widget/categoriesLevel.dart';
+import 'widget/weeklyBar.dart';
 
 class StatisticsBody extends StatelessWidget {
   const StatisticsBody({super.key});

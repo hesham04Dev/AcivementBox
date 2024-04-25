@@ -1,11 +1,13 @@
+import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CoinsBar extends StatelessWidget {
   const CoinsBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    int totalCoins = 100;
+    int totalCoins = context.watch<CoinsProvider>().coins;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5),
