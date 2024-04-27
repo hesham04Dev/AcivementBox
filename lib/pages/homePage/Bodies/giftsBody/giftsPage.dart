@@ -1,5 +1,7 @@
 import "package:achivement_box/models/gift.dart";
+import "package:achivement_box/pages/homePage/provider/giftProvider.dart";
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
 import "../../../../models/Coins.dart";
 import "../../../../models/PrimaryContainer.dart";
@@ -11,15 +13,10 @@ class GiftsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Gift h1 = new Gift(
-      context: context,
-      icon: IconImage(
-        path: "assets/icons/gift.png",
-        size: 50,
-      ),
-      name: " some long text pla pla",
-      price: 10,
-    );
+    var gifts = context.watch<GiftProvider>().Gifts;
+    var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
+    //TODO for the most used
+
     return Column(
       children: [
         Padding(
@@ -34,13 +31,19 @@ class GiftsBody extends StatelessWidget {
             ],
           ),
         ),
-        const Text("recent"),
+        const Text("most used"),
         PrimaryContainer(
           opacity: 0.1,
           height: 150,
           child: ListView.builder(
-              itemBuilder: (context, index) => h1,
-              itemCount: 10, //max is 10
+              itemBuilder: (context, index) => Gift(
+                  totalTimes: 0,
+                  context: context,
+                  icon: IconImage(path: "assets/icons/gift.png", size: 50),
+                  id: gifts[index]['Id'],
+                  name: gifts[index]['Name'],
+                  price: gifts[index]['Price']),
+              itemCount: mostUsedGifts.length, //max is 10
               scrollDirection: Axis.horizontal),
         ),
         //TODO if null dont show any
@@ -49,8 +52,14 @@ class GiftsBody extends StatelessWidget {
           child: PrimaryContainer(
             opacity: 0.1,
             child: GridView.builder(
-                itemBuilder: (context, index) => h1,
-                itemCount: 30,
+                itemBuilder: (context, index) => Gift(
+                    context: context,
+                    totalTimes: 0,
+                    icon: IconImage(path: "assets/icons/gift.png", size: 50),
+                    id: gifts[index]['Id'],
+                    name: gifts[index]['Name'],
+                    price: gifts[index]['Price']),
+                itemCount: gifts.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 121,
                     mainAxisExtent: 130,

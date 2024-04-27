@@ -1,16 +1,19 @@
+import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 void createTablesIfNotExists(Database db) {
   const String createCategoryTable = '''
   CREATE TABLE IF NOT EXISTS category(
   Id INTEGER PRIMARY KEY AUTOINCREMENT,
-  Name TEXT,
+  Name TEXT unique,
   ColorId INTEGER DEFAULT 0,
   IconId INTEGER DEFAULT 0,
   EarnedXp INTEGER DEFAULT 0,
   MaxXp INTEGER DEFAULT 500,
   Level INTEGER DEFAULT 1
-  )''';
+  );
+  INSERT OR IGNORE INTO  category (name) values('main');
+  ''';
 
   const String createHabitTable = '''
   CREATE TABLE IF NOT EXISTS habit(
@@ -29,9 +32,12 @@ void createTablesIfNotExists(Database db) {
   CREATE TABLE IF NOT EXISTS gift(
   Id INTEGER PRIMARY KEY AUTOINCREMENT,
   Name TEXT,
-  Price int,
-  Icon INTEGER
-  )''';
+  Price INTEGER,
+  Icon INTEGER,
+  NoOfUsed INTEGER DEFAULT 0
+  )
+
+  ''';
   // is possible to create a new type of gifts that depends on habits not on the coins
   const String createGiftOnHabitTable = '''
   CREATE TABLE IF NOT EXISTS giftOnHabit(
@@ -60,16 +66,6 @@ void createTablesIfNotExists(Database db) {
   FOREIGN KEY (HabitId) REFERENCES habit(Id)
   )''';
 
-  /*//TODO create table level
-  const String createLevelTable = '''
-  CREATE TABLE IF NOT EXISTS level(
-  ,
-  HabitId INTEGER,
-  Count INTEGER,
-  PRIMARY KEY (HabitId, DateOnly),
-  FOREIGN KEY (HabitId) REFERENCES habit(Id)
-
-  ''';*/
   const List<String> sqlList = [
     createCategoryTable,
     createHabitTable,
@@ -82,13 +78,7 @@ void createTablesIfNotExists(Database db) {
     db.execute(sql);
   }
   db.execute(createLevelTrigger);
-  // db.execute("INSERT INTO category('Name') values('cat1')");
-  /*db.execute(
-      "INSERT INTO habit('Name','Category','IsBad','Price','Icon','Priority','Hardness','TimeInMinutes') VALUES ('Name',0,true,1.2,55,5,5,60)");*/
-  //db.execute("DROP TABLE category");
-  //print(1);
-  // db.execute("insert into category (name) values('main')");
-
+  //db.execute("insert into logHabit values('$formattedDate',2,10);");
   ResultSet result = db.select("select * from category where Name = 'main'");
   for (Row row in result) {
     print(row);
@@ -116,20 +106,52 @@ void newHabit(
     required int iconId,
     required int priority,
     required int hardness,
-    required int timeInMinutes}) async {
+    required int timeInMinutes}) {
   db.execute(
       "INSERT INTO habit('Name','Category','IsBad','Price','Icon','Priority','Hardness','TimeInMinutes') VALUES ('$name',$category,$isBad,$price,$iconId,$priority,$hardness,$timeInMinutes)");
 }
 
+void newGift({
+  required String name,
+  required int price,
+  required int iconId,
+}) {
+  db.execute(
+      "INSERT INTO gift('Name','Price','Icon') VALUES ('$name',$price,$iconId)");
+}
+
 late Database db;
+
 ResultSet getHabits() {
-  ResultSet resultSet = db.select("SELECT * FROM habit ;");
-  '''SELECT habit.Id ,habit.Name,category.Name,IsBad,Price,Icon,Priority,Hardness,TimeInMinutes, FROM habit , category
- WHERE category.Id = habit.category
- ''';
-/*for (Row row in resultSet) {
-print(row);
-}*/
+  /*ResultSet resultSet = db.select(
+      "SELECT habit.*, count FROM habit inner join (select HabitId,count form logHabit where DateOnly = $formattedDate)   ;");*/
+  ResultSet resultSet = db.select('''
+  SELECT habit.*, logHabit.count AS count
+FROM habit
+LEFT JOIN (
+    SELECT HabitId, count
+    FROM logHabit
+    WHERE DateOnly = '$formattedDate'
+) AS logHabit ON habit.Id = logHabit.HabitId;
+  ''');
+
+  for (Row row in resultSet) {
+    print(row);
+  }
+
+  return resultSet;
+}
+
+ResultSet getGifts() {
+  ResultSet resultSet = db.select("SELECT * FROM gift ;");
+
+  return resultSet;
+}
+
+ResultSet getMostUsedGifts(int num) {
+  ResultSet resultSet = db.select(
+      "SELECT  * FROM gift where NoOfUsed > 0 ORDER BY NoOfUsed desc LIMIT $num ;");
+
   return resultSet;
 }
 
@@ -138,6 +160,16 @@ Row getLevel({String name = "main"}) {
   ResultSet result = db.select("select * from category where Name = '$name'");
 
   return result[0];
+}
+
+DateTime now = DateTime.now();
+String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+Map<int, int> getHabitCount() {
+  '''
+  select habitId,count form logHabit where 
+  DateOnly = $formattedDate
+  ''';
+  return {};
 }
 
 void updateLevel({String name = "main", required int value}) {

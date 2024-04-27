@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../db.dart';
 
-class HomePageProvider with ChangeNotifier {
-  HomePageProvider() {
+class HabitProvider with ChangeNotifier {
+  HabitProvider() {
     _Habits = getHabits();
   }
-  newItem() {
+  newHabit() {
     _Habits = getHabits();
     notifyListeners();
   }

@@ -1,5 +1,5 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
-import 'package:achivement_box/pages/homePage/provider/homePageProvider.dart';
+import 'package:achivement_box/pages/homePage/provider/habitProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -120,7 +120,7 @@ class NewHabitPage extends StatelessWidget {
                           priority: 5,
                           hardness: 5,
                           timeInMinutes: 10);
-                    context.read<HomePageProvider>().newItem();
+                    context.read<HabitProvider>().newHabit();
                     Navigator.pop(context);
                   },
                   child: const Text("save"),

@@ -9,7 +9,7 @@ import '../../../../models/Coins.dart';
 import '../../../../models/PrimaryContainer.dart';
 import '../../../../models/habit.dart';
 import '../../../../models/levelBar.dart';
-import '../../provider/homePageProvider.dart';
+import '../../provider/habitProvider.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -36,7 +36,7 @@ class HomeBody extends StatelessWidget {
     //var habits = getHabits();
 
     //print(habits[1]);
-    var habits = context.watch<HomePageProvider>().Habits;
+    var habits = context.watch<HabitProvider>().Habits;
     return ChangeNotifierProvider(
       create: (context) => LevelProvider(),
       child: Column(
@@ -65,6 +65,8 @@ class HomeBody extends StatelessWidget {
                   itemBuilder: (context, index) => Habit(
                         context: context,
                         categories: [""],
+                        id: habits[index]['Id'],
+                        totalTimes: habits[index]['count'] ?? 0,
                         hardness: habits[index]['Hardness'],
                         icon: IconImage(
                           path: "assets/icons/gear.png",

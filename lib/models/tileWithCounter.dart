@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 abstract class TileWithCounter extends StatefulWidget {
   TileWithCounter(
       {super.key,
+      required this.id,
       required this.icon,
       required this.name,
       required this.price,
-      required this.context}) {
+      required this.context,
+      required this.totalTimes}) {
     //clicked;
   }
 
@@ -20,15 +22,15 @@ abstract class TileWithCounter extends StatefulWidget {
   final String name;
   final int price;
   final BuildContext context;
+  final int id;
+  int totalTimes;
   @override
   State<TileWithCounter> createState() => _TileWithCounterState();
 }
 
 class _TileWithCounterState extends State<TileWithCounter> {
-  int totalTimes = 0;
-
   void used() {
-    totalTimes++;
+    widget.totalTimes++;
     widget.clicked();
     setState(() {});
   }
@@ -47,7 +49,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
           height: 20,
           child: FittedBox(
               child: Text(
-            "$totalTimes",
+            "${widget.totalTimes}",
             textAlign: TextAlign.center,
           ))),
       child: GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:achivement_box/pages/homePage/provider/homePageProvider.dart';
+import 'package:achivement_box/pages/homePage/provider/giftProvider.dart';
+import 'package:achivement_box/pages/homePage/provider/habitProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite3/sqlite3.dart';
@@ -8,6 +9,7 @@ import 'db.dart';
 import 'pages/homePage/homePage.dart';
 
 void main() {
+  //db = sqlite3.openInMemory();
   db = sqlite3.open("hesham4.db");
   createTablesIfNotExists(db);
   runApp(MyApp());
@@ -22,10 +24,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => HomePageProvider(),
+          create: (context) => HabitProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => CoinsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => GiftProvider(),
         ),
       ],
       child: MaterialApp(

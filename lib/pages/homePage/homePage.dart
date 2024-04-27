@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../../models/imageIcon.dart";
+import "../newGift.dart";
 import "../newHabit.dart";
 import "Bodies/HomeBody/homeBody.dart";
 import "Bodies/giftsBody/giftsPage.dart";
@@ -20,10 +21,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> bodies = [
-      SettingBody(),
-      HomeBody(),
-      GiftsBody(),
-      StatisticsBody()
+      const SettingBody(),
+      const HomeBody(),
+      const GiftsBody(),
+      const StatisticsBody()
     ];
     return Scaffold(
         appBar: AppBar(
@@ -42,7 +43,9 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(50)),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return NewHabitPage();
+                return pageIndex != 2
+                    ? const NewHabitPage()
+                    : const NewGiftPage();
                 //TODO return pageIndex != 2 ? NewHabitPage() : NewGiftPage;
               }));
             },

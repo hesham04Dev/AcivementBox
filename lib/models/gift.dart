@@ -19,6 +19,8 @@ class Gift extends TileWithCounter {
   }
 
   Gift({
+    required super.id,
+    required super.totalTimes,
     required super.context,
     required super.icon,
     required super.name,

@@ -1,6 +1,7 @@
 import 'package:achivement_box/db.dart';
 import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
+import 'package:achivement_box/pages/homePage/provider/habitProvider.dart';
 import 'package:achivement_box/pages/newHabit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,23 +21,33 @@ class Habit extends TileWithCounter {
   }
 
   void clicked() {
+    if (super.totalTimes == 1) {
+      db.execute('''
+      insert into logHabit values('$formattedDate',${super.id},1)
+      ''');
+    } else {
+      db.execute('''
+      update  logHabit set
+      count = ${super.totalTimes}
+      where DateOnly = '$formattedDate'
+      and HabitId =${super.id}
+      ''');
+    }
     if (isBadHabit) {
-      //TODO remove price from the coins
       context.read<CoinsProvider>().removeCoins(super.price);
     }
+
     context.read<CoinsProvider>().addCoins(super.price);
     context.read<LevelProvider>().xpIncreased();
+    context.read<HabitProvider>().newHabit();
     updateLevel(value: super.price + hardness + priority);
-
-    // base level add  priority * 2 + hardness
-    // the same for the category level but is devided for the number of the categories in
-    //show a toast with the exp gained
-    //TODO provide this to the coins by provider
   }
 
   Habit(
-      {required super.icon,
+      {required super.id,
+      required super.icon,
       required super.name,
+      required super.totalTimes,
       required super.price,
       required super.context,
       required this.categories,
