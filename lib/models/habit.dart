@@ -12,7 +12,7 @@ class Habit extends TileWithCounter {
   final bool isBadHabit;
   final int priority;
   final int hardness;
-  final List<String> categories;
+  final int categoryId;
 
   void openEditPage() {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
@@ -38,7 +38,7 @@ class Habit extends TileWithCounter {
     } else {
       context.read<CoinsProvider>().addCoins(super.price);
       context.read<LevelProvider>().xpIncreased();
-      updateLevel(value: super.price + hardness + priority);
+      updateLevel(value: super.price + hardness + priority, id: categoryId);
     }
     context.read<HabitProvider>().habitUpdated();
   }
@@ -50,7 +50,7 @@ class Habit extends TileWithCounter {
       required super.totalTimes,
       required super.price,
       required super.context,
-      required this.categories,
+      required this.categoryId,
       required this.isBadHabit,
       required this.priority,
       required this.hardness});

@@ -90,7 +90,7 @@ void createTablesIfNotExists(Database db) {
   }
   db.execute(createLevelTrigger);
   //db.execute("insert into logHabit values('$formattedDate',2,10);");
-  ResultSet result = db.select("select * from category where Name = 'main'");
+  ResultSet result = db.select("select * from category ");
   for (Row row in result) {
     print(row);
   }
@@ -154,10 +154,10 @@ LEFT JOIN (
     WHERE DateOnly = '$formattedDate'
 ) AS logHabit ON habit.Id = logHabit.HabitId;
   ''');
-
+/*
   for (Row row in resultSet) {
     print(row);
-  }
+  }*/
 
   return resultSet;
 }
@@ -176,7 +176,7 @@ ResultSet getMostUsedGifts() {
   return resultSet;
 }
 
-Row getLevel({String name = "main"}) {
+Row getLevel({required String name}) {
   //db.execute("insert into category (Name) values ('main')");
   ResultSet result = db.select("select * from category where Name = '$name'");
 
@@ -193,8 +193,9 @@ Map<int, int> getHabitCount() {
   return {};
 }
 
-void updateLevel({String name = "main", required int value}) {
-  db.execute("update category set EarnedXp = EarnedXp + $value");
+void updateLevel({required int id, required int value}) {
+  db.execute(
+      "update category set EarnedXp = EarnedXp + $value where Id = '$id' or Name = 'main'");
 }
 
 final coins = File("achievementBox.hcody");

@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite3/common.dart';
 
-class CategoryDropDown extends StatefulWidget {
-  const CategoryDropDown({super.key});
+class CategoryDropDown extends StatelessWidget {
+  CategoryDropDown({
+    super.key,
+  });
+  late int selectedId;
 
-  @override
-  State<CategoryDropDown> createState() => _CategoryDropDownState();
-}
-
-class _CategoryDropDownState extends State<CategoryDropDown> {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuEntry> categoryList = [];
-    ResultSet x = context.watch<CategoryProvider>().Category;
-    for (var row in x) {
-      categoryList.add(DropdownMenuEntry(value: row['id'], label: row['Name']));
+    ResultSet result = context.watch<CategoryProvider>().Category;
+    selectedId = result[0]['Id'];
+    for (var row in result) {
+      categoryList.add(DropdownMenuEntry(value: row['Id'], label: row['Name']));
     }
 
     return Container(
@@ -25,6 +24,9 @@ class _CategoryDropDownState extends State<CategoryDropDown> {
           borderRadius: BorderRadius.circular(50),
           color: Theme.of(context).primaryColor.withOpacity(0.2)),
       child: DropdownMenu(
+          onSelected: (value) {
+            selectedId = value;
+          },
           inputDecorationTheme: const InputDecorationTheme(
             border: InputBorder.none,
           ),

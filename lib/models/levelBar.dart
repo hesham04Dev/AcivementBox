@@ -6,13 +6,14 @@ import 'package:provider/provider.dart';
 import '../db.dart';
 
 class LevelBar extends StatelessWidget {
-  const LevelBar({super.key, required this.canChange});
+  const LevelBar(
+      {super.key, required this.canChange, this.categoryName = 'main'});
   final bool canChange;
-
+  final String categoryName;
   @override
   Widget build(BuildContext context) {
     canChange ? context.watch<LevelProvider>().x : null;
-    Map<String, dynamic> r = getLevel();
+    Map<String, dynamic> r = getLevel(name: categoryName);
     final double percent = r['EarnedXp'] / r['MaxXp'];
     final int level = r['Level'];
     final int maxXp = r['MaxXp'];

@@ -82,7 +82,7 @@ class NewHabitPage extends StatelessWidget {
                     if (name.text.isNotEmpty && coins.text.isNotEmpty) {
                       newHabit(
                           name: name.text,
-                          category: 0,
+                          category: categoryDropDown.selectedId,
                           isBad: isBad.value,
                           price: int.parse(coins.text),
                           iconId: 1,
@@ -90,6 +90,7 @@ class NewHabitPage extends StatelessWidget {
                           hardness: hardness.clickedIndex + 1,
                           timeInMinutes: int.parse(time.text));
                     }
+
                     context.read<HabitProvider>().newHabit();
                     Navigator.pop(context);
                   },
