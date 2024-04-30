@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
@@ -12,7 +14,7 @@ void createTablesIfNotExists(Database db) {
   MaxXp INTEGER DEFAULT 500,
   Level INTEGER DEFAULT 1
   );
-  INSERT OR IGNORE INTO  category (name) values('main');
+  INSERT OR IGNORE INTO  category (Name) values('main');
   ''';
 
   const String createHabitTable = '''
@@ -48,6 +50,14 @@ void createTablesIfNotExists(Database db) {
   FOREIGN KEY (HabitId) REFERENCES habit(Id),
   FOREIGN KEY (GiftId) REFERENCES gift(Id)
   )''';
+  const String createUserTable = '''
+  CREATE TABLE IF NOT EXISTS setting(
+  Id INTEGER PRIMARY KEY,
+  Name TEXT,
+  val INTEGER
+  );
+  INSERT OR IGNORE INTO setting(Id,Name,val) values (1,'Coins',0)
+  ''';
   /////
   const String createLogGiftTable = '''
   CREATE TABLE IF NOT EXISTS logGift(
@@ -72,7 +82,8 @@ void createTablesIfNotExists(Database db) {
     createGiftTable,
     createGiftOnHabitTable,
     createLogGiftTable,
-    createLogHabitTable
+    createLogHabitTable,
+    createUserTable
   ];
   for (String sql in sqlList) {
     db.execute(sql);
@@ -148,7 +159,8 @@ ResultSet getGifts() {
   return resultSet;
 }
 
-ResultSet getMostUsedGifts(int num) {
+ResultSet getMostUsedGifts() {
+  int num = 3;
   ResultSet resultSet = db.select(
       "SELECT  * FROM gift where NoOfUsed > 0 ORDER BY NoOfUsed desc LIMIT $num ;");
 
@@ -174,4 +186,16 @@ Map<int, int> getHabitCount() {
 
 void updateLevel({String name = "main", required int value}) {
   db.execute("update category set EarnedXp = EarnedXp + $value");
+}
+
+final coins = File("achievementBox.hcody");
+int getCoins() {
+  //db.execute("insert into user values (1,'dd',0);");
+  ResultSet r = db.select("select val from setting where Name = 'Coins'");
+
+  return r[0]["val"];
+}
+
+updateCoins(int num) {
+  db.execute("update setting set val =$num where Name = 'Coins'");
 }

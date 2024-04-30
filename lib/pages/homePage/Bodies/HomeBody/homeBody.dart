@@ -90,3 +90,13 @@ class HomeBody extends StatelessWidget {
     );
   }
 }
+/*TODO
+*  save the coins in the db
+* use chatgpt to generate some sentence to show in somethingChangedEveryTime
+* make edit habit page
+* solve the problem of new habit page
+* new category page and edit category are desplayed in tstatistic page and on new habit
+* add move to archive for the habit
+* create archive page note remove from archive can be done but it will remove all the log and decrease the coins
+*
+* */

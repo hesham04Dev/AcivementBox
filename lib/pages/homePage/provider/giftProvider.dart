@@ -5,7 +5,7 @@ import '../../../db.dart';
 class GiftProvider with ChangeNotifier {
   GiftProvider() {
     _Gifts = getGifts();
-    _mostUsedGits = getMostUsedGifts(6);
+    _mostUsedGits = getMostUsedGifts();
   }
   newGift() {
     _Gifts = getGifts();
@@ -13,7 +13,13 @@ class GiftProvider with ChangeNotifier {
   }
 
   giftPurchased() {
-    _mostUsedGits = getMostUsedGifts(6);
+    _mostUsedGits = getMostUsedGifts();
+    notifyListeners();
+  }
+
+  giftUpdated() {
+    _mostUsedGits = getMostUsedGifts();
+    _Gifts = getGifts();
     notifyListeners();
   }
 

@@ -1,20 +1,24 @@
+import 'package:achivement_box/db.dart';
 import 'package:flutter/cupertino.dart';
 
 class CoinsProvider with ChangeNotifier {
   CoinsProvider() {
-    //TODO get coins from db;
-  }
-  int _coins = 0;
-  get coins => _coins;
-  addCoins(int num) {
-    _coins += num;
-    notifyListeners();
-    print("++$_coins");
+    _coins = getCoins();
   }
 
-  removeCoins(int num) {
+  late int _coins;
+
+  get coins => _coins;
+
+  addCoins(int num) async {
+    _coins += num;
+    updateCoins(_coins);
+    notifyListeners();
+  }
+
+  removeCoins(int num) async {
     _coins -= num;
-    print("--$_coins");
+    updateCoins(_coins);
     notifyListeners();
   }
 }

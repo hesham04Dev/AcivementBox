@@ -11,6 +11,11 @@ class HabitProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  habitUpdated() {
+    _Habits = getHabits();
+    notifyListeners();
+  }
+
   var _Habits;
   get Habits => _Habits;
 }

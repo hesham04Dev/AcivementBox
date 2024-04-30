@@ -37,13 +37,13 @@ class GiftsBody extends StatelessWidget {
           height: 150,
           child: ListView.builder(
               itemBuilder: (context, index) => Gift(
-                  totalTimes: 0,
+                  totalTimes: gifts[index]['NoOfUsed'],
                   context: context,
                   icon: IconImage(path: "assets/icons/gift.png", size: 50),
                   id: gifts[index]['Id'],
                   name: gifts[index]['Name'],
                   price: gifts[index]['Price']),
-              itemCount: mostUsedGifts.length, //max is 10
+              itemCount: mostUsedGifts.length,
               scrollDirection: Axis.horizontal),
         ),
         //TODO if null dont show any
@@ -54,7 +54,7 @@ class GiftsBody extends StatelessWidget {
             child: GridView.builder(
                 itemBuilder: (context, index) => Gift(
                     context: context,
-                    totalTimes: 0,
+                    totalTimes: gifts[index]['NoOfUsed'],
                     icon: IconImage(path: "assets/icons/gift.png", size: 50),
                     id: gifts[index]['Id'],
                     name: gifts[index]['Name'],
@@ -71,3 +71,7 @@ class GiftsBody extends StatelessWidget {
     );
   }
 }
+/*TODO
+* hide most used when nothing is used
+*
+* */

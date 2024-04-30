@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "../../models/imageIcon.dart";
 import "../newGift.dart";
-import "../newHabit.dart";
+import "../newHabit/newHabit.dart";
 import "Bodies/HomeBody/homeBody.dart";
 import "Bodies/giftsBody/giftsPage.dart";
 import "Bodies/satisticBody/statisticBody.dart";
@@ -20,12 +20,36 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget FAB;
+    if (pageIndex == 0 || pageIndex == 3) {
+      FAB = SizedBox();
+    } else {
+      FAB = FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+          shape: ContinuousRectangleBorder(
+              borderRadius: BorderRadius.circular(50)),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) {
+              return pageIndex != 2
+                  ? const NewHabitPage()
+                  : const NewGiftPage();
+              //TODO return pageIndex != 2 ? NewHabitPage() : NewGiftPage;
+            }));
+          },
+          child: const Icon(
+            Icons.add_rounded,
+            size: 25,
+            color: Colors.white54,
+          ));
+    }
+
     List<Widget> bodies = [
       const SettingBody(),
       const HomeBody(),
       const GiftsBody(),
       const StatisticsBody()
     ];
+
     return Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,
@@ -37,23 +61,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: bodies[pageIndex],
         ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
-            shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.circular(50)),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return pageIndex != 2
-                    ? const NewHabitPage()
-                    : const NewGiftPage();
-                //TODO return pageIndex != 2 ? NewHabitPage() : NewGiftPage;
-              }));
-            },
-            child: const Icon(
-              Icons.add_rounded,
-              size: 25,
-              color: Colors.white54,
-            )),
+        floatingActionButton: FAB,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.transparent,
@@ -92,3 +100,5 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
+/*TODO
+*  make the hidden of FAB with animation */
