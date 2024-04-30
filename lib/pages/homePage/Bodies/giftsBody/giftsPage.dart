@@ -1,5 +1,4 @@
 import "package:achivement_box/models/gift.dart";
-import "package:achivement_box/pages/homePage/provider/giftProvider.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
@@ -7,6 +6,7 @@ import "../../../../models/Coins.dart";
 import "../../../../models/PrimaryContainer.dart";
 import "../../../../models/imageIcon.dart";
 import "../../../../models/levelBar.dart";
+import "../../../../rootProvider/giftProvider.dart";
 
 class GiftsBody extends StatelessWidget {
   const GiftsBody() : super();
@@ -17,20 +17,10 @@ class GiftsBody extends StatelessWidget {
     var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
     //TODO for the most used
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              LevelBar(
-                canChange: false,
-              ),
-              const CoinsBar(),
-            ],
-          ),
-        ),
+    final List<Widget>? mostUsed;
+
+    if (mostUsedGifts.length > 0) {
+      mostUsed = [
         const Text("most used"),
         PrimaryContainer(
           opacity: 0.1,
@@ -46,7 +36,25 @@ class GiftsBody extends StatelessWidget {
               itemCount: mostUsedGifts.length,
               scrollDirection: Axis.horizontal),
         ),
-        //TODO if null dont show any
+      ];
+    } else
+      mostUsed = [];
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              LevelBar(
+                canChange: false,
+              ),
+              const CoinsBar(),
+            ],
+          ),
+        ),
+        ...mostUsed,
         const Text("all items"),
         Expanded(
           child: PrimaryContainer(

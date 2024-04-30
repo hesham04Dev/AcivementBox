@@ -1,12 +1,13 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:achivement_box/pages/homePage/provider/giftProvider.dart';
-import 'package:achivement_box/pages/homePage/provider/habitProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 import 'db.dart';
 import 'pages/homePage/homePage.dart';
+import 'rootProvider/categoryProvider.dart';
+import 'rootProvider/giftProvider.dart';
+import 'rootProvider/habitProvider.dart';
 
 void main() {
   //db = sqlite3.openInMemory();
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => GiftProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,9 +1,11 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
+import 'package:achivement_box/pages/AddNewPages/widget/NumericField.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../db.dart';
-import 'homePage/provider/giftProvider.dart';
+import '../../db.dart';
+import '../../rootProvider/giftProvider.dart';
+import 'widget/icon.dart';
 
 class NewGiftPage extends StatelessWidget {
   const NewGiftPage({super.key});
@@ -14,7 +16,7 @@ class NewGiftPage extends StatelessWidget {
     final TextEditingController coins = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text("new gift"),
+        title: const Text("new gift"),
       ),
       body: ListView(
         children: [
@@ -23,13 +25,7 @@ class NewGiftPage extends StatelessWidget {
             child: Form(
                 child: Column(
               children: [
-                Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Theme.of(context).primaryColor.withOpacity(0.1)),
-                    child: const Icon(Icons.add)),
+                const SelectIcon(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -37,35 +33,22 @@ class NewGiftPage extends StatelessWidget {
                     controller: name,
                     errMessage: "errMessage",
                     hintText: "name"),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35),
-                      color: Theme.of(context).primaryColor.withOpacity(0.2)),
-                  child: TextFormField(
-                    controller: coins,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "please enter a number";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        hintText: "Coins", border: InputBorder.none),
-                  ),
+                NumericField(
+                  hintText: "Coins",
+                  controller: coins,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextButton(
                   onPressed: () {
-                    if (name.text.isNotEmpty && coins.text.isNotEmpty)
+                    if (name.text.isNotEmpty && coins.text.isNotEmpty) {
                       newGift(
                         name: name.text,
                         price: int.parse(coins.text),
                         iconId: 1,
                       );
+                    }
                     context.read<GiftProvider>().newGift();
                     Navigator.pop(context);
                   },

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 
 import "../../models/imageIcon.dart";
-import "../newGift.dart";
-import "../newHabit/newHabit.dart";
+import "../AddNewPages/newGift.dart";
+import "../AddNewPages/newHabit.dart";
 import "Bodies/HomeBody/homeBody.dart";
 import "Bodies/giftsBody/giftsPage.dart";
 import "Bodies/satisticBody/statisticBody.dart";

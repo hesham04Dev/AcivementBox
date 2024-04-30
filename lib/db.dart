@@ -131,6 +131,15 @@ void newGift({
       "INSERT INTO gift('Name','Price','Icon') VALUES ('$name',$price,$iconId)");
 }
 
+void newCategory({
+  required String name,
+  required int colorId,
+  required int iconId,
+}) {
+  db.execute(
+      "INSERT INTO category('Name','ColorId','IconId') VALUES ('$name',$colorId,$iconId)");
+}
+
 late Database db;
 
 ResultSet getHabits() {
@@ -198,4 +207,8 @@ int getCoins() {
 
 updateCoins(int num) {
   db.execute("update setting set val =$num where Name = 'Coins'");
+}
+
+getCategories() {
+  return db.select("select * from category");
 }

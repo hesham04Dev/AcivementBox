@@ -1,8 +1,8 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:achivement_box/pages/homePage/provider/giftProvider.dart';
 import 'package:provider/provider.dart';
 
 import '../db.dart';
+import '../rootProvider/giftProvider.dart';
 import 'tileWithCounter.dart';
 
 class Gift extends TileWithCounter {

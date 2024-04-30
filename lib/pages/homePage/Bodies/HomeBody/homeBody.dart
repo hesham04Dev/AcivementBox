@@ -9,7 +9,7 @@ import '../../../../models/Coins.dart';
 import '../../../../models/PrimaryContainer.dart';
 import '../../../../models/habit.dart';
 import '../../../../models/levelBar.dart';
-import '../../provider/habitProvider.dart';
+import '../../../../rootProvider/habitProvider.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
