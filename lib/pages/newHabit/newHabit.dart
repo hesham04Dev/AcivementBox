@@ -26,7 +26,7 @@ class NewHabitPage extends StatelessWidget {
     final isBad = IsBad();
     return Scaffold(
       appBar: AppBar(
-        title: Text("new habit"),
+        title: const Text("new habit"),
       ),
       body: ListView(
         children: [
@@ -50,11 +50,11 @@ class NewHabitPage extends StatelessWidget {
                     errMessage: "errMessage",
                     hintText: "name"),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: Theme.of(context).primaryColor.withOpacity(0.2)),
-                  child: DropdownMenu(
+                  child: const DropdownMenu(
                       inputDecorationTheme: InputDecorationTheme(
                         border: InputBorder.none,
                       ),
@@ -85,8 +85,8 @@ class NewHabitPage extends StatelessWidget {
                         color: Theme.of(context).primaryColor.withOpacity(0.2)),
                     child: hardness),
                 Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
                       color: Theme.of(context).primaryColor.withOpacity(0.2)),
@@ -98,13 +98,13 @@ class NewHabitPage extends StatelessWidget {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Coins", border: InputBorder.none),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
                       color: Theme.of(context).primaryColor.withOpacity(0.2)),
@@ -116,7 +116,7 @@ class NewHabitPage extends StatelessWidget {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Time in minute", border: InputBorder.none),
                   ),
                 ),
@@ -126,7 +126,7 @@ class NewHabitPage extends StatelessWidget {
                 isBad,
                 TextButton(
                   onPressed: () {
-                    if (name.text.isNotEmpty && coins.text.isNotEmpty)
+                    if (name.text.isNotEmpty && coins.text.isNotEmpty) {
                       newHabit(
                           name: name.text,
                           category: 0,
@@ -136,6 +136,7 @@ class NewHabitPage extends StatelessWidget {
                           priority: priority.clickedIndex + 1,
                           hardness: hardness.clickedIndex + 1,
                           timeInMinutes: int.parse(time.text));
+                    }
                     context.read<HabitProvider>().newHabit();
                     Navigator.pop(context);
                   },
@@ -150,3 +151,4 @@ class NewHabitPage extends StatelessWidget {
     );
   }
 }
+//TODO category and icon

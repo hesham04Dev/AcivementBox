@@ -10,7 +10,7 @@ import 'pages/homePage/homePage.dart';
 
 void main() {
   //db = sqlite3.openInMemory();
-  db = sqlite3.open("hesham4.db");
+  db = sqlite3.open("h.db");
   createTablesIfNotExists(db);
   runApp(MyApp());
 }

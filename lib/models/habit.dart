@@ -35,12 +35,12 @@ class Habit extends TileWithCounter {
     }
     if (isBadHabit) {
       context.read<CoinsProvider>().removeCoins(super.price);
+    } else {
+      context.read<CoinsProvider>().addCoins(super.price);
+      context.read<LevelProvider>().xpIncreased();
+      updateLevel(value: super.price + hardness + priority);
     }
-
-    context.read<CoinsProvider>().addCoins(super.price);
-    context.read<LevelProvider>().xpIncreased();
     context.read<HabitProvider>().habitUpdated();
-    updateLevel(value: super.price + hardness + priority);
   }
 
   Habit(
