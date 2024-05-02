@@ -1,5 +1,6 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
 import 'package:achivement_box/pages/AddNewPages/widget/NumericField.dart';
+import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class NewGiftPage extends StatelessWidget {
             child: Form(
                 child: Column(
               children: [
-                const SelectIcon(),
+                SelectIcon(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -46,7 +47,7 @@ class NewGiftPage extends StatelessWidget {
                       newGift(
                         name: name.text,
                         price: int.parse(coins.text),
-                        iconId: 1,
+                        iconId: context.read<IconProvider>().IconId,
                       );
                     }
                     context.read<GiftProvider>().newGift();

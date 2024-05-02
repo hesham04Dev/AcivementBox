@@ -1,5 +1,8 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
+import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
@@ -9,11 +12,16 @@ import 'rootProvider/categoryProvider.dart';
 import 'rootProvider/giftProvider.dart';
 import 'rootProvider/habitProvider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   //db = sqlite3.openInMemory();
-  db = sqlite3.open("h.db");
+  var dir = await getApplicationSupportDirectory();
+  String fileName = path.join(dir.path, 'my_app1.db');
+  db = sqlite3.open(fileName);
   createTablesIfNotExists(db);
   runApp(MyApp());
+  //db.dispose();
 }
 
 class MyApp extends StatelessWidget {
@@ -35,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => IconProvider(),
         ),
       ],
       child: MaterialApp(

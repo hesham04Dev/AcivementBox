@@ -89,7 +89,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconImage(
-                    path: "assets/icons/coin128.png",
+                    iconName: "coin128.png",
                     size: 15,
                   ),
                   SizedBox(
@@ -101,8 +101,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
               Container(
                 margin: const EdgeInsets.only(top: 0),
                 child: GestureDetector(
-                  child: IconImage(
-                      path: "assets/icons/ellipsis-stroke.png", size: 20),
+                  child: IconImage(iconName: "ellipsis-stroke.png", size: 20),
                   onTap: () {
                     widget.openEditPage();
                   },

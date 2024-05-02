@@ -1,6 +1,7 @@
+import 'package:achivement_box/db.dart';
+import 'package:achivement_box/pages/homePage/Bodies/satisticBody/widget/statisticBar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../models/PrimaryContainer.dart';
 import 'widget/categoriesLevel.dart';
 import 'widget/weeklyBar.dart';
 
@@ -9,43 +10,28 @@ class StatisticsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final totalDays = getTotalDays();
+    final topHabit = getTopHabit();
+    final topGift = getTopGift();
+    final topDay = getTopDay();
     return Scaffold(
       body: ListView(
         children: [
           WeeklyBar(),
           CategoriesLevel(),
-          PrimaryContainer(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("total days: 10"),
-              Icon(Icons.local_fire_department)
-            ],
-          )),
-          PrimaryContainer(
-            child: Row(
-              children: [
-                Text("top habit: "),
-                Text("habit name"),
-              ],
-            ),
+          const StatisticBar(statisticName: "Total Days", valueName: "0"),
+          StatisticBar(
+            statisticName: "Top Habit",
+            valueName: "${topHabit[0]['Name']}",
+            icon: Text("${topHabit[0]['Total']} Times"),
           ),
-          PrimaryContainer(
-            child: Row(
-              children: [
-                Text("top gift: "),
-                Text("habit name"),
-              ],
-            ),
+          StatisticBar(
+            statisticName: "Top Gift",
+            valueName: "${topGift[0]['Name']}",
+            icon: Text("${topGift[0]['Total']} Times"),
           ),
-          PrimaryContainer(
-            child: Row(
-              children: [
-                Text("top day: "),
-                Text("no of coins"),
-              ],
-            ),
-          ),
+          StatisticBar(
+              statisticName: "Top Day", valueName: "${topDay[0]['Total']}"),
         ],
       ),
     );

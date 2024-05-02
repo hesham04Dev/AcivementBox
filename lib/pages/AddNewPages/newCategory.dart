@@ -1,6 +1,7 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
 import 'package:achivement_box/pages/AddNewPages/widget/icon.dart';
 import 'package:achivement_box/rootProvider/categoryProvider.dart';
+import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,7 @@ class NewCategoryPage extends StatelessWidget {
             child: Form(
                 child: Column(
               children: [
-                const SelectIcon(),
+                SelectIcon(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -37,7 +38,10 @@ class NewCategoryPage extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     if (name.text.isNotEmpty) {
-                      newCategory(name: name.text, iconId: 1, colorId: 1);
+                      newCategory(
+                          name: name.text,
+                          iconId: context.read<IconProvider>().IconId,
+                          colorId: 1);
                     }
                     context.read<CategoryProvider>().newCategory();
                     Navigator.pop(context);

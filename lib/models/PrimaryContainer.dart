@@ -6,6 +6,7 @@ class PrimaryContainer extends StatelessWidget {
   final double? width;
   final double opacity;
   final double padding;
+  final double? paddingHorizontal;
   final double margin;
   const PrimaryContainer({
     super.key,
@@ -14,6 +15,7 @@ class PrimaryContainer extends StatelessWidget {
     this.width,
     this.opacity = 0.2,
     this.padding = 8,
+    this.paddingHorizontal,
     this.margin = 8,
   });
 
@@ -22,10 +24,11 @@ class PrimaryContainer extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      padding: EdgeInsets.all(padding),
+      padding: EdgeInsets.symmetric(
+          vertical: padding, horizontal: paddingHorizontal ?? padding),
       margin: EdgeInsets.all(margin),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(45),
           color: Theme.of(context).primaryColor.withOpacity(opacity)),
       child: child,
     );

@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
               return pageIndex != 2
                   ? const NewHabitPage()
                   : const NewGiftPage();
-              //TODO return pageIndex != 2 ? NewHabitPage() : NewGiftPage;
             }));
           },
           child: const Icon(
@@ -80,21 +79,21 @@ class _HomePageState extends State<HomePage> {
           items: [
             BottomNavigationBarItem(
                 icon: IconImage(
-                  path: "assets/icons/gear.png",
+                  iconName: "gear.png",
                 ),
                 label: "settings"),
             BottomNavigationBarItem(
                 icon: IconImage(
-                  path: "assets/icons/igoo.png",
+                  iconName: "igoo.png",
                 ),
                 label: "home"),
             BottomNavigationBarItem(
                 icon: IconImage(
-                  path: "assets/icons/gift.png",
+                  iconName: "gift.png",
                 ),
                 label: "gifts"),
             BottomNavigationBarItem(
-                icon: IconImage(path: "assets/icons/chart-simple.png"),
+                icon: IconImage(iconName: "chart-simple.png"),
                 label: "statistics"),
           ],
         ));

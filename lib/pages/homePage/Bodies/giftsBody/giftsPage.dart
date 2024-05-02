@@ -6,10 +6,20 @@ import "../../../../models/Coins.dart";
 import "../../../../models/PrimaryContainer.dart";
 import "../../../../models/imageIcon.dart";
 import "../../../../models/levelBar.dart";
+import "../../../../output/generated/icon_names.dart";
 import "../../../../rootProvider/giftProvider.dart";
 
 class GiftsBody extends StatelessWidget {
   const GiftsBody() : super();
+  Gift gift(Map<String, dynamic> gift, BuildContext context) {
+    return Gift(
+        totalTimes: gift['NoOfUsed'],
+        context: context,
+        icon: IconImage(iconName: iconNames[gift['IconId']], size: 50),
+        id: gift['Id'],
+        name: gift['Name'],
+        price: gift['Price']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +35,10 @@ class GiftsBody extends StatelessWidget {
         PrimaryContainer(
           opacity: 0.1,
           height: 150,
+          paddingHorizontal: 10,
           child: ListView.builder(
-              itemBuilder: (context, index) => Gift(
-                  totalTimes: gifts[index]['NoOfUsed'],
-                  context: context,
-                  icon: IconImage(path: "assets/icons/gift.png", size: 50),
-                  id: gifts[index]['Id'],
-                  name: gifts[index]['Name'],
-                  price: gifts[index]['Price']),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              itemBuilder: (context, index) => gift(gifts[index], context),
               itemCount: mostUsedGifts.length,
               scrollDirection: Axis.horizontal),
         ),
@@ -60,13 +66,7 @@ class GiftsBody extends StatelessWidget {
           child: PrimaryContainer(
             opacity: 0.1,
             child: GridView.builder(
-                itemBuilder: (context, index) => Gift(
-                    context: context,
-                    totalTimes: gifts[index]['NoOfUsed'],
-                    icon: IconImage(path: "assets/icons/gift.png", size: 50),
-                    id: gifts[index]['Id'],
-                    name: gifts[index]['Name'],
-                    price: gifts[index]['Price']),
+                itemBuilder: (context, index) => gift(gifts[index], context),
                 itemCount: gifts.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 121,
@@ -79,7 +79,3 @@ class GiftsBody extends StatelessWidget {
     );
   }
 }
-/*TODO
-* hide most used when nothing is used
-*
-* */

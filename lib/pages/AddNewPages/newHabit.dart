@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../db.dart';
 import '../../models/select with name.dart';
 import '../../rootProvider/habitProvider.dart';
+import '../../rootProvider/iconProvider.dart';
 import 'widget/CategoryDropDown.dart';
 import 'widget/NumericField.dart';
 import 'widget/icon.dart';
@@ -40,7 +41,7 @@ class NewHabitPage extends StatelessWidget {
             child: Form(
                 child: Column(
               children: [
-                const SelectIcon(),
+                SelectIcon(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -85,7 +86,7 @@ class NewHabitPage extends StatelessWidget {
                           category: categoryDropDown.selectedId,
                           isBad: isBad.value,
                           price: int.parse(coins.text),
-                          iconId: 1,
+                          iconId: context.read<IconProvider>().IconId,
                           priority: priority.clickedIndex + 1,
                           hardness: hardness.clickedIndex + 1,
                           timeInMinutes: int.parse(time.text));

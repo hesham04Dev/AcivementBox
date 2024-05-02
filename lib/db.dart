@@ -3,6 +3,13 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
+/*
+* strike go to the log gift see the last two days then if the minus of them give 1 then add the strike else strike = 1
+* SELECT TOP 1 Name from habit h inner join logHabit lh on h.Id = lh.Habit.Id Group by h.Id
+* SELECT TOP 1 Name from gift ORDER BY NoOfUsed
+* select TOP 1 Sum(lh.`Count` * h.Price) as total from habit h inner join logHabit lh on h.Id = lh.HabitId Group by lh.DateOnly Order by Sum(`Count` * Price) desc
+* select TOP 7 lh.DateOnly , Sum(`Count` * Price) as total from habit h inner join logHabit lh on h.Id = lh.HabitId Group by lh.DateOnly Order by lh.DateOnly
+* */
 void createTablesIfNotExists(Database db) {
   const String createCategoryTable = '''
   CREATE TABLE IF NOT EXISTS category(
@@ -16,7 +23,6 @@ void createTablesIfNotExists(Database db) {
   );
   INSERT OR IGNORE INTO  category (Name) values('main');
   ''';
-
   const String createHabitTable = '''
   CREATE TABLE IF NOT EXISTS habit(
   Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +30,7 @@ void createTablesIfNotExists(Database db) {
   Category INTEGER,
   IsBad BOOLEAN,
   Price int,
-  Icon INTEGER,
+  IconId INTEGER,
   Priority INTEGER,
   Hardness INTEGER,
   TimeInMinutes INTEGER,
@@ -35,22 +41,12 @@ void createTablesIfNotExists(Database db) {
   Id INTEGER PRIMARY KEY AUTOINCREMENT,
   Name TEXT,
   Price INTEGER,
-  Icon INTEGER,
+  IconId INTEGER,
   NoOfUsed INTEGER DEFAULT 0
   )
 
   ''';
-  // is possible to create a new type of gifts that depends on habits not on the coins
-  const String createGiftOnHabitTable = '''
-  CREATE TABLE IF NOT EXISTS giftOnHabit(
-  GiftId INTEGER,
-  HabitId INTEGER,
-  RepeatOfHabit INTEGER,
-  PRIMARY KEY (GiftId, HabitId),
-  FOREIGN KEY (HabitId) REFERENCES habit(Id),
-  FOREIGN KEY (GiftId) REFERENCES gift(Id)
-  )''';
-  const String createUserTable = '''
+  const String createSettingTable = '''
   CREATE TABLE IF NOT EXISTS setting(
   Id INTEGER PRIMARY KEY,
   Name TEXT,
@@ -58,7 +54,6 @@ void createTablesIfNotExists(Database db) {
   );
   INSERT OR IGNORE INTO setting(Id,Name,val) values (1,'Coins',0)
   ''';
-  /////
   const String createLogGiftTable = '''
   CREATE TABLE IF NOT EXISTS logGift(
   DateOnly TEXT,
@@ -75,15 +70,13 @@ void createTablesIfNotExists(Database db) {
   PRIMARY KEY (HabitId, DateOnly),
   FOREIGN KEY (HabitId) REFERENCES habit(Id)
   )''';
-
   const List<String> sqlList = [
     createCategoryTable,
     createHabitTable,
     createGiftTable,
-    createGiftOnHabitTable,
     createLogGiftTable,
     createLogHabitTable,
-    createUserTable
+    createSettingTable
   ];
   for (String sql in sqlList) {
     db.execute(sql);
@@ -119,7 +112,7 @@ void newHabit(
     required int hardness,
     required int timeInMinutes}) {
   db.execute(
-      "INSERT INTO habit('Name','Category','IsBad','Price','Icon','Priority','Hardness','TimeInMinutes') VALUES ('$name',$category,$isBad,$price,$iconId,$priority,$hardness,$timeInMinutes)");
+      "INSERT INTO habit('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes') VALUES ('$name',$category,$isBad,$price,$iconId,$priority,$hardness,$timeInMinutes)");
 }
 
 void newGift({
@@ -128,7 +121,7 @@ void newGift({
   required int iconId,
 }) {
   db.execute(
-      "INSERT INTO gift('Name','Price','Icon') VALUES ('$name',$price,$iconId)");
+      "INSERT INTO gift('Name','Price','IconId') VALUES ('$name',$price,$iconId)");
 }
 
 void newCategory({
@@ -212,4 +205,62 @@ updateCoins(int num) {
 
 getCategories() {
   return db.select("select * from category");
+}
+
+getTopHabit() {
+  ResultSet x = db.select('''
+SELECT h.Name , Sum(lh.Count) as Total
+FROM habit h
+INNER JOIN logHabit lh ON h.Id = lh.HabitId
+GROUP BY h.Id
+ORDER BY  Sum(lh.Count) DESC
+LIMIT 1;
+  ''');
+  for (var r in x) {
+    print(r);
+  }
+  return x;
+}
+
+getTopGift() {
+  var x = db.select('''
+  SELECT Name , NoOfUsed as Total
+FROM gift
+ORDER BY NoOfUsed DESC
+LIMIT 1;
+  ''');
+  for (var r in x as List<dynamic>) {
+    print(r);
+  }
+  return x;
+}
+
+getTopDay() {
+  var x = db.select('''
+SELECT SUM(lh.Count * h.Price) AS Total
+FROM habit AS h
+INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+GROUP BY lh.DateOnly
+ORDER BY SUM(lh.Count * h.Price) DESC
+LIMIT 1;
+  ''');
+  for (var r in x as List<dynamic>) {
+    print(r);
+  }
+  return x;
+}
+
+getWeeklyData() {
+  var x = db.select('''
+SELECT lh.DateOnly, SUM(lh.Count * h.Price) AS Total
+FROM habit AS h
+INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+GROUP BY lh.DateOnly
+ORDER BY lh.DateOnly
+LIMIT 7;
+  ''');
+  for (var r in x as List<dynamic>) {
+    print(r);
+  }
+  return x;
 }
