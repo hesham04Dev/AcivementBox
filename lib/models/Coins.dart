@@ -16,7 +16,7 @@ class CoinsBar extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset("assets/icons/coin128.png",
+          Image.asset("assets/icons/coin-front.png",
               color: Colors.orange, height: 15, width: 15),
           SizedBox(
             width: 5,

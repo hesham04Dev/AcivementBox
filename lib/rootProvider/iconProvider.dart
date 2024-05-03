@@ -12,4 +12,6 @@ class IconProvider with ChangeNotifier {
   String _IconName = "plus.png";
   get IconName => _IconName;
   get IconId => _IconId;
+  //TODO err in provider here since i dont need to make the icon updated in new habit when i update the icon of new category
+  //TODO also i need the + icon to be shown when the page opened
 }

@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int pageIndex = 1;
-
+  PageController bodiesController = PageController(initialPage: 1);
   @override
   Widget build(BuildContext context) {
     Widget FAB;
@@ -56,9 +56,18 @@ class _HomePageState extends State<HomePage> {
             "Achievement Box",
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: bodies[pageIndex],
+        body: PageView(
+          /*child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: bodies[pageIndex],
+          ),*/
+          children: bodies,
+          onPageChanged: (index) {
+            setState(() {
+              pageIndex = index;
+            });
+          },
+          controller: bodiesController,
         ),
         floatingActionButton: FAB,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -71,6 +80,7 @@ class _HomePageState extends State<HomePage> {
           iconSize: 25,
           onTap: (value) {
             setState(() {
+              bodiesController.jumpToPage(value);
               pageIndex = value;
             });
           },
@@ -84,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                 label: "settings"),
             BottomNavigationBarItem(
                 icon: IconImage(
-                  iconName: "igoo.png",
+                  iconName: "igloo.png",
                 ),
                 label: "home"),
             BottomNavigationBarItem(

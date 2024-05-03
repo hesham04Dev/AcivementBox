@@ -50,10 +50,9 @@ void createTablesIfNotExists(Database db) {
   CREATE TABLE IF NOT EXISTS setting(
   Id INTEGER PRIMARY KEY,
   Name TEXT,
-  val INTEGER
+  Val INTEGER
   );
-  INSERT OR IGNORE INTO setting(Id,Name,val) values (1,'Coins',0)
-  ''';
+  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'TotalDays',1);  ''';
   const String createLogGiftTable = '''
   CREATE TABLE IF NOT EXISTS logGift(
   DateOnly TEXT,
@@ -194,13 +193,13 @@ void updateLevel({required int id, required int value}) {
 final coins = File("achievementBox.hcody");
 int getCoins() {
   //db.execute("insert into user values (1,'dd',0);");
-  ResultSet r = db.select("select val from setting where Name = 'Coins'");
+  ResultSet r = db.select("select Val from setting where Name = 'Coins'");
 
-  return r[0]["val"];
+  return r[0]["Val"];
 }
 
 updateCoins(int num) {
-  db.execute("update setting set val =$num where Name = 'Coins'");
+  db.execute("update setting set Val =$num where Name = 'Coins'");
 }
 
 getCategories() {
@@ -237,7 +236,7 @@ LIMIT 1;
 
 getTopDay() {
   var x = db.select('''
-SELECT SUM(lh.Count * h.Price) AS Total
+SELECT lh.DateOnly , SUM(lh.Count * h.Price) AS Total
 FROM habit AS h
 INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
 GROUP BY lh.DateOnly

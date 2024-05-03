@@ -1,4 +1,5 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
+import 'package:achivement_box/models/mySwitchTile.dart';
 import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,6 @@ import '../../rootProvider/iconProvider.dart';
 import 'widget/CategoryDropDown.dart';
 import 'widget/NumericField.dart';
 import 'widget/icon.dart';
-import 'widget/isBad.dart';
 
 class NewHabitPage extends StatelessWidget {
   const NewHabitPage({super.key});
@@ -28,7 +28,7 @@ class NewHabitPage extends StatelessWidget {
       label: "hardness",
       length: 5,
     );
-    final isBad = IsBad();
+    final isBad = MySwitchTile(title: "Is Bad?");
     final categoryDropDown = CategoryDropDown();
     return Scaffold(
       appBar: AppBar(
@@ -106,4 +106,3 @@ class NewHabitPage extends StatelessWidget {
     );
   }
 }
-//TODO category and icon

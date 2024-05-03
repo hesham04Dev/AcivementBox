@@ -31,7 +31,10 @@ class StatisticsBody extends StatelessWidget {
             icon: Text("${topGift[0]['Total']} Times"),
           ),
           StatisticBar(
-              statisticName: "Top Day", valueName: "${topDay[0]['Total']}"),
+            statisticName: "Top Day",
+            valueName: "${topDay[0]['DateOnly']}",
+            icon: Text("${topDay[0]['Total']} Coins"),
+          ),
         ],
       ),
     );
