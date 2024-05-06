@@ -5,7 +5,7 @@ import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db.dart';
+import '../../db/sql.dart';
 
 class NewCategoryPage extends StatelessWidget {
   const NewCategoryPage({super.key});

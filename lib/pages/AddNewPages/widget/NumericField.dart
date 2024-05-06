@@ -16,6 +16,7 @@ class NumericField extends StatelessWidget {
           color: Theme.of(context).primaryColor.withOpacity(0.2)),
       child: TextFormField(
         controller: controller,
+        keyboardType: const TextInputType.numberWithOptions(),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "please enter a number";

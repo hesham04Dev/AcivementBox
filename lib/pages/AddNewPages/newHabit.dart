@@ -1,16 +1,17 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
+import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/models/mySwitchTile.dart';
 import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db.dart';
-import '../../models/select with name.dart';
+import '../../db/sql.dart';
 import '../../rootProvider/habitProvider.dart';
 import '../../rootProvider/iconProvider.dart';
 import 'widget/CategoryDropDown.dart';
 import 'widget/NumericField.dart';
 import 'widget/icon.dart';
+import 'widget/select with name.dart';
 
 class NewHabitPage extends StatelessWidget {
   const NewHabitPage({super.key});
@@ -32,6 +33,18 @@ class NewHabitPage extends StatelessWidget {
     final categoryDropDown = CategoryDropDown();
     return Scaffold(
       appBar: AppBar(
+        leading: Transform.rotate(
+          angle: -3.14 / 2,
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: IconImage(
+              iconName: "arrow-up-to-arc.png",
+              size: 30,
+            ),
+          ),
+        ),
         title: const Text("new habit"),
       ),
       body: ListView(
@@ -106,3 +119,4 @@ class NewHabitPage extends StatelessWidget {
     );
   }
 }
+//TODO max of the habit price is the maxXp * 2

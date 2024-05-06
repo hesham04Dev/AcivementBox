@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
             });
           },
           unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.lightGreen,
+          selectedItemColor: Theme.of(context).primaryColor,
           items: [
             BottomNavigationBarItem(
                 icon: IconImage(

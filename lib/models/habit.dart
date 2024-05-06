@@ -1,9 +1,9 @@
-import 'package:achivement_box/db.dart';
 import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../db/sql.dart';
 import '../pages/AddNewPages/newHabit.dart';
 import '../rootProvider/habitProvider.dart';
 import 'tileWithCounter.dart';

@@ -41,7 +41,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
       position: badges.BadgePosition.topEnd(top: 2, end: 2),
       badgeStyle: badges.BadgeStyle(
         shape: badges.BadgeShape.circle,
-        badgeColor: Colors.lightGreen.withOpacity(0.6),
+        badgeColor: Theme.of(context).primaryColor.withOpacity(0.6),
         elevation: 0,
       ),
       badgeContent: SizedBox(
@@ -61,7 +61,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Colors.lightGreen[200],
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(50),
           ),
           child: Column(
@@ -89,7 +89,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconImage(
-                    iconName: "coin128.png",
+                    iconName: "coin-front.png",
                     size: 15,
                   ),
                   SizedBox(

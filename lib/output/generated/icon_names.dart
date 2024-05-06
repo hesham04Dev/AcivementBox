@@ -40,7 +40,6 @@ const List<String> iconNames = [
   'gamepad.png',
   'gear.png',
   'gift.png',
-  'gift256.png',
   'glass.png',
   'graduation-cap.png',
   'horse-saddle.png',

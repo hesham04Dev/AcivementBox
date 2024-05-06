@@ -1,5 +1,6 @@
-import 'package:achivement_box/db.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../../../db/sql.dart';
 
 class CoinsProvider with ChangeNotifier {
   CoinsProvider() {

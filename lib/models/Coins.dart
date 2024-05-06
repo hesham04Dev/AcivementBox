@@ -1,6 +1,10 @@
+import 'package:achivement_box/db/sql.dart';
+import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../output/generated/colors.dart';
 
 class CoinsBar extends StatelessWidget {
   const CoinsBar({super.key});
@@ -12,12 +16,15 @@ class CoinsBar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.yellow[200]),
+          borderRadius: BorderRadius.circular(10),
+          color: colors[getAccentColor()].withOpacity(0.3)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset("assets/icons/coin-front.png",
-              color: Colors.orange, height: 15, width: 15),
+          IconImage(
+            iconName: "coin-front.png",
+            size: 15,
+          ),
           SizedBox(
             width: 5,
           ),

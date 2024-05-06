@@ -1,7 +1,7 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:provider/provider.dart';
 
-import '../db.dart';
+import '../db/sql.dart';
 import '../rootProvider/giftProvider.dart';
 import 'tileWithCounter.dart';
 
