@@ -15,6 +15,7 @@ class NewGiftPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController name = TextEditingController();
     final TextEditingController coins = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("new gift"),
@@ -24,40 +25,42 @@ class NewGiftPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
+                key: _formKey,
                 child: Column(
-              children: [
-                SelectIcon(),
-                const SizedBox(
-                  height: 10,
-                ),
-                AutoDirectionTextFormField(
-                    controller: name,
-                    errMessage: "errMessage",
-                    hintText: "name"),
-                NumericField(
-                  hintText: "Coins",
-                  controller: coins,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (name.text.isNotEmpty && coins.text.isNotEmpty) {
-                      newGift(
-                        name: name.text,
-                        price: int.parse(coins.text),
-                        iconId: context.read<IconProvider>().IconId,
-                      );
-                    }
-                    context.read<GiftProvider>().newGift();
-                    Navigator.pop(context);
-                  },
-                  child: const Text("save"),
-                  //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                )
-              ],
-            )),
+                  children: [
+                    SelectIcon(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AutoDirectionTextFormField(
+                        controller: name,
+                        errMessage: "errMessage",
+                        hintText: "name"),
+                    NumericField(
+                      hintText: "Coins",
+                      controller: coins,
+                      maxValue: 9999999,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          newGift(
+                            name: name.text,
+                            price: int.parse(coins.text),
+                            iconId: context.read<IconProvider>().IconId,
+                          );
+                          context.read<GiftProvider>().newGift();
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: const Text("save"),
+                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
+                    )
+                  ],
+                )),
           )
         ],
       ),

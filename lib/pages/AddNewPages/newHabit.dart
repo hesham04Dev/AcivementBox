@@ -21,6 +21,7 @@ class NewHabitPage extends StatelessWidget {
     final TextEditingController name = TextEditingController();
     final TextEditingController coins = TextEditingController();
     final TextEditingController time = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
     final priority = Select(
       label: "priority",
       length: 5,
@@ -52,67 +53,70 @@ class NewHabitPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
+                key: _formKey,
                 child: Column(
-              children: [
-                SelectIcon(),
-                const SizedBox(
-                  height: 10,
-                ),
-                AutoDirectionTextFormField(
-                    controller: name,
-                    errMessage: "errMessage",
-                    hintText: "name"),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    categoryDropDown,
+                    SelectIcon(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AutoDirectionTextFormField(
+                        controller: name,
+                        errMessage: "please enter a name",
+                        hintText: "name"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        categoryDropDown,
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const NewCategoryPage()));
+                          },
+                          child: const Text("new category"),
+                        )
+                      ],
+                    ),
+                    priority,
+                    hardness,
+                    NumericField(
+                      controller: coins,
+                      hintText: "Coins",
+                      maxValue: 10000,
+                    ),
+                    NumericField(
+                      controller: time,
+                      hintText: "Time in minute",
+                      maxValue: 24 * 60,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    isBad,
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const NewCategoryPage()));
+                        if (_formKey.currentState!.validate()) {
+                          newHabit(
+                              name: name.text,
+                              category: categoryDropDown.selectedId,
+                              isBad: isBad.value,
+                              price: int.parse(coins.text),
+                              iconId: context.read<IconProvider>().IconId,
+                              priority: priority.clickedIndex + 1,
+                              hardness: hardness.clickedIndex + 1,
+                              timeInMinutes: int.parse(time.text));
+
+                          context.read<HabitProvider>().newHabit();
+                          Navigator.pop(context);
+                        }
                       },
-                      child: const Text("new category"),
+                      child: const Text("save"),
+                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
                     )
                   ],
-                ),
-                priority,
-                hardness,
-                NumericField(
-                  controller: coins,
-                  hintText: "Coins",
-                ),
-                NumericField(
-                  controller: time,
-                  hintText: "Time in minute",
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                isBad,
-                TextButton(
-                  onPressed: () {
-                    if (name.text.isNotEmpty && coins.text.isNotEmpty) {
-                      newHabit(
-                          name: name.text,
-                          category: categoryDropDown.selectedId,
-                          isBad: isBad.value,
-                          price: int.parse(coins.text),
-                          iconId: context.read<IconProvider>().IconId,
-                          priority: priority.clickedIndex + 1,
-                          hardness: hardness.clickedIndex + 1,
-                          timeInMinutes: int.parse(time.text));
-                    }
-
-                    context.read<HabitProvider>().newHabit();
-                    Navigator.pop(context);
-                  },
-                  child: const Text("save"),
-                  //color: Theme.of(context).primaryColor.withOpacity(0.5),
-                )
-              ],
-            )),
+                )),
           )
         ],
       ),
