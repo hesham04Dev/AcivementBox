@@ -10,27 +10,32 @@ class Gift extends TileWithCounter {
     // TODO gift edit page note no remove on this
   }
   void clicked() {
-    if (super.totalTimes == 1) {
-      db.execute('''
+    if (getCoins() >= super.price) {
+      if (super.totalTimes == 1) {
+        db.execute('''
       insert into logGift values('$formattedDate',${super.id},1)
       ''');
-    } else {
-      db.execute('''
+      } else {
+        db.execute('''
       update  logGift set
       count = ${super.totalTimes}
       where DateOnly = '$formattedDate'
       and GiftId =${super.id}
       ''');
-    }
-    db.execute('''
+      }
+      db.execute('''
     update  gift set NoOfUsed = NoOfUsed + 1 where
     Id = ${super.id};
     ''');
 
-    context.read<GiftProvider>().giftUpdated();
-    context.read<CoinsProvider>().removeCoins(super.price);
-    //TODO minus the price of the gift
-    // show alert to undo
+      context.read<GiftProvider>().giftUpdated();
+      context.read<CoinsProvider>().removeCoins(super.price);
+      //TODO minus the price of the gift
+      // show alert to undo
+    } else {
+      super.totalTimes--;
+      //TODO show you dont have enough coins
+    }
   }
 
   void undo() {
@@ -42,7 +47,7 @@ class Gift extends TileWithCounter {
     required super.id,
     required super.totalTimes,
     required super.context,
-    required super.icon,
+    required super.iconId,
     required super.name,
     required super.price,
   });

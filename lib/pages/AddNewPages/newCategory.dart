@@ -1,7 +1,6 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
 import 'package:achivement_box/pages/AddNewPages/widget/icon.dart';
 import 'package:achivement_box/rootProvider/categoryProvider.dart';
-import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +8,7 @@ import '../../db/sql.dart';
 
 class NewCategoryPage extends StatelessWidget {
   const NewCategoryPage({super.key});
-
+  static const int categoryIcon = 0;
   @override
   Widget build(BuildContext context) {
     final TextEditingController name = TextEditingController();
@@ -40,7 +39,7 @@ class NewCategoryPage extends StatelessWidget {
                     if (name.text.isNotEmpty) {
                       newCategory(
                           name: name.text,
-                          iconId: context.read<IconProvider>().IconId,
+                          iconId: /*TODO*/ categoryIcon,
                           colorId: 1);
                     }
                     context.read<CategoryProvider>().newCategory();

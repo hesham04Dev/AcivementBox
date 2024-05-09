@@ -21,7 +21,7 @@ class _SelectState extends State<Select> {
             borderRadius: BorderRadius.circular(30),
             color: Theme.of(context).primaryColor.withOpacity(0.2)),
         child: Container(
-          height: 50,
+          height: 30,
           child: Row(
             children: [
               Text("${widget.label}: "),

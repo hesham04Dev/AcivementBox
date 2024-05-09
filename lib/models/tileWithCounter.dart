@@ -2,11 +2,13 @@ import 'package:achivement_box/models/imageIcon.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
+import '../output/generated/icon_names.dart';
+
 abstract class TileWithCounter extends StatefulWidget {
   TileWithCounter(
       {super.key,
       required this.id,
-      required this.icon,
+      required this.iconId,
       required this.name,
       required this.price,
       required this.context,
@@ -18,7 +20,7 @@ abstract class TileWithCounter extends StatefulWidget {
 
   void clicked();
 
-  final Widget icon;
+  final int iconId;
   final String name;
   final int price;
   final BuildContext context;
@@ -70,7 +72,10 @@ class _TileWithCounterState extends State<TileWithCounter> {
               const SizedBox(
                 height: 10,
               ),
-              Container(child: widget.icon),
+              IconImage(
+                iconName: iconNames[widget.iconId],
+                size: 50,
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),

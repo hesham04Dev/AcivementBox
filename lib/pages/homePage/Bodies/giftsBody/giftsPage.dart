@@ -4,9 +4,7 @@ import "package:provider/provider.dart";
 
 import "../../../../models/Coins.dart";
 import "../../../../models/PrimaryContainer.dart";
-import "../../../../models/imageIcon.dart";
 import "../../../../models/levelBar.dart";
-import "../../../../output/generated/icon_names.dart";
 import "../../../../rootProvider/giftProvider.dart";
 
 class GiftsBody extends StatelessWidget {
@@ -15,7 +13,7 @@ class GiftsBody extends StatelessWidget {
     return Gift(
         totalTimes: gift['NoOfUsed'],
         context: context,
-        icon: IconImage(iconName: iconNames[gift['IconId']], size: 50),
+        iconId: gift['IconId'],
         id: gift['Id'],
         name: gift['Name'],
         price: gift['Price']);

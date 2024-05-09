@@ -30,9 +30,7 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(50)),
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return pageIndex != 2
-                  ? const NewHabitPage()
-                  : const NewGiftPage();
+              return pageIndex != 2 ? NewHabitPage() : const NewGiftPage();
             }));
           },
           child: const Icon(

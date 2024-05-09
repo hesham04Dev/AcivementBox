@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,14 +64,12 @@ class HomeBody extends StatelessWidget {
                         id: habits[index]['Id'],
                         totalTimes: habits[index]['count'] ?? 0,
                         hardness: habits[index]['Hardness'],
-                        icon: IconImage(
-                          iconName: iconNames[habits[index]['IconId']],
-                          size: 50,
-                        ) /*IdToIcon(id:habits[index]['Icon'])*/,
+                        iconId: habits[index]['IconId'],
                         isBadHabit: habits[index]['IsBad'] == 1 ? true : false,
                         name: habits[index]['Name'],
                         price: habits[index]['Price'],
                         priority: habits[index]['Priority'],
+                        timeInMinutes: habits[index]['TimeInMinutes'],
                       ),
                   itemCount: habits.length,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

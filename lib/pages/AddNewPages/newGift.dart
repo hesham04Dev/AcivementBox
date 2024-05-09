@@ -1,6 +1,5 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
 import 'package:achivement_box/pages/AddNewPages/widget/NumericField.dart';
-import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,7 @@ import 'widget/icon.dart';
 
 class NewGiftPage extends StatelessWidget {
   const NewGiftPage({super.key});
-
+  static const int giftIconId = 40;
   @override
   Widget build(BuildContext context) {
     final TextEditingController name = TextEditingController();
@@ -50,7 +49,8 @@ class NewGiftPage extends StatelessWidget {
                           newGift(
                             name: name.text,
                             price: int.parse(coins.text),
-                            iconId: context.read<IconProvider>().IconId,
+                            iconId: /*TODO*/
+                                giftIconId,
                           );
                           context.read<GiftProvider>().newGift();
                           Navigator.pop(context);
@@ -67,4 +67,3 @@ class NewGiftPage extends StatelessWidget {
     );
   }
 }
-//TODO max gift is nine million 99

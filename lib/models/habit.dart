@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../db/sql.dart';
-import '../pages/AddNewPages/newHabit.dart';
+import '../pages/editHabit/editHabitPage.dart';
 import '../rootProvider/habitProvider.dart';
 import 'tileWithCounter.dart';
 
@@ -13,10 +13,11 @@ class Habit extends TileWithCounter {
   final int priority;
   final int hardness;
   final int categoryId;
+  final int timeInMinutes;
 
   void openEditPage() {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return NewHabitPage();
+      return EditHabitPage(habit: this);
     }));
   }
 
@@ -43,15 +44,17 @@ class Habit extends TileWithCounter {
     context.read<HabitProvider>().habitUpdated();
   }
 
-  Habit(
-      {required super.id,
-      required super.icon,
-      required super.name,
-      required super.totalTimes,
-      required super.price,
-      required super.context,
-      required this.categoryId,
-      required this.isBadHabit,
-      required this.priority,
-      required this.hardness});
+  Habit({
+    required super.id,
+    required super.iconId,
+    required super.name,
+    required super.totalTimes,
+    required super.price,
+    required super.context,
+    required this.categoryId,
+    required this.isBadHabit,
+    required this.priority,
+    required this.hardness,
+    required this.timeInMinutes,
+  });
 }

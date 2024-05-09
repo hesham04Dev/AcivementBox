@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
+import '../models/habit.dart';
+
 void newHabit(
     {required String name,
     required int category,
@@ -68,7 +70,7 @@ ResultSet getMostUsedGifts() {
   return resultSet;
 }
 
-Row getLevel({required String name}) {
+getLevel({required String name}) {
   //db.execute("insert into category (Name) values ('main')");
   ResultSet result = db.select("select * from category where Name = '$name'");
 
@@ -77,6 +79,7 @@ Row getLevel({required String name}) {
 
 DateTime now = DateTime.now();
 String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+
 Map<int, int> getHabitCount() {
   '''
   select habitId,count form logHabit where 
@@ -189,4 +192,16 @@ getNotificationTime() {
 
 setNotificationTime(val) {
   db.execute("UPDATE setting set Val = $val WHERE Name = 'NotificationTime' ");
+}
+
+updateHabit(Habit habit) {
+  "('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes')";
+  db.execute('''UPDATE habit set Name = '${habit.name}',
+  Category = ${habit.categoryId},
+  IsBad = ${habit.isBadHabit},
+  IconId = ${habit.iconId},
+  Priority = ${habit.priority},
+  Hardness = ${habit.hardness},
+  TimeInMinutes = ${habit.timeInMinutes}
+  WHERE Id = ${habit.id} ''');
 }

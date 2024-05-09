@@ -1,5 +1,4 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:achivement_box/rootProvider/iconProvider.dart';
 import 'package:flutter/material.dart';
 import "package:path/path.dart" as path;
 import 'package:path_provider/path_provider.dart';
@@ -19,7 +18,7 @@ void main() async {
 
   //db = sqlite3.openInMemory();
   var dir = await getApplicationSupportDirectory();
-  String fileName = path.join(dir.path, 'my_app2.db');
+  String fileName = path.join(dir.path, 'my_app3.db');
   db = sqlite3.open(fileName);
   createTablesIfNotExists(db);
   runApp(const MyApp());
@@ -52,45 +51,52 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => CategoryProvider(),
           ),
-          ChangeNotifierProvider(
+          /* ChangeNotifierProvider(
             create: (context) => IconProvider(),
-          ),
+          ),*/
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
           themeMode: getDarkMode() == 1 ? ThemeMode.dark : ThemeMode.light,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              dialogTheme: const DialogTheme(backgroundColor: Colors.white),
-              iconButtonTheme: IconButtonThemeData(
-                  style: ButtonStyle(
-                      iconColor: MaterialStatePropertyAll(
-                _defaultLightColorScheme.onPrimary,
-              ))),
-              dialogBackgroundColor: Colors.white,
-              scaffoldBackgroundColor: Colors.white,
-              textButtonTheme: const TextButtonThemeData(
-                  style: ButtonStyle(
-                      textStyle: MaterialStatePropertyAll(TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Dubai",
-                          fontSize: 19)))),
-              floatingActionButtonTheme:
-                  const FloatingActionButtonThemeData(shape: CircleBorder()),
-              colorScheme: _defaultLightColorScheme,
-              useMaterial3: true,
-              fontFamily: "Dubai",
-              appBarTheme: AppBarTheme(
-                //backgroundColor: _defaultLightColorScheme.primary,
-                titleTextStyle: TextStyle(
-                    fontFamily: "Dubai",
-                    color: _defaultLightColorScheme.primary,
-                    fontSize: 20),
-                centerTitle: true,
-              ),
-              drawerTheme: const DrawerThemeData(
-                backgroundColor: Colors.white,
-              )),
+            switchTheme: SwitchThemeData(
+              trackOutlineColor: MaterialStatePropertyAll(
+                  colors[getAccentColor()].withOpacity(0.2)),
+              thumbColor: MaterialStatePropertyAll(
+                  colors[getAccentColor()].withOpacity(0.2)),
+            ),
+            dialogTheme: const DialogTheme(backgroundColor: Colors.white),
+            iconButtonTheme: IconButtonThemeData(
+                style: ButtonStyle(
+                    iconColor: MaterialStatePropertyAll(
+              _defaultLightColorScheme.onPrimary,
+            ))),
+            dialogBackgroundColor: Colors.white,
+            scaffoldBackgroundColor: Colors.white,
+            textButtonTheme: const TextButtonThemeData(
+                style: ButtonStyle(
+                    textStyle: MaterialStatePropertyAll(TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Dubai",
+                        fontSize: 19)))),
+            floatingActionButtonTheme:
+                const FloatingActionButtonThemeData(shape: CircleBorder()),
+            colorScheme: _defaultLightColorScheme,
+            useMaterial3: true,
+            fontFamily: "Dubai",
+            appBarTheme: AppBarTheme(
+              //backgroundColor: _defaultLightColorScheme.primary,
+              titleTextStyle: TextStyle(
+                  fontFamily: "Dubai",
+                  color: _defaultLightColorScheme.primary,
+                  fontSize: 20),
+              centerTitle: true,
+            ),
+            drawerTheme: const DrawerThemeData(
+              backgroundColor: Colors.white,
+            ),
+          ),
           darkTheme: ThemeData(
             dialogTheme: const DialogTheme(backgroundColor: Colors.black87),
             iconButtonTheme: IconButtonThemeData(
@@ -146,4 +152,3 @@ class MyApp extends StatelessWidget {
 * refractoring
 * ...
 * */
-//TODO create dataprovider
