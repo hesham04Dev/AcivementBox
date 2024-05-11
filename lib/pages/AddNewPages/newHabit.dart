@@ -21,21 +21,15 @@ class NewHabitPage extends StatefulWidget {
 
 class NewHabitPageState extends State<NewHabitPage> {
   late final TextEditingController name;
-
   late final TextEditingController coins;
-
   late final TextEditingController time;
-
-  late final formKey;
-
-  late final priority;
-
-  late final hardness;
-
-  late final isBad;
+  late final GlobalKey<FormState> formKey;
+  late final Select priority;
+  late final Select hardness;
+  late final MySwitchTile isBad;
   late SelectIcon selectIcon;
+  late final CategoryDropDown categoryDropDown;
 
-  late final categoryDropDown;
   void save(BuildContext context) {
     if (formKey.currentState!.validate()) {
       newHabit(

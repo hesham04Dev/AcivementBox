@@ -11,6 +11,11 @@ class CategoryProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  categoryUpdated() {
+    _Category = getCategories();
+    notifyListeners();
+  }
+
   var _Category;
   get Category => _Category;
 }

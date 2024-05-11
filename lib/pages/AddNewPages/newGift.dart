@@ -7,14 +7,39 @@ import '../../db/sql.dart';
 import '../../rootProvider/giftProvider.dart';
 import 'widget/icon.dart';
 
-class NewGiftPage extends StatelessWidget {
+class NewGiftPage extends StatefulWidget {
   const NewGiftPage({super.key});
   static const int giftIconId = 40;
+
+  @override
+  State<NewGiftPage> createState() => NewGiftPageState();
+}
+
+class NewGiftPageState extends State<NewGiftPage> {
+  final TextEditingController name = TextEditingController();
+  final TextEditingController coins = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  late SelectIcon selectIcon;
+  void save(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      newGift(
+        name: name.text,
+        price: int.parse(coins.text),
+        iconId: selectIcon.selectedIconId ?? NewGiftPage.giftIconId,
+      );
+      context.read<GiftProvider>().newGift();
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectIcon = SelectIcon();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController name = TextEditingController();
-    final TextEditingController coins = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("new gift"),
@@ -24,10 +49,10 @@ class NewGiftPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
-                key: _formKey,
+                key: formKey,
                 child: Column(
                   children: [
-                    SelectIcon(),
+                    selectIcon,
                     const SizedBox(
                       height: 10,
                     ),
@@ -45,16 +70,7 @@ class NewGiftPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          newGift(
-                            name: name.text,
-                            price: int.parse(coins.text),
-                            iconId: /*TODO*/
-                                giftIconId,
-                          );
-                          context.read<GiftProvider>().newGift();
-                          Navigator.pop(context);
-                        }
+                        save(context);
                       },
                       child: const Text("save"),
                       //color: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -65,5 +81,12 @@ class NewGiftPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    coins.dispose();
+    name.dispose();
+    super.dispose();
   }
 }

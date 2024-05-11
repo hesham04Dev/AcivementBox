@@ -6,12 +6,36 @@ import 'package:provider/provider.dart';
 
 import '../../db/sql.dart';
 
-class NewCategoryPage extends StatelessWidget {
+class NewCategoryPage extends StatefulWidget {
   const NewCategoryPage({super.key});
-  static const int categoryIcon = 0;
+  static const int categoryIconId = 0;
+
+  @override
+  State<NewCategoryPage> createState() => NewCategoryPageState();
+}
+
+class NewCategoryPageState extends State<NewCategoryPage> {
+  final TextEditingController name = TextEditingController();
+  late SelectIcon selectIcon;
+  void save(BuildContext context) {
+    if (name.text.isNotEmpty) {
+      newCategory(
+          name: name.text,
+          iconId: selectIcon.selectedIconId ?? NewCategoryPage.categoryIconId,
+          colorId: 1);
+    }
+    context.read<CategoryProvider>().newCategory();
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectIcon = SelectIcon();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController name = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text("new Category"),
@@ -23,7 +47,6 @@ class NewCategoryPage extends StatelessWidget {
             child: Form(
                 child: Column(
               children: [
-                SelectIcon(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -36,14 +59,7 @@ class NewCategoryPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    if (name.text.isNotEmpty) {
-                      newCategory(
-                          name: name.text,
-                          iconId: /*TODO*/ categoryIcon,
-                          colorId: 1);
-                    }
-                    context.read<CategoryProvider>().newCategory();
-                    Navigator.pop(context);
+                    save(context);
                   },
                   child: const Text("save"),
                   //color: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -54,5 +70,11 @@ class NewCategoryPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    name.dispose();
+    super.dispose();
   }
 }

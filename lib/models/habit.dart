@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../db/sql.dart';
-import '../pages/editHabit/editHabitPage.dart';
+import '../pages/EditPages/editHabitPage.dart';
 import '../rootProvider/habitProvider.dart';
 import 'tileWithCounter.dart';
 
@@ -17,7 +17,7 @@ class Habit extends TileWithCounter {
 
   void openEditPage() {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return EditHabitPage(habit: this);
+      return EditHabitsPage(habit: this);
     }));
   }
 

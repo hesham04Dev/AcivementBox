@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
+import '../models/gift.dart';
 import '../models/habit.dart';
 
 void newHabit(
@@ -195,13 +196,21 @@ setNotificationTime(val) {
 }
 
 updateHabit(Habit habit) {
-  "('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes')";
   db.execute('''UPDATE habit set Name = '${habit.name}',
   Category = ${habit.categoryId},
   IsBad = ${habit.isBadHabit},
   IconId = ${habit.iconId},
   Priority = ${habit.priority},
   Hardness = ${habit.hardness},
+  Price = ${habit.price},
   TimeInMinutes = ${habit.timeInMinutes}
   WHERE Id = ${habit.id} ''');
+}
+
+updateGift(Gift gift) {
+  "('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes')";
+  db.execute('''UPDATE gift set Name = '${gift.name}',
+  IconId = ${gift.iconId},
+  Price = ${gift.price}
+  WHERE Id = ${gift.id} ''');
 }

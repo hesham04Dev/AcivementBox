@@ -8,9 +8,9 @@ import '../../rootProvider/habitProvider.dart';
 import '../AddNewPages/newHabit.dart';
 import '../AddNewPages/widget/icon.dart';
 
-class EditHabitPage extends NewHabitPage {
+class EditHabitsPage extends NewHabitPage {
   final Habit habit;
-  EditHabitPage({required this.habit});
+  EditHabitsPage({required this.habit});
 
   @override
   State<NewHabitPage> createState() => _EditHabitPageState(habit: habit);
@@ -35,6 +35,7 @@ class _EditHabitPageState extends NewHabitPageState {
     super.selectIcon = SelectIcon(
       selectedIconName: iconNames[habit.iconId],
     );
+    super.selectIcon.selectedIconId = habit.iconId;
     //TODO not working
     super.categoryDropDown.selectedId = habit.categoryId;
   }

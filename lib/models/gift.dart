@@ -1,4 +1,6 @@
+import 'package:achivement_box/pages/EditPages/editGiftsPage.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../db/sql.dart';
@@ -7,8 +9,13 @@ import 'tileWithCounter.dart';
 
 class Gift extends TileWithCounter {
   void openEditPage() {
-    // TODO gift edit page note no remove on this
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return EditGiftsPage(
+        gift: this,
+      );
+    }));
   }
+
   void clicked() {
     if (getCoins() >= super.price) {
       if (super.totalTimes == 1) {
