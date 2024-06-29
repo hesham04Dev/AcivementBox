@@ -14,6 +14,7 @@ class StatisticBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryContainer(
+        opacity: 0.1,
         padding: 14,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

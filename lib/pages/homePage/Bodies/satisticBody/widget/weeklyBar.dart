@@ -21,6 +21,7 @@ class WeeklyBar extends StatelessWidget {
       }
 
       return PrimaryContainer(
+        opacity: 0.1,
         child: Column(
           children: [
             Text("Coins bar"),
@@ -34,7 +35,7 @@ class WeeklyBar extends StatelessWidget {
                     x.length,
                     (index) {
                       String date = x[index]["DateOnly"];
-                      date = date.replaceFirst("-", "");
+                      date = date.replaceFirst("-", " ");
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -43,7 +44,7 @@ class WeeklyBar extends StatelessWidget {
                             ChartBar(
                               percent: x[index]['Total'] / maxValue,
                               text: x[index]['Total'].toString(),
-                              thickness: 20,
+                              thickness: 25,
                               size: 120,
                               isVertical: true,
                             ),
@@ -55,7 +56,7 @@ class WeeklyBar extends StatelessWidget {
                                     BoxConstraints(minHeight: 1, minWidth: 1),
                                 child: Text(
                                   date,
-                                  style: TextStyle(fontSize: 7),
+                                  style: TextStyle(fontSize: 7.2),
                                 )),
                           ]),
                         ),

@@ -15,6 +15,7 @@ class CategoriesLevel extends StatelessWidget {
   Widget build(BuildContext context) {
     List<dynamic> category = context.watch<CategoryProvider>().Category;
     return PrimaryContainer(
+      opacity: 0.1,
       padding: 15,
       child: Column(children: [
         SizedBox(

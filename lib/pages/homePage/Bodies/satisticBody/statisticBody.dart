@@ -2,6 +2,7 @@ import 'package:achivement_box/pages/homePage/Bodies/satisticBody/widget/statist
 import 'package:flutter/material.dart';
 
 import '../../../../db/sql.dart';
+import '../../../../models/imageIcon.dart';
 import 'widget/categoriesLevel.dart';
 import 'widget/weeklyBar.dart';
 
@@ -20,7 +21,13 @@ class StatisticsBody extends StatelessWidget {
         children: [
           WeeklyBar(),
           CategoriesLevel(),
-          const StatisticBar(statisticName: "Total Days", valueName: "0"),
+          StatisticBar(
+            statisticName: "Total Days",
+            valueName: "0",
+            icon: IconImage(
+              iconName: 'fire-flame.png',
+            ),
+          ),
           topHabit.length > 0
               ? StatisticBar(
                   statisticName: "Top Habit",

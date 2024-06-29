@@ -23,6 +23,8 @@ class ChartBar extends StatelessWidget {
     double totalWidth;
     double filledHeight;
     double filledWidth;
+    EdgeInsetsGeometry? margin;
+
     var textWidget = Text(
       text,
       style: const TextStyle(
@@ -33,11 +35,23 @@ class ChartBar extends StatelessWidget {
       totalHeight = size;
       filledHeight = size * percent;
       filledWidth = thickness;
+      if (percent < 0.1) {
+        margin = EdgeInsets.only(
+            left: thickness * 0.1, top: totalHeight - filledHeight - 3);
+        filledWidth -= thickness * 0.2;
+      } else {
+        margin = EdgeInsets.only(top: totalHeight - filledHeight);
+      }
     } else {
       totalHeight = thickness;
       totalWidth = size;
       filledHeight = thickness;
       filledWidth = size * percent;
+      if (percent < 0.1) {
+        margin = EdgeInsets.only(top: thickness * 0.1, left: 2);
+        filledHeight -= thickness * 0.2;
+      } else
+        margin = EdgeInsets.only();
     }
     return Stack(
       children: <Widget>[
@@ -45,14 +59,13 @@ class ChartBar extends StatelessWidget {
           height: totalHeight,
           width: totalWidth,
           decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(10),
+            color: Colors.grey[50],
+            border: Border.all(color: Colors.grey.shade100, width: 2),
+            borderRadius: BorderRadius.circular(100),
           ),
         ),
         Container(
-          margin: isVertical
-              ? EdgeInsets.only(top: totalHeight - filledHeight)
-              : null,
+          margin: margin,
           height: filledHeight,
           width: filledWidth,
           decoration: BoxDecoration(
