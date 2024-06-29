@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
+import '../models/Category.dart';
 import '../models/gift.dart';
 import '../models/habit.dart';
 
@@ -66,7 +67,7 @@ ResultSet getGifts() {
 ResultSet getMostUsedGifts() {
   int num = 3;
   ResultSet resultSet = db.select(
-      "SELECT  * FROM gift where NoOfUsed > 0 ORDER BY NoOfUsed desc LIMIT $num ;");
+      '''SELECT * FROM gift  WHERE NoOfUsed > 0  ORDER BY NoOfUsed DESC  LIMIT $num;''');
 
   return resultSet;
 }
@@ -89,9 +90,34 @@ Map<int, int> getHabitCount() {
   return {};
 }
 
-void updateLevel({required int id, required int value}) {
+int? updateLevel({required int value, required int id}) {
+  Row res = db.select("select * from category where id =$id")[0];
+  Category category = Category(
+      id: id,
+      name: res['Name'],
+      colorId: res['ColorId'],
+      iconId: res['IconId'],
+      earnedXp: res['EarnedXp'],
+      level: res['Level'],
+      maxXp: res['MaxXp']);
+  bool isLevelIncrease = false;
+  category.earnedXp += value;
+  while (category.earnedXp >= category.maxXp) {
+    category.earnedXp -= category.maxXp;
+    category.maxXp = (category.maxXp * 1.25).toInt();
+    category.level += 1;
+    isLevelIncrease = true;
+  }
+  if (isLevelIncrease) {
+    db.execute(
+        "update category set EarnedXp = ${category.earnedXp}, MaxXp = ${category.maxXp},Level = ${category.level} where Id = ${category.id} ");
+    return category.level;
+  }
+
   db.execute(
-      "update category set EarnedXp = EarnedXp + $value where Id = '$id' or Name = 'main'");
+      "update category set EarnedXp = EarnedXp + $value where Id = ${category.id}");
+
+  return null;
 }
 
 int getCoins() {
@@ -107,6 +133,10 @@ updateCoins(int num) {
 
 getCategories() {
   return db.select("select * from category");
+}
+
+getCategory(int id) {
+  return db.select("select * from category where Id = $id")[0]["Name"];
 }
 
 getTopHabit() {

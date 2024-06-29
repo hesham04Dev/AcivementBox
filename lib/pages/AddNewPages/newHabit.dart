@@ -23,6 +23,7 @@ class NewHabitPageState extends State<NewHabitPage> {
   late final TextEditingController name;
   late final TextEditingController coins;
   late final TextEditingController time;
+  late final TextEditingController category;
   late final GlobalKey<FormState> formKey;
   late final Select priority;
   late final Select hardness;
@@ -52,6 +53,7 @@ class NewHabitPageState extends State<NewHabitPage> {
     name = TextEditingController();
     coins = TextEditingController();
     time = TextEditingController();
+    category = TextEditingController();
     formKey = GlobalKey<FormState>();
     priority = Select(
       label: "priority",
@@ -62,7 +64,9 @@ class NewHabitPageState extends State<NewHabitPage> {
       length: 5,
     );
     isBad = MySwitchTile(title: "Is Bad?");
-    categoryDropDown = CategoryDropDown();
+    categoryDropDown = CategoryDropDown(
+      controller: category,
+    );
     selectIcon = SelectIcon();
     super.initState();
   }

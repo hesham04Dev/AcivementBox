@@ -8,7 +8,7 @@ import "../../../../models/levelBar.dart";
 import "../../../../rootProvider/giftProvider.dart";
 
 class GiftsBody extends StatelessWidget {
-  const GiftsBody() : super();
+  const GiftsBody({super.key});
   Gift gift(Map<String, dynamic> gift, BuildContext context) {
     return Gift(
         totalTimes: gift['NoOfUsed'],
@@ -31,14 +31,15 @@ class GiftsBody extends StatelessWidget {
       mostUsed = [
         const Text("most used"),
         PrimaryContainer(
+          key: UniqueKey(),
           opacity: 0.1,
           height: 150,
           paddingHorizontal: 10,
-          child: ListView.builder(
+          child: ListView(
               clipBehavior: Clip.antiAliasWithSaveLayer,
-              itemBuilder: (context, index) => gift(gifts[index], context),
-              itemCount: mostUsedGifts.length,
-              scrollDirection: Axis.horizontal),
+              scrollDirection: Axis.horizontal,
+              children: List.generate(mostUsedGifts.length,
+                  (index) => gift(mostUsedGifts[index], context))),
         ),
       ];
     } else

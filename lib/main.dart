@@ -61,22 +61,22 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             switchTheme: SwitchThemeData(
-              trackOutlineColor: MaterialStatePropertyAll(
+              trackOutlineColor: WidgetStatePropertyAll(
                   colors[getAccentColor()].withOpacity(0.2)),
-              thumbColor: MaterialStatePropertyAll(
+              thumbColor: WidgetStatePropertyAll(
                   colors[getAccentColor()].withOpacity(0.2)),
             ),
             dialogTheme: const DialogTheme(backgroundColor: Colors.white),
             iconButtonTheme: IconButtonThemeData(
                 style: ButtonStyle(
-                    iconColor: MaterialStatePropertyAll(
+                    iconColor: WidgetStatePropertyAll(
               _defaultLightColorScheme.onPrimary,
             ))),
             dialogBackgroundColor: Colors.white,
             scaffoldBackgroundColor: Colors.white,
             textButtonTheme: const TextButtonThemeData(
                 style: ButtonStyle(
-                    textStyle: MaterialStatePropertyAll(TextStyle(
+                    textStyle: WidgetStatePropertyAll(TextStyle(
                         color: Colors.black,
                         fontFamily: "Dubai",
                         fontSize: 19)))),
@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
             dialogTheme: const DialogTheme(backgroundColor: Colors.black87),
             iconButtonTheme: IconButtonThemeData(
                 style: ButtonStyle(
-                    iconColor: MaterialStatePropertyAll(
+                    iconColor: WidgetStatePropertyAll(
               _defaultDarkColorScheme.onPrimary,
             ))),
             inputDecorationTheme: const InputDecorationTheme(
@@ -109,7 +109,7 @@ class MyApp extends StatelessWidget {
                 hintStyle: TextStyle(color: Colors.white70)),
             textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
-                    textStyle: MaterialStatePropertyAll(TextStyle(
+                    textStyle: WidgetStatePropertyAll(TextStyle(
               color: _defaultDarkColorScheme.primary,
               fontFamily: "Dubai",
             )))),

@@ -4,9 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:sqlite3/common.dart';
 
 class CategoryDropDown extends StatelessWidget {
-  CategoryDropDown({
-    super.key,
-  });
+  final TextEditingController controller;
+  CategoryDropDown({super.key, required this.controller});
   late int selectedId;
 
   @override
@@ -24,6 +23,7 @@ class CategoryDropDown extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           color: Theme.of(context).primaryColor.withOpacity(0.2)),
       child: DropdownMenu(
+          controller: controller,
           onSelected: (value) {
             selectedId = value;
           },

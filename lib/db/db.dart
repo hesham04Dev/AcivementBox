@@ -77,23 +77,25 @@ void createTablesIfNotExists(Database db) {
   for (String sql in sqlList) {
     db.execute(sql);
   }
-  db.execute(createLevelTrigger);
+  // db.execute(createLevelTrigger);
   //db.execute("insert into logHabit values('$formattedDate',2,10);");
   ResultSet result = db.select("select * from category ");
   for (Row row in result) {
     print(row);
   }
 }
-
-//TODO err in this trigger if the xp is greater than 2 levels
+/*
 const String createLevelTrigger = '''
 CREATE TRIGGER IF NOT EXISTS trigIncreaseLevel 
 AFTER UPDATE OF EarnedXp ON category 
 BEGIN
+  while EarnedXp >= MaxXp
+  BEGIN
     UPDATE category 
     SET EarnedXp = EarnedXp - MaxXp, 
         MaxXp = CAST(MaxXp * 1.25 AS INTEGER), 
         Level = Level + 1 
     WHERE EarnedXp >= MaxXp;
+  END
 END;
-''';
+''';*/

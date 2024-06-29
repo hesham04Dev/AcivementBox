@@ -26,6 +26,8 @@ class _EditHabitPageState extends NewHabitPageState {
     super.name.text = habit.name;
 
     super.coins.text = "${habit.price}";
+    super.category.text = "${getCategory(habit.categoryId)}";
+    super.categoryDropDown.selectedId = habit.categoryId;
     super.time.text = "${habit.timeInMinutes}";
     super.hardness.clickedIndex = habit.hardness - 1;
     super.priority.clickedIndex = habit.priority - 1;
@@ -36,8 +38,6 @@ class _EditHabitPageState extends NewHabitPageState {
       selectedIconName: iconNames[habit.iconId],
     );
     super.selectIcon.selectedIconId = habit.iconId;
-    //TODO not working
-    super.categoryDropDown.selectedId = habit.categoryId;
   }
 
   @override

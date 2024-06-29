@@ -47,6 +47,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
             child: Form(
                 child: Column(
               children: [
+                selectIcon,
                 const SizedBox(
                   height: 10,
                 ),

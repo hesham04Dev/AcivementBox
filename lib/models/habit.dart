@@ -1,3 +1,4 @@
+import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,27 @@ class Habit extends TileWithCounter {
     } else {
       context.read<CoinsProvider>().addCoins(super.price);
       context.read<LevelProvider>().xpIncreased();
-      updateLevel(value: super.price + hardness + priority, id: categoryId);
+      int? res =
+          updateLevel(value: super.price + hardness + priority, id: categoryId);
+      if (res != null) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Dialog(
+                    child: PrimaryContainer(
+                      child: Text(
+                        "level up",
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            });
+      }
     }
     context.read<HabitProvider>().habitUpdated();
   }

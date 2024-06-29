@@ -13,22 +13,26 @@ import '../../../../rootProvider/habitProvider.dart';
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
   final List<String> somethingChangedEveryTime = const [
-    "hello ",
-    "any thing",
-    "pla",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    '10',
-    "11",
-    "12",
-    "13",
+    "Small daily habits lead to big achievements over time.",
+    "Every step you take brings you closer to your goal.",
+    "Consistency is the key to success; keep going!",
+    "Believe in yourself and all that you are capable of.",
+    "Celebrate every small victory; they add up to great success.",
+    "Focus on progress, not perfection.",
+    "Your only limit is your mind; think big!",
+    "Commit to your goals, and they will become your reality.",
+    "Stay motivated; your hard work will pay off.",
+    "Embrace challenges; they are opportunities to grow.",
+    "Stay disciplined, and success will follow.",
+    "Every habit you build strengthens your path to achievement.",
+    "Visualize your success and work towards it daily.",
+    "Remember, the journey is as important as the destination.",
+    "Push yourself; the results will be worth it.",
+    "Keep your goals in sight and your determination strong.",
+    "You have the power to create the life you want.",
+    "Stay positive; a positive mindset fuels progress.",
+    "Dedicate yourself to your goals, and they will be within reach.",
+    "Your achievements are the sum of your daily actions; make each day count.",
   ];
   @override
   Widget build(BuildContext context) {
@@ -40,15 +44,15 @@ class HomeBody extends StatelessWidget {
       create: (context) => LevelProvider(),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 LevelBar(
                   canChange: true,
                 ),
-                const CoinsBar(),
+                CoinsBar(),
               ],
             ),
           ),
