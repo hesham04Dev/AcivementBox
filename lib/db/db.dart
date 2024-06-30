@@ -49,7 +49,7 @@ void createTablesIfNotExists(Database db) {
   Name TEXT,
   Val INTEGER
   );
-  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'TotalDays',1);  ''';
+  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'Streak',1);  ''';
   const String createLogGiftTable = '''
   CREATE TABLE IF NOT EXISTS logGift(
   DateOnly TEXT,
@@ -84,18 +84,3 @@ void createTablesIfNotExists(Database db) {
     print(row);
   }
 }
-/*
-const String createLevelTrigger = '''
-CREATE TRIGGER IF NOT EXISTS trigIncreaseLevel 
-AFTER UPDATE OF EarnedXp ON category 
-BEGIN
-  while EarnedXp >= MaxXp
-  BEGIN
-    UPDATE category 
-    SET EarnedXp = EarnedXp - MaxXp, 
-        MaxXp = CAST(MaxXp * 1.25 AS INTEGER), 
-        Level = Level + 1 
-    WHERE EarnedXp >= MaxXp;
-  END
-END;
-''';*/

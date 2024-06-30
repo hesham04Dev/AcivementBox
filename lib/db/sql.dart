@@ -52,7 +52,7 @@ LEFT JOIN (
   ''');
 /*
   for (Row row in resultSet) {
-    print(row);
+    //print(row);
   }*/
 
   return resultSet;
@@ -60,22 +60,17 @@ LEFT JOIN (
 
 ResultSet getGifts() {
   ResultSet resultSet = db.select("SELECT * FROM gift ;");
-
   return resultSet;
 }
 
-ResultSet getMostUsedGifts() {
-  int num = 3;
+ResultSet getMostUsedGifts(int limit) {
   ResultSet resultSet = db.select(
-      '''SELECT * FROM gift  WHERE NoOfUsed > 0  ORDER BY NoOfUsed DESC  LIMIT $num;''');
-
+      '''SELECT * FROM gift  WHERE NoOfUsed > 0  ORDER BY NoOfUsed DESC  LIMIT $limit;''');
   return resultSet;
 }
 
 getLevel({required String name}) {
-  //db.execute("insert into category (Name) values ('main')");
   ResultSet result = db.select("select * from category where Name = '$name'");
-
   return result[0];
 }
 
@@ -113,18 +108,54 @@ int? updateLevel({required int value, required int id}) {
         "update category set EarnedXp = ${category.earnedXp}, MaxXp = ${category.maxXp},Level = ${category.level} where Id = ${category.id} ");
     return category.level;
   }
-
   db.execute(
       "update category set EarnedXp = EarnedXp + $value where Id = ${category.id}");
-
   return null;
 }
 
-int getCoins() {
-  //db.execute("insert into user values (1,'dd',0);");
-  ResultSet r = db.select("select Val from setting where Name = 'Coins'");
+int? removeLevel({required int value, required int id}) {
+  Row res = db.select("select * from category where id =$id")[0];
+  Category category = Category(
+      id: id,
+      name: res['Name'],
+      colorId: res['ColorId'],
+      iconId: res['IconId'],
+      earnedXp: res['EarnedXp'],
+      level: res['Level'],
+      maxXp: res['MaxXp']);
+  bool isLevelDecrease = false;
+  category.earnedXp -= value;
+  while (category.earnedXp < 0) {
+    category.maxXp = (category.maxXp / 1.25).toInt();
+    category.earnedXp += category.maxXp;
+    category.level -= 1;
+    isLevelDecrease = true;
+  }
+  if (isLevelDecrease) {
+    db.execute(
+        "update category set EarnedXp = ${category.earnedXp}, MaxXp = ${category.maxXp},Level = ${category.level} where Id = ${category.id} ");
+    return category.level;
+  } else {
+    db.execute(
+        "update category set EarnedXp = ${category.earnedXp} where Id = ${category.id}");
+    return null;
+  }
+}
 
+int getCoins() {
+  ResultSet r = db.select("select Val from setting where Name = 'Coins'");
   return r[0]["Val"];
+}
+
+int getStreak() {
+  ResultSet r = db.select("select Val from setting where Name = 'Streak'");
+  return r[0]["Val"];
+}
+
+String? getLastDay() {
+  ResultSet r =
+      db.select("select DateOnly from logHabit Order by DateOnly DESC Limit 1");
+  return r.isEmpty ? null : r[0]["DateOnly"];
 }
 
 updateCoins(int num) {
@@ -136,7 +167,7 @@ getCategories() {
 }
 
 getCategory(int id) {
-  return db.select("select * from category where Id = $id")[0]["Name"];
+  return db.select("select * from category where Id = $id")[0];
 }
 
 getTopHabit() {
@@ -148,9 +179,7 @@ GROUP BY h.Id
 ORDER BY  Sum(lh.Count) DESC
 LIMIT 1;
   ''');
-  for (var r in x) {
-    print(r);
-  }
+  for (var r in x) {}
   return x;
 }
 
@@ -161,9 +190,7 @@ FROM gift
 ORDER BY NoOfUsed DESC
 LIMIT 1;
   ''');
-  for (var r in x as List<dynamic>) {
-    print(r);
-  }
+
   return x;
 }
 
@@ -176,9 +203,7 @@ GROUP BY lh.DateOnly
 ORDER BY SUM(lh.Count * h.Price) DESC
 LIMIT 1;
   ''');
-  for (var r in x as List<dynamic>) {
-    print(r);
-  }
+
   return x;
 }
 
@@ -191,9 +216,7 @@ GROUP BY lh.DateOnly
 ORDER BY lh.DateOnly
 LIMIT 7;
   ''');
-  for (var r in x as List<dynamic>) {
-    print(r);
-  }
+
   return x;
 }
 
@@ -243,4 +266,15 @@ updateGift(Gift gift) {
   IconId = ${gift.iconId},
   Price = ${gift.price}
   WHERE Id = ${gift.id} ''');
+}
+
+void updateStreak() {
+  DateTime lastDay = DateTime.parse(getLastDay() ?? DateTime.now().toString());
+  print(now.difference(lastDay).inDays);
+  int diff = now.difference(lastDay).inDays;
+  if (diff == 1) {
+    db.execute('''UPDATE setting set Val = Val +1  WHERE Name = 'Streak' ''');
+  } else if (diff != 0) {
+    db.execute('''UPDATE setting set Val = 1  WHERE Name = 'Streak' ''');
+  }
 }

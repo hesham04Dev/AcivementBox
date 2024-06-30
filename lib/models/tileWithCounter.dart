@@ -1,5 +1,6 @@
 import 'package:achivement_box/models/imageIcon.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 
 import '../output/generated/icon_names.dart';
@@ -19,12 +20,23 @@ abstract class TileWithCounter extends StatefulWidget {
   void openEditPage();
 
   void clicked();
+  late CherryToast undoToast = CherryToast.info(
+    title: Text(toastTitle),
+    action: const Text("undo"),
+    actionHandler: () {
+      undoToast.closeOverlay();
+      undo();
+    },
+  );
+  late String toastTitle;
+  void undo();
 
   final int iconId;
   final String name;
   final int price;
   final BuildContext context;
   final int id;
+  static const double width = 100;
   int totalTimes;
   @override
   State<TileWithCounter> createState() => _TileWithCounterState();
@@ -58,7 +70,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
         onLongPress: () => widget.openEditPage(),
         onTap: used,
         child: Container(
-          width: 100,
+          width: TileWithCounter.width,
           height: 140,
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.all(5),

@@ -26,7 +26,7 @@ class _EditHabitPageState extends NewHabitPageState {
     super.name.text = habit.name;
 
     super.coins.text = "${habit.price}";
-    super.category.text = "${getCategory(habit.categoryId)}";
+    super.category.text = "${getCategory(habit.categoryId)['Name']}";
     super.categoryDropDown.selectedId = habit.categoryId;
     super.time.text = "${habit.timeInMinutes}";
     super.hardness.clickedIndex = habit.hardness - 1;

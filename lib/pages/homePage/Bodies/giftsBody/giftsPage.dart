@@ -1,4 +1,5 @@
 import "package:achivement_box/models/gift.dart";
+import "package:achivement_box/models/tileWithCounter.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
@@ -22,16 +23,17 @@ class GiftsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var gifts = context.watch<GiftProvider>().Gifts;
-    var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
-    //TODO for the most used
 
     final List<Widget>? mostUsed;
-
+    int maxOfMostUsed =
+        ((MediaQuery.sizeOf(context).width - 18) / TileWithCounter.width)
+            .floor();
+    context.read<GiftProvider>().MaxOfMostUsed = maxOfMostUsed;
+    var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
     if (mostUsedGifts.length > 0) {
       mostUsed = [
         const Text("most used"),
         PrimaryContainer(
-          key: UniqueKey(),
           opacity: 0.1,
           height: 150,
           paddingHorizontal: 10,
@@ -47,15 +49,15 @@ class GiftsBody extends StatelessWidget {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               LevelBar(
                 canChange: false,
               ),
-              const CoinsBar(),
+              CoinsBar(),
             ],
           ),
         ),

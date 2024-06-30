@@ -56,8 +56,13 @@ class HomeBody extends StatelessWidget {
               ],
             ),
           ),
-          Text(somethingChangedEveryTime[
-              Random().nextInt(somethingChangedEveryTime.length - 1)]),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FittedBox(
+              child: Text(somethingChangedEveryTime[
+                  Random().nextInt(somethingChangedEveryTime.length - 1)]),
+            ),
+          ),
           Expanded(
             child: PrimaryContainer(
               opacity: 0.1,

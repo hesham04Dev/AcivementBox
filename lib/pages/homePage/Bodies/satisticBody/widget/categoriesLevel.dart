@@ -9,7 +9,7 @@ import '../../../../../models/imageIcon.dart';
 import '../../../../../models/levelBar.dart';
 
 class CategoriesLevel extends StatelessWidget {
-  CategoriesLevel({super.key});
+  const CategoriesLevel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CategoriesLevel extends StatelessWidget {
       opacity: 0.1,
       padding: 15,
       child: Column(children: [
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         ...List.generate(
@@ -31,11 +31,11 @@ class CategoriesLevel extends StatelessWidget {
                   iconName: iconNames[category[index]['IconId']],
                   size: 15,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text(category[index]['Name']),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 LevelBar(
                   categoryName: category[index]['Name'],
                   canChange: false,
@@ -46,10 +46,12 @@ class CategoriesLevel extends StatelessWidget {
         ),
         TextButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewCategoryPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NewCategoryPage()));
             },
-            child: Text("new category"))
+            child: const Text("new category"))
       ]),
     );
   }

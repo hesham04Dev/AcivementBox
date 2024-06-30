@@ -18,9 +18,10 @@ void main() async {
 
   //db = sqlite3.openInMemory();
   var dir = await getApplicationSupportDirectory();
-  String fileName = path.join(dir.path, 'my_app3.db');
+  String fileName = path.join(dir.path, 'my_app4.db');
   db = sqlite3.open(fileName);
   createTablesIfNotExists(db);
+  updateStreak();
   runApp(const MyApp());
   //db.dispose();
 }

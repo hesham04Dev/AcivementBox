@@ -1,5 +1,7 @@
 import 'package:achivement_box/pages/EditPages/editGiftsPage.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,7 @@ class Gift extends TileWithCounter {
     }));
   }
 
+  @override
   void clicked() {
     if (getCoins() >= super.price) {
       if (super.totalTimes == 1) {
@@ -37,17 +40,42 @@ class Gift extends TileWithCounter {
 
       context.read<GiftProvider>().giftUpdated();
       context.read<CoinsProvider>().removeCoins(super.price);
-      //TODO minus the price of the gift
+
+      toastTitle = "Gift purchased";
+      undoToast.show(context);
+
       // show alert to undo
     } else {
       super.totalTimes--;
-      //TODO show you dont have enough coins
+      CherryToast.warning(
+        title: const Text("you don't have enough money"),
+        animationType: AnimationType.fromTop,
+        displayCloseButton: false,
+      ).show(context);
     }
   }
 
+  @override
   void undo() {
-    // add the price to the coins
-    // minus the totalTimes
+    if (super.totalTimes == 1) {
+      db.execute('''
+      delete from logGift where GiftId = ${super.id} and DateOnly = '$formattedDate'
+      ''');
+      super.totalTimes -= 1;
+    } else {
+      db.execute('''
+      update  logGift set
+      count = ${--super.totalTimes}
+      where DateOnly = '$formattedDate'
+      and GiftId =${super.id}
+      ''');
+    }
+    db.execute('''
+    update  gift set NoOfUsed = NoOfUsed - 1 where
+    Id = ${super.id};
+    ''');
+    context.read<GiftProvider>().giftUpdated();
+    context.read<CoinsProvider>().addCoins(super.price);
   }
 
   Gift({

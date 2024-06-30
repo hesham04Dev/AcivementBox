@@ -11,10 +11,10 @@ class StatisticsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final totalDays = getTotalDays();
     final topHabit = getTopHabit();
     final topGift = getTopGift();
     final topDay = getTopDay();
+    final streak = getStreak();
 
     return Scaffold(
       body: ListView(
@@ -22,8 +22,8 @@ class StatisticsBody extends StatelessWidget {
           WeeklyBar(),
           CategoriesLevel(),
           StatisticBar(
-            statisticName: "Total Days",
-            valueName: "0",
+            statisticName: "Streak",
+            valueName: "$streak",
             icon: IconImage(
               iconName: 'fire-flame.png',
             ),

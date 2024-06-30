@@ -59,13 +59,17 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: bodies[pageIndex],
           ),*/
-          children: bodies,
           onPageChanged: (index) {
             setState(() {
               pageIndex = index;
             });
           },
           controller: bodiesController,
+          /*child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: bodies[pageIndex],
+          ),*/
+          children: bodies,
         ),
         floatingActionButton: FAB,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
