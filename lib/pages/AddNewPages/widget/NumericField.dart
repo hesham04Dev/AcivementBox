@@ -1,3 +1,4 @@
+import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
 class NumericField extends StatelessWidget {
@@ -12,12 +13,9 @@ class NumericField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35),
-          color: Theme.of(context).primaryColor.withOpacity(0.2)),
+    return PrimaryContainer(
+      paddingHorizontal: 20,
+      padding: 0,
       child: TextFormField(
         controller: controller,
         keyboardType: const TextInputType.numberWithOptions(),

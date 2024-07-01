@@ -1,3 +1,4 @@
+import 'package:dynamic_color_theme/dynamic_color_theme.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryContainer extends StatelessWidget {
@@ -29,7 +30,8 @@ class PrimaryContainer extends StatelessWidget {
       margin: EdgeInsets.all(margin),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(45),
-          color: Theme.of(context).primaryColor.withOpacity(opacity)),
+          color: DynamicColorTheme.of(context).color.withOpacity(
+              opacity) /*Theme.of(context).primaryColor.withOpacity(opacity)*/),
       child: child,
     );
   }

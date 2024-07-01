@@ -2,14 +2,20 @@ import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/models/mySwitchTile.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/ColorDialog.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
+import 'package:dynamic_color_theme/dynamic_color_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../db/sql.dart';
 import '../../../../fn/forDbNotification.dart';
 
-class SettingBody extends StatelessWidget {
+class SettingBody extends StatefulWidget {
   const SettingBody({super.key});
 
+  @override
+  State<SettingBody> createState() => _SettingBodyState();
+}
+
+class _SettingBodyState extends State<SettingBody> {
   @override
   Widget build(BuildContext context) {
     final Widget darkModeTile = MySwitchTile(
@@ -17,6 +23,11 @@ class SettingBody extends StatelessWidget {
       value: getDarkMode() == 1 ? true : false,
       onChange: (bool value) {
         value ? setDarkMode(1) : setDarkMode(0);
+        setState(() {});
+        DynamicColorTheme.of(context).setIsDark(
+          isDark: value,
+          shouldSave: true, // saves it to shared preferences
+        );
       },
     );
     return Padding(
@@ -76,7 +87,7 @@ class SettingBody extends StatelessWidget {
             onTap: () {},
           ),
           MyListTile(
-            title: 'Version: 0.5.0',
+            title: 'Version: 0.7.0',
             onTap: () {},
           ),
           Text(

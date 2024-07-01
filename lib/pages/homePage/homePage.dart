@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
 import "../../models/imageIcon.dart";
+import "../../rootProvider/bottomNavBarProvider.dart";
 import "../AddNewPages/newGift.dart";
 import "../AddNewPages/newHabit.dart";
 import "Bodies/HomeBody/homeBody.dart";
@@ -25,7 +27,6 @@ class _HomePageState extends State<HomePage> {
       FAB = SizedBox();
     } else {
       FAB = FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
           shape: ContinuousRectangleBorder(
               borderRadius: BorderRadius.circular(50)),
           onPressed: () {
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       const GiftsBody(),
       const StatisticsBody()
     ];
-
+    int color = context.watch<ColorProvider>().changeColor;
     return Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,
@@ -74,10 +75,6 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FAB,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: false,
-          elevation: 0,
           currentIndex: pageIndex,
           iconSize: 25,
           onTap: (value) {
@@ -86,8 +83,6 @@ class _HomePageState extends State<HomePage> {
               pageIndex = value;
             });
           },
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Theme.of(context).primaryColor,
           items: [
             BottomNavigationBarItem(
                 icon: IconImage(
@@ -111,5 +106,3 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-/*TODO
-*  make the hidden of FAB with animation */

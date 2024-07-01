@@ -1,3 +1,4 @@
+import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:achivement_box/rootProvider/categoryProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,11 +18,8 @@ class CategoryDropDown extends StatelessWidget {
       categoryList.add(DropdownMenuEntry(value: row['Id'], label: row['Name']));
     }
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Theme.of(context).primaryColor.withOpacity(0.2)),
+    return PrimaryContainer(
+      paddingHorizontal: 10,
       child: DropdownMenu(
           controller: controller,
           onSelected: (value) {
@@ -31,7 +29,10 @@ class CategoryDropDown extends StatelessWidget {
             border: InputBorder.none,
           ),
           hintText: "Category",
-          label: const Text("Category"),
+          label: const Text(
+            "Category",
+            style: TextStyle(fontSize: 14),
+          ),
           dropdownMenuEntries: categoryList),
     );
   }

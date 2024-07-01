@@ -1,3 +1,4 @@
+import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
 import 'AutoDirection.dart';
@@ -26,12 +27,9 @@ class _AutoDirectionTextFormFieldState
     extends State<AutoDirectionTextFormField> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35),
-          color: Theme.of(context).primaryColor.withOpacity(0.2)),
+    return PrimaryContainer(
+      paddingHorizontal: 20,
+      padding: 0,
       child: AutoDirection(
         text: widget.controller.text != ''
             ? widget.controller.text[0]
