@@ -25,7 +25,6 @@ class _EditCategoryPageState extends NewCategoryPageState {
 
     super.name.text = category.name;
 
-    //TODO know what this dont work when i change the value whithout recreateion of the widget
     super.selectIcon = SelectIcon(
       selectedIconName: iconNames[category.iconId],
     );

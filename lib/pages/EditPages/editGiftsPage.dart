@@ -27,12 +27,10 @@ class _EditGiftPageState extends NewGiftPageState {
 
     super.coins.text = "${gift.price}";
 
-    //TODO know what this dont work when i change the value whithout recreateion of the widget
     super.selectIcon = SelectIcon(
       selectedIconName: iconNames[gift.iconId],
     );
     selectIcon.selectedIconId = gift.iconId;
-    //TODO not working
   }
 
   @override

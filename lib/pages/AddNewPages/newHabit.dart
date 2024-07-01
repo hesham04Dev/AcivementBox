@@ -141,7 +141,6 @@ class NewHabitPageState extends State<NewHabitPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     time.dispose();
     coins.dispose();
     name.dispose();

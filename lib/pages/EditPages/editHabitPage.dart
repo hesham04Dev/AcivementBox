@@ -33,7 +33,6 @@ class _EditHabitPageState extends NewHabitPageState {
     super.priority.clickedIndex = habit.priority - 1;
     super.isBad.value = habit.isBadHabit;
 
-    //TODO know what this dont work when i change the value whithout recreateion of the widget
     super.selectIcon = SelectIcon(
       selectedIconName: iconNames[habit.iconId],
     );

@@ -28,9 +28,7 @@ class CoinsBar extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Text(
-              addCommas(
-                  totalCoins), //TODO add comma after 3 number if there is more number
+          Text(addCommas(totalCoins),
               style: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,

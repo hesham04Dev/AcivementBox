@@ -3,7 +3,7 @@ import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:flutter/material.dart';
 
 class IconsDialog extends StatelessWidget {
-  IconsDialog({super.key});
+  const IconsDialog({super.key});
   //int selectedIconId = 0;
 
   @override
@@ -32,12 +32,11 @@ class IconsDialog extends StatelessWidget {
                   childAspectRatio: 1,
                   crossAxisSpacing: 4))),
     );
-    ;
   }
 }
 
 Future<int?> showIconPicker(BuildContext context) {
-  var dialog = IconsDialog();
+  var dialog = const IconsDialog();
   return showDialog<int>(
       context: context,
       builder: (BuildContext context) {

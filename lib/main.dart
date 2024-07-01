@@ -46,8 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorTheme(
         data: (Color color, bool isDark) {
-          return _buildTheme(
-              color, isDark); // TODO define your own buildTheme method here
+          return _buildTheme(color, isDark);
         },
         defaultColor: colors[0],
         defaultIsDark: false,
@@ -272,18 +271,19 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//TODO create dataProvider
+//
 /*
 *
-* TODO page of edit habit
+*
 *
 *
 *
 * start with templating
 * then db
 * then provider
-* then design
-* then locales
+* -then design-
+*
+* x then locales
 * refractoring
 * ...
 * */
