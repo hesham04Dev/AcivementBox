@@ -35,10 +35,10 @@ class GiftsBody extends StatelessWidget {
         const Text("most used"),
         PrimaryContainer(
           opacity: 0.1,
-          height: 150,
+          height: 170,
           paddingHorizontal: 10,
           child: ListView(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
+              //clipBehavior: Clip.antiAliasWithSaveLayer,
               scrollDirection: Axis.horizontal,
               children: List.generate(mostUsedGifts.length,
                   (index) => gift(mostUsedGifts[index], context))),
@@ -72,9 +72,9 @@ class GiftsBody extends StatelessWidget {
                 itemBuilder: (context, index) => gift(gifts[index], context),
                 itemCount: gifts.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 121,
-                    mainAxisExtent: 130,
-                    childAspectRatio: 0.8,
+                    maxCrossAxisExtent: 130,
+                    mainAxisExtent: 140,
+                    childAspectRatio: 0.5,
                     crossAxisSpacing: 8)),
           ),
         ),

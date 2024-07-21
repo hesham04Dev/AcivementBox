@@ -20,6 +20,23 @@ class _EditGiftPageState extends NewGiftPageState {
   _EditGiftPageState({required this.gift});
   final gift;
   @override
+  Widget build(BuildContext context) {
+    widget.actions = [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(
+            onPressed: () {
+              deleteGift(id: gift.id);
+              context.read<GiftProvider>().giftUpdated();
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.delete)),
+      )
+    ];
+    return super.build(context);
+  }
+
+  @override
   void initState() {
     super.initState();
 

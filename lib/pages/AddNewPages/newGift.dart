@@ -8,9 +8,9 @@ import '../../rootProvider/giftProvider.dart';
 import 'widget/icon.dart';
 
 class NewGiftPage extends StatefulWidget {
-  const NewGiftPage({super.key});
+  NewGiftPage({super.key});
   static const int giftIconId = 40;
-
+  List<Widget>? actions;
   @override
   State<NewGiftPage> createState() => NewGiftPageState();
 }
@@ -43,6 +43,7 @@ class NewGiftPageState extends State<NewGiftPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("new gift"),
+        actions: widget.actions,
       ),
       body: ListView(
         children: [

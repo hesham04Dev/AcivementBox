@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'database_helper.dart';
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    DatabaseHelper().closeDatabase();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // Close the database when the app is going to the background
+      DatabaseHelper().closeDatabase();
+    } else if (state == AppLifecycleState.resumed) {
+      // Optionally, reopen the database when the app is resumed
+      DatabaseHelper().database;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('SQLite Database Example'),
+        ),
+        body: Center(
+          child: Text('Database management in Flutter'),
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MyApp());
+}

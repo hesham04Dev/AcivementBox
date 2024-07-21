@@ -1,7 +1,6 @@
 import 'package:achivement_box/db/sql.dart';
 import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/rootProvider/bottomNavBarProvider.dart';
-import 'package:dynamic_color_theme/dynamic_color_theme.dart';
+import 'package:achivement_box/rootProvider/ThemeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,11 +24,10 @@ class ColorDialog extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         setAccentColor(index);
-                        context.read<ColorProvider>().colorChanged();
-                        DynamicColorTheme.of(context).setColor(
-                          color: colors[index],
-                          shouldSave: true, // saves it to shared preferences
-                        );
+                        context
+                            .read<ThemeProvider>()
+                            .accentColorChanged(colors[index]);
+
                         Navigator.pop(context);
                       },
                       child: IconImage(

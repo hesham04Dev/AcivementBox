@@ -69,7 +69,7 @@ class ChartBar extends StatelessWidget {
           height: filledHeight,
           width: filledWidth,
           decoration: BoxDecoration(
-              color: colors[getAccentColor()],
+              color: colors[getAccentColorIndex()],
               borderRadius: BorderRadius.circular(10)),
         ),
         SizedBox(

@@ -1,6 +1,7 @@
 import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
+import 'package:achivement_box/pages/EditPages/editCategoriesPage.dart';
 import 'package:achivement_box/rootProvider/categoryProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,31 +26,43 @@ class CategoriesLevel extends StatelessWidget {
           category.length,
           (index) => Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
-            child: Row(
-              children: [
-                IconImage(
-                  iconName: iconNames[category[index]['IconId']],
-                  size: 15,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(category[index]['Name']),
-                const Expanded(child: SizedBox()),
-                LevelBar(
-                  categoryName: category[index]['Name'],
-                  canChange: false,
-                ),
-              ],
+            child: GestureDetector(
+              onLongPress: () {
+                if (index > 0) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return EditCategoriesPage(
+                      categoryId: category[index]['Id'],
+                      categoryName: category[index]['Name'],
+                      categoryIcon: category[index]['IconId'],
+                    );
+                  }));
+                }
+              },
+              child: Row(
+                children: [
+                  IconImage(
+                    iconName: iconNames[category[index]['IconId']],
+                    size: 15,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(category[index]['Name']),
+                  const Expanded(child: SizedBox()),
+                  LevelBar(
+                    categoryName: category[index]['Name'],
+                    canChange: false,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         TextButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NewCategoryPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewCategoryPage()));
             },
             child: const Text("new category"))
       ]),

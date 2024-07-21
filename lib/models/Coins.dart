@@ -14,10 +14,10 @@ class CoinsBar extends StatelessWidget {
     int totalCoins = context.watch<CoinsProvider>().coins;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: colors[getAccentColor()].withOpacity(0.3)),
+          color: colors[getAccentColorIndex()].withOpacity(0.3)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -25,12 +25,12 @@ class CoinsBar extends StatelessWidget {
             iconName: "coin-front.png",
             size: 15,
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Text(addCommas(totalCoins),
-              style: TextStyle(
-                  color: Colors.black54,
+              style: const TextStyle(
+                  //color: Colors.black54,
                   fontWeight: FontWeight.bold,
                   fontSize: 16)),
         ],

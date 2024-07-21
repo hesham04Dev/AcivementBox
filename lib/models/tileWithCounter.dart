@@ -75,7 +75,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
+            border: Border.all(width: 2, color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(50),
           ),
           child: Column(

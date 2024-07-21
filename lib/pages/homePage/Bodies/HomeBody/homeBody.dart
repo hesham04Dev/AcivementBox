@@ -65,8 +65,8 @@ class HomeBody extends StatelessWidget {
           ),
           Expanded(
             child: PrimaryContainer(
-              opacity: 0.1,
               padding: 0,
+              opacity: 0.1,
               paddingHorizontal: 8,
               child: GridView.builder(
                   itemBuilder: (context, index) => Habit(

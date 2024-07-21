@@ -20,6 +20,23 @@ class _EditHabitPageState extends NewHabitPageState {
   final Habit habit;
   _EditHabitPageState({required this.habit});
   @override
+  Widget build(BuildContext context) {
+    widget.actions = [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(
+            onPressed: () {
+              deleteHabit(id: habit.id);
+              context.read<HabitProvider>().habitUpdated();
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.delete)),
+      )
+    ];
+    return super.build(context);
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -29,13 +46,14 @@ class _EditHabitPageState extends NewHabitPageState {
     super.category.text = "${getCategory(habit.categoryId)['Name']}";
     super.categoryDropDown.selectedId = habit.categoryId;
     super.time.text = "${habit.timeInMinutes}";
-    super.hardness.clickedIndex = habit.hardness - 1;
-    super.priority.clickedIndex = habit.priority - 1;
+    super.hardness.selected = habit.hardness;
+    super.priority.selected = habit.priority;
     super.isBad.value = habit.isBadHabit;
 
     super.selectIcon = SelectIcon(
       selectedIconName: iconNames[habit.iconId],
     );
+
     super.selectIcon.selectedIconId = habit.iconId;
   }
 
@@ -49,8 +67,8 @@ class _EditHabitPageState extends NewHabitPageState {
         isBadHabit: super.isBad.value,
         price: int.parse(super.coins.text),
         iconId: selectIcon.selectedIconId ?? NewHabitPage.gearIconId,
-        priority: super.priority.clickedIndex + 1,
-        hardness: super.hardness.clickedIndex + 1,
+        priority: super.priority.selected,
+        hardness: super.hardness.selected,
         timeInMinutes: int.parse(super.time.text),
         totalTimes: habit.totalTimes,
         context: context,

@@ -13,6 +13,7 @@ import 'widget/select with name.dart';
 
 class NewHabitPage extends StatefulWidget {
   NewHabitPage({super.key});
+  List<Widget>? actions;
   static const int gearIconId = 39;
 
   @override
@@ -39,8 +40,8 @@ class NewHabitPageState extends State<NewHabitPage> {
           isBad: isBad.value,
           price: int.parse(coins.text),
           iconId: selectIcon.selectedIconId ?? NewHabitPage.gearIconId,
-          priority: priority.clickedIndex + 1,
-          hardness: hardness.clickedIndex + 1,
+          priority: priority.selected,
+          hardness: hardness.selected,
           timeInMinutes: int.parse(time.text));
 
       context.read<HabitProvider>().newHabit();
@@ -76,6 +77,7 @@ class NewHabitPageState extends State<NewHabitPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("new habit"),
+        actions: widget.actions,
       ),
       body: ListView(
         children: [
@@ -102,7 +104,7 @@ class NewHabitPageState extends State<NewHabitPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const NewCategoryPage()));
+                                    builder: (_) => NewCategoryPage()));
                           },
                           child: const Text("new category"),
                         )

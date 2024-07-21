@@ -2,21 +2,24 @@ import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
 class Select extends StatefulWidget {
-  Select({super.key, required this.length, required this.label});
+  Select(
+      {super.key,
+      required this.length,
+      required this.label,
+      this.selected = 1});
 
   final int length;
   final String label;
-  int clickedIndex = 0;
 
+  int selected;
   @override
   State<Select> createState() => _SelectState();
 }
 
 class _SelectState extends State<Select> {
-  Set<int> selected = {1};
-
   @override
   Widget build(BuildContext context) {
+    Set<int> selected = {widget.selected};
     return PrimaryContainer(
         paddingHorizontal: 20,
         child: Row(
@@ -33,8 +36,8 @@ class _SelectState extends State<Select> {
                       (i) =>
                           ButtonSegment(label: Text("${i + 1}"), value: i + 1)),
                   selected: selected,
-                  onSelectionChanged: (Set<int> p0) {
-                    selected = p0;
+                  onSelectionChanged: (Set<int> chosen) {
+                    widget.selected = chosen.first;
                     setState(() {});
                   },
                   showSelectedIcon: false,

@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 import '../../db/sql.dart';
 
 class NewCategoryPage extends StatefulWidget {
-  const NewCategoryPage({super.key});
+  NewCategoryPage({super.key});
 
   static const int categoryIconId = 0;
-
+  List<Widget>? actions;
   @override
   State<NewCategoryPage> createState() => NewCategoryPageState();
 }
@@ -51,6 +51,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("new Category"),
+        actions: widget.actions,
       ),
       body: ListView(
         children: [

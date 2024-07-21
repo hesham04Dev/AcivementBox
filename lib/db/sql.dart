@@ -18,6 +18,21 @@ void newHabit(
       "INSERT INTO habit('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes') VALUES ('$name',$category,$isBad,$price,$iconId,$priority,$hardness,$timeInMinutes)");
 }
 
+void deleteHabit({required int id}) {
+  db.execute("delete from logHabit where HabitId = $id");
+  db.execute("delete from habit where Id = $id");
+}
+
+void deleteCategory({required int id}) {
+  db.execute("update habit set Category = 1 where Category = $id");
+  db.execute("delete from category where Id = $id");
+}
+
+void deleteGift({required int id}) {
+  db.execute("delete from logGift where GiftId = $id");
+  db.execute("delete from gift where Id = $id");
+}
+
 void newGift({
   required String name,
   required int price,
@@ -220,7 +235,7 @@ LIMIT 7;
   return x;
 }
 
-getAccentColor() {
+getAccentColorIndex() {
   var x = db.select('''SELECT Val from setting where Name = 'AccentColor' ''');
   return x[0]['Val'];
 }
@@ -229,9 +244,12 @@ setAccentColor(val) {
   db.execute("UPDATE setting set Val = $val WHERE Name = 'AccentColor' ");
 }
 
-getDarkMode() {
+bool getDarkMode() {
   var x = db.select('''SELECT Val from setting where Name = 'DarkMode' ''');
-  return x[0]['Val'];
+  if (x[0]['Val'] == 1)
+    return true;
+  else
+    return false;
 }
 
 setDarkMode(val) {
@@ -258,6 +276,12 @@ updateHabit(Habit habit) {
   Price = ${habit.price},
   TimeInMinutes = ${habit.timeInMinutes}
   WHERE Id = ${habit.id} ''');
+}
+
+updateCategory({required int id, required int iconId, required String name}) {
+  db.execute('''UPDATE category set Name = '$name',
+  IconId = $iconId
+  WHERE Id = $id ''');
 }
 
 updateGift(Gift gift) {
