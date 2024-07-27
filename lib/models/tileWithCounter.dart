@@ -1,9 +1,9 @@
 import 'package:achivement_box/models/imageIcon.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 
 import '../output/generated/icon_names.dart';
+import 'my_toast.dart';
 
 abstract class TileWithCounter extends StatefulWidget {
   TileWithCounter(
@@ -20,14 +20,16 @@ abstract class TileWithCounter extends StatefulWidget {
   void openEditPage();
 
   void clicked();
-  late CherryToast undoToast = CherryToast.info(
+  late MyToast undoToast = MyToast(
     title: Text(toastTitle),
-    action: const Text("undo"),
-    actionHandler: () {
-      undoToast.closeOverlay();
-      undo();
-    },
+    button: TextButton(
+        onPressed: () {
+          undoToast.closeOverlay();
+          undo();
+        },
+        child: const Text("undo")),
   );
+
   late String toastTitle;
   void undo();
 
@@ -109,7 +111,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
                     iconName: "coin-front.png",
                     size: 15,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text("${widget.price}"),

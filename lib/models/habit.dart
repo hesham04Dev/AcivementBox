@@ -1,8 +1,8 @@
 import 'package:achivement_box/models/imageIcon.dart';
+import 'package:achivement_box/models/my_toast.dart';
 import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,18 +45,23 @@ class Habit extends TileWithCounter {
       context.read<CoinsProvider>().addCoins(super.price);
       context.read<LevelProvider>().xpIncreased();
       toastTitle = "habit done";
+      //super.showToast(context);
       undoToast.show(context);
+      /*undoToast;
+      undoOverlayController.show();*/
+      //showOverlay(context);
+
       int? res =
           updateLevel(value: super.price + hardness + priority, id: categoryId);
       if (res != null) {
-        CherryToast.success(
+        MyToast(
           title: const Text("Level up"),
           animationType: AnimationType.fromBottom,
           toastPosition: Position.bottom,
           iconWidget: IconImage(
             iconName: iconNames[getCategory(categoryId)['IconId']],
           ),
-          displayCloseButton: false,
+          displayCloseButton: true,
         ).show(context);
       }
     }

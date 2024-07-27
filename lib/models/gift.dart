@@ -42,7 +42,7 @@ class Gift extends TileWithCounter {
       context.read<CoinsProvider>().removeCoins(super.price);
 
       toastTitle = "Gift purchased";
-      undoToast.show(context);
+      //undoToast.show(context);
 
       // show alert to undo
     } else {

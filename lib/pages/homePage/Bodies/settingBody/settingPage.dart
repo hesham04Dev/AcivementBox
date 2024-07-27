@@ -2,12 +2,14 @@ import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/models/mySwitchTile.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/ColorDialog.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
+import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/backup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../db/sql.dart';
 import '../../../../rootProvider/ThemeProvider.dart';
+import 'Widget/restore_tile.dart';
 
 class SettingBody extends StatefulWidget {
   const SettingBody({super.key});
@@ -42,42 +44,10 @@ class _SettingBodyState extends State<SettingBody> {
               showDialog(context: context, builder: (context) => ColorDialog());
             },
           ),
-          MyListTile(
-            title: 'Backup',
-            trailing: IconImage(
-              iconName: "arrow-up-from-arc.png",
-            ),
-            onTap: () {},
-          ),
-          /*MyListTile(
-            title: 'Notification',
-            subtitle: "notify me at ${formatToGet(getNotificationTime())}",
-            trailing: IconImage(
-              iconName: "watch.png",
-            ),
-            onTap: () async {
-              TimeOfDay? x = await showTimePicker(
-                  context: context, initialTime: TimeOfDay.now());
-              if (x != null) {
-                setNotificationTime(formatToSet(x.hour, x.minute));
-              }
-            },
-          ),
-
-          MyListTile(
-            title: 'Restore',
-            trailing: IconImage(
-              iconName: "arrow-up-to-arc.png",
-            ),
-            onTap: () {},
-          ),
-          MyListTile(
-            title: 'Archive',
-            trailing: IconImage(
-              iconName: "box-archive.png",
-            ),
-            onTap: () {},
-          ),*/
+          BackupTile(),
+          /*not constant*/
+          RestoreTile(),
+          /*not constant*/
           MyListTile(
             title: 'View on Github',
             trailing: IconImage(

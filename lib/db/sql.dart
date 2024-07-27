@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 import '../models/Category.dart';
 import '../models/gift.dart';
 import '../models/habit.dart';
+import 'db.dart';
 
 void newHabit(
     {required String name,
@@ -18,8 +22,14 @@ void newHabit(
       "INSERT INTO habit('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes') VALUES ('$name',$category,$isBad,$price,$iconId,$priority,$hardness,$timeInMinutes)");
 }
 
+/*TODO fix sql injection
+*    await db.execute(
+    "UPDATE category SET EarnedXp = ?, MaxXp = ?, Level = ? WHERE Id = ?",
+    [category.earnedXp, category.maxXp, category.level, category.id]
+  );
+* */
 void deleteHabit({required int id}) {
-  db.execute("delete from logHabit where HabitId = $id");
+  db.execute("delete from logHabit where HabitId = ?", [id]);
   db.execute("delete from habit where Id = $id");
 }
 
@@ -92,13 +102,13 @@ getLevel({required String name}) {
 DateTime now = DateTime.now();
 String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
-Map<int, int> getHabitCount() {
+/*Map<int, int> getHabitCount() {
   '''
-  select habitId,count form logHabit where 
+  select habitId,count form logHabit where
   DateOnly = $formattedDate
   ''';
   return {};
-}
+}*/
 
 int? updateLevel({required int value, required int id}) {
   Row res = db.select("select * from category where id =$id")[0];
@@ -301,4 +311,22 @@ void updateStreak() {
   } else if (diff != 0) {
     db.execute('''UPDATE setting set Val = 1  WHERE Name = 'Streak' ''');
   }
+}
+
+Future<void> openDb() async {
+  var dir = await getApplicationSupportDirectory();
+  String dbPath = '${dir.path}/hcody_ab.db';
+  File restored = File('${dir.path}/restored.db');
+  if (await restored.exists()) {
+    print(dbPath);
+    print("restoreing");
+    File old = File(dbPath);
+    //db = sqlite3.openInMemory();
+    await old.delete();
+    await restored.rename(dbPath);
+  }
+  db = sqlite3.open(dbPath);
+
+  createTablesIfNotExists(db);
+  updateStreak();
 }

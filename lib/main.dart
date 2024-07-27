@@ -1,12 +1,8 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/pageIndexProvider.dart';
 import 'package:flutter/material.dart';
-import "package:path/path.dart" as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:sqlite3/sqlite3.dart';
 
-import 'db/db.dart';
 import 'db/sql.dart';
 import 'output/generated/colors.dart';
 import 'pages/homePage/homePage.dart';
@@ -21,16 +17,8 @@ const kDarkGrey = const Color(0xFF202020);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  //db = sqlite3.openInMemory();
-  var dir = await getApplicationSupportDirectory();
-  String fileName = path.join(dir.path, 'my_app4.db');
-  db = sqlite3.open(fileName);
-
-  createTablesIfNotExists(db);
-  updateStreak();
+  await openDb();
   runApp(const MyApp());
-  //db.dispose();
 }
 
 /*final _defaultLightColorScheme = ColorScheme.fromSwatch(
