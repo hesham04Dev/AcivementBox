@@ -3,6 +3,7 @@ import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:achivement_box/pages/EditPages/editCategoriesPage.dart';
 import 'package:achivement_box/rootProvider/categoryProvider.dart';
+import 'package:achivement_box/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,10 @@ class CategoriesLevel extends StatelessWidget {
       opacity: 0.1,
       padding: 15,
       child: Column(children: [
+        Text(
+          "Categories",
+          style: titleStyle(context),
+        ),
         const SizedBox(
           height: 10,
         ),

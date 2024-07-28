@@ -19,8 +19,8 @@ class StatisticsBody extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          WeeklyBar(),
-          CategoriesLevel(),
+          const WeeklyBar(),
+          const CategoriesLevel(),
           StatisticBar(
             statisticName: "Streak",
             valueName: "$streak",

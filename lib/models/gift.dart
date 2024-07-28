@@ -1,6 +1,6 @@
+import 'package:achivement_box/models/my_toast.dart';
 import 'package:achivement_box/pages/EditPages/editGiftsPage.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,12 +42,12 @@ class Gift extends TileWithCounter {
       context.read<CoinsProvider>().removeCoins(super.price);
 
       toastTitle = "Gift purchased";
-      //undoToast.show(context);
+      undoToast.show(context);
 
       // show alert to undo
     } else {
       super.totalTimes--;
-      CherryToast.warning(
+      MyToast(
         title: const Text("you don't have enough money"),
         animationType: AnimationType.fromTop,
         displayCloseButton: false,

@@ -1,18 +1,20 @@
 import 'package:achivement_box/models/PrimaryContainer.dart';
+import 'package:achivement_box/models/verticalBar.dart';
+import 'package:achivement_box/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../db/sql.dart';
-import '../../../../../models/chartBar.dart';
+import '../../../../../fn/money_labeling.dart';
 
 class WeeklyBar extends StatelessWidget {
-  WeeklyBar({super.key});
+  const WeeklyBar({super.key});
 
   //final List<String> days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> x = getWeeklyData();
-    if (x.length > 0) {
+    if (x.isNotEmpty) {
       int maxValue = 0;
       for (int i = 0; i < x.length; i++) {
         if (x[i]['Total'] > maxValue) {
@@ -24,9 +26,12 @@ class WeeklyBar extends StatelessWidget {
         opacity: 0.1,
         child: Column(
           children: [
-            Text("Coins bar"),
+            Text(
+              "Coins bar",
+              style: titleStyle(context),
+            ),
             SizedBox(
-              height: 161,
+              height: 200,
               child: ListView(
                   // physics: const ClampingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
@@ -40,25 +45,29 @@ class WeeklyBar extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
                           width: 20,
-                          child: Column(children: [
-                            ChartBar(
-                              percent: x[index]['Total'] / maxValue,
-                              text: x[index]['Total'].toString(),
-                              thickness: 25,
-                              size: 120,
-                              isVertical: true,
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            ConstrainedBox(
-                                constraints:
-                                    BoxConstraints(minHeight: 1, minWidth: 1),
-                                child: Text(
-                                  date,
-                                  style: TextStyle(fontSize: 7.2),
-                                )),
-                          ]),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                VerticalBar(
+                                  text: labelMoney(x[index]['Total']),
+                                  filledHeight:
+                                      120 * x[index]['Total'] / maxValue,
+                                  filledWidth: 25,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                        minHeight: 1, minWidth: 1),
+                                    child: Text(
+                                      date,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontSize: 6.8,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ]),
                         ),
                       );
                     },
@@ -67,12 +76,14 @@ class WeeklyBar extends StatelessWidget {
           ],
         ),
       );
-    } else
-      return PrimaryContainer(
+    } else {
+      return const PrimaryContainer(
+        opacity: 0.1,
         height: 150,
         child: Center(
           child: Text("do some habits to gather statistics on."),
         ),
       );
+    }
   }
 }

@@ -65,8 +65,6 @@ class GiftsBody extends StatelessWidget {
         const Text("all items"),
         Expanded(
           child: PrimaryContainer(
-            padding: 0,
-            paddingHorizontal: 8,
             opacity: 0.1,
             child: GridView.builder(
                 itemBuilder: (context, index) => gift(gifts[index], context),

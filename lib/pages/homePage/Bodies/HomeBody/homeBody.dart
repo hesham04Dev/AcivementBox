@@ -57,7 +57,7 @@ class HomeBody extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: FittedBox(
               child: Text(somethingChangedEveryTime[
                   Random().nextInt(somethingChangedEveryTime.length - 1)]),
@@ -65,9 +65,7 @@ class HomeBody extends StatelessWidget {
           ),
           Expanded(
             child: PrimaryContainer(
-              padding: 0,
               opacity: 0.1,
-              paddingHorizontal: 8,
               child: GridView.builder(
                   itemBuilder: (context, index) => Habit(
                         context: context,
@@ -84,9 +82,9 @@ class HomeBody extends StatelessWidget {
                       ),
                   itemCount: habits.length,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 121,
-                      mainAxisExtent: 150,
-                      childAspectRatio: 0.6,
+                      maxCrossAxisExtent: 140,
+                      mainAxisExtent: 140,
+                      childAspectRatio: 0.72,
                       crossAxisSpacing: 8)),
             ),
           ),

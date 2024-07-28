@@ -19,12 +19,15 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double percent = this.percent;
     double totalHeight;
     double totalWidth;
     double filledHeight;
     double filledWidth;
     EdgeInsetsGeometry? margin;
-
+    if (percent < 0.1 && percent > 0) {
+      percent = 0.1;
+    }
     var textWidget = Text(
       text,
       style: const TextStyle(
@@ -35,23 +38,13 @@ class ChartBar extends StatelessWidget {
       totalHeight = size;
       filledHeight = size * percent;
       filledWidth = thickness;
-      if (percent < 0.1) {
-        margin = EdgeInsets.only(
-            left: thickness * 0.1, top: totalHeight - filledHeight - 3);
-        filledWidth -= thickness * 0.2;
-      } else {
-        margin = EdgeInsets.only(top: totalHeight - filledHeight);
-      }
+      margin = EdgeInsets.only(top: totalHeight - filledHeight);
     } else {
       totalHeight = thickness;
       totalWidth = size;
       filledHeight = thickness;
       filledWidth = size * percent;
-      if (percent < 0.1) {
-        margin = EdgeInsets.only(top: thickness * 0.1, left: 2);
-        filledHeight -= thickness * 0.2;
-      } else
-        margin = EdgeInsets.only();
+      margin = const EdgeInsets.only();
     }
     return Stack(
       children: <Widget>[
@@ -75,13 +68,7 @@ class ChartBar extends StatelessWidget {
         SizedBox(
           width: size,
           height: thickness,
-          child: isVertical
-              ? /*Transform.rotate(
-                  angle: -3.14 / 2,
-                  origin: Offset(totalWidth / 2 - 12, totalHeight / 2 - 10),
-                  child: textWidget)*/
-              FittedBox(child: textWidget)
-              : FittedBox(child: textWidget),
+          child: FittedBox(child: textWidget),
         )
       ],
     );
