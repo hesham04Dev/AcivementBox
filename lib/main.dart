@@ -4,16 +4,12 @@ import 'package:achivement_box/pages/homePage/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'config/app_theme.dart';
 import 'db/sql.dart';
-import 'output/generated/colors.dart';
 import 'rootProvider/ThemeProvider.dart';
 import 'rootProvider/categoryProvider.dart';
 import 'rootProvider/giftProvider.dart';
 import 'rootProvider/habitProvider.dart';
-
-const kWhite = Colors.white;
-const kLightGrey = const Color(0xFFE8E8E8);
-const kDarkGrey = const Color(0xFF202020);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,123 +54,12 @@ class MyApp extends StatelessWidget {
           bool isDarkMode = getDarkMode();
           Color accentColor = context.watch<ThemeProvider>().AccentColor;
           return MaterialApp(
-              title: 'Flutter Demo',
+              title: 'Achievement Box',
               themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
               debugShowCheckedModeBanner: false,
-              theme: _buildTheme(accentColor, isDarkMode),
+              theme: buildTheme(accentColor, isDarkMode),
               home: const HomePage());
         }));
-  }
-
-  ThemeData _buildTheme(Color accentColor, bool isDark) {
-    final ThemeData base = isDark ? ThemeData.dark() : ThemeData.light();
-    Color backgroundColor = isDark ? kDarkGrey : kWhite;
-    Color primaryColor = accentColor;
-    print(primaryColor);
-    final swatch = ColorScheme.fromSwatch(
-        primarySwatch: colors[getAccentColorIndex()],
-        brightness: isDark ? Brightness.dark : Brightness.light);
-    return base.copyWith(
-      dropdownMenuTheme: DropdownMenuThemeData(
-          menuStyle: MenuStyle(
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25))))),
-      segmentedButtonTheme: SegmentedButtonThemeData(
-          style: SegmentedButton.styleFrom(
-              /*selectedBackgroundColor: swatch.primary,*/
-
-              )),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.transparent,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: false,
-          elevation: 0,
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: swatch.primary,
-          selectedLabelStyle: TextStyle(color: swatch.primary)),
-      switchTheme: SwitchThemeData(
-        trackOutlineColor:
-            WidgetStatePropertyAll(swatch.primary.withOpacity(0.2)),
-        thumbColor: WidgetStatePropertyAll(swatch.primary.withOpacity(0.2)),
-      ),
-      dialogTheme:
-          DialogTheme(backgroundColor: isDark ? Colors.black : Colors.white),
-      iconButtonTheme: IconButtonThemeData(
-          style: ButtonStyle(
-              iconColor: WidgetStatePropertyAll(
-        swatch.primary,
-      ))),
-      inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(color: isDark ? Colors.white : Colors.black)),
-      textButtonTheme: TextButtonThemeData(
-          style: ButtonStyle(
-              textStyle: WidgetStatePropertyAll(TextStyle(
-        color: swatch.primary,
-        fontFamily: "Dubai",
-      )))),
-      scaffoldBackgroundColor: isDark ? kDarkGrey : kWhite,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-          shape: const CircleBorder(),
-          backgroundColor: swatch.primary.withOpacity(0.9),
-          elevation: 0,
-          hoverElevation: 0),
-      iconTheme: IconThemeData(
-        color: swatch.primary,
-      ),
-      colorScheme: swatch,
-      appBarTheme: AppBarTheme(
-        backgroundColor: isDark ? kDarkGrey : kWhite,
-        titleTextStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontFamily: "Dubai",
-          fontSize: 20,
-          color: swatch.primary,
-        ),
-        centerTitle: true,
-      ),
-      hintColor: accentColor,
-      cardColor: primaryColor,
-      primaryColor: primaryColor,
-      primaryIconTheme: base.primaryIconTheme.copyWith(
-        color: accentColor,
-      ),
-      primaryTextTheme: _buildTextTheme(base.primaryTextTheme, accentColor),
-      textSelectionTheme: _buildTextSelectionTheme(
-          base.textSelectionTheme, accentColor, isDark),
-      textTheme: _buildTextTheme(base.textTheme, accentColor),
-    );
-  }
-
-  TextTheme _buildTextTheme(TextTheme base, Color color) {
-    return base.copyWith(
-      bodyMedium: base.bodyMedium!.copyWith(fontSize: 16, fontFamily: "Dubai"),
-      bodyLarge: base.bodyLarge!.copyWith(
-          color: color,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          fontFamily: "Dubai"),
-      labelLarge: base.labelLarge!.copyWith(color: color, fontFamily: "Dubai"),
-      bodySmall: base.bodySmall!
-          .copyWith(color: color, fontSize: 14, fontFamily: "Dubai"),
-      headlineSmall: base.headlineSmall!
-          .copyWith(color: color, fontSize: 22, fontFamily: "Dubai"),
-      titleMedium: base.titleMedium!
-          .copyWith(color: color, fontSize: 16, fontFamily: "Dubai"),
-      titleLarge: base.titleLarge!.copyWith(
-          color: color,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          fontFamily: "Dubai"),
-    );
-  }
-
-  TextSelectionThemeData _buildTextSelectionTheme(
-      TextSelectionThemeData base, Color accentColor, bool isDark) {
-    return base.copyWith(
-      cursorColor: accentColor,
-      selectionColor: isDark ? kDarkGrey : kLightGrey,
-      selectionHandleColor: accentColor,
-    );
   }
 }
 //

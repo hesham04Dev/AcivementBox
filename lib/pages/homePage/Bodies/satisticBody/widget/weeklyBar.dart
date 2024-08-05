@@ -1,10 +1,10 @@
 import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:achivement_box/models/verticalBar.dart';
-import 'package:achivement_box/styles.dart';
+import 'package:achivement_box/models/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../db/sql.dart';
 import '../../../../../fn/money_labeling.dart';
+import '../../../../../models/verticalBar.dart';
 
 class WeeklyBar extends StatelessWidget {
   const WeeklyBar({super.key});

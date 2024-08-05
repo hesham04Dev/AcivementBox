@@ -15,7 +15,7 @@ void createTablesIfNotExists(Database db) {
   ColorId INTEGER DEFAULT 0,
   IconId INTEGER DEFAULT 0,
   EarnedXp INTEGER DEFAULT 0,
-  MaxXp INTEGER DEFAULT 500,
+  MaxXp INTEGER DEFAULT 100,
   Level INTEGER DEFAULT 1
   );
   INSERT OR IGNORE INTO  category (Name) values('main');

@@ -1,14 +1,14 @@
 import 'package:achivement_box/models/PrimaryContainer.dart';
+import 'package:achivement_box/models/styles.dart';
 import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:achivement_box/pages/EditPages/editCategoriesPage.dart';
-import 'package:achivement_box/rootProvider/categoryProvider.dart';
-import 'package:achivement_box/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../models/imageIcon.dart';
 import '../../../../../models/levelBar.dart';
+import '../../../../../rootProvider/categoryProvider.dart';
 
 class CategoriesLevel extends StatelessWidget {
   const CategoriesLevel({super.key});

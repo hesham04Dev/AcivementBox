@@ -19,8 +19,12 @@ class CategoryDropDown extends StatelessWidget {
     }
 
     return PrimaryContainer(
+      padding: 0,
+      width: 150,
+      height: 50,
       paddingHorizontal: 10,
       child: DropdownMenu(
+          width: 130,
           controller: controller,
           onSelected: (value) {
             selectedId = value;
