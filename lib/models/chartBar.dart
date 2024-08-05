@@ -2,6 +2,7 @@ import 'package:achivement_box/db/sql.dart';
 import 'package:flutter/material.dart';
 
 import '../output/generated/colors.dart';
+import 'PrimaryContainer.dart';
 
 class ChartBar extends StatelessWidget {
   final String text;
@@ -30,8 +31,7 @@ class ChartBar extends StatelessWidget {
     }
     var textWidget = Text(
       text,
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12),
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
     );
     if (isVertical) {
       totalWidth = thickness;
@@ -48,14 +48,17 @@ class ChartBar extends StatelessWidget {
     }
     return Stack(
       children: <Widget>[
-        Container(
+        PrimaryContainer(
+          margin: 0,
+          padding: 0,
           height: totalHeight,
           width: totalWidth,
-          decoration: BoxDecoration(
+          child: const SizedBox(),
+          /*decoration: BoxDecoration(
             color: Colors.grey[50],
             border: Border.all(color: Colors.grey.shade100, width: 2),
             borderRadius: BorderRadius.circular(100),
-          ),
+          ),*/
         ),
         Container(
           margin: margin,

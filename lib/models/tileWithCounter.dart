@@ -6,31 +6,33 @@ import '../output/generated/icon_names.dart';
 import 'my_toast.dart';
 
 abstract class TileWithCounter extends StatefulWidget {
-  TileWithCounter(
-      {super.key,
-      required this.id,
-      required this.iconId,
-      required this.name,
-      required this.price,
-      required this.context,
-      required this.totalTimes}) {
-    //clicked;
-  }
+  TileWithCounter({
+    super.key,
+    required this.id,
+    required this.iconId,
+    required this.name,
+    required this.price,
+    required this.context,
+    required this.totalTimes,
+  });
 
   void openEditPage();
 
   void clicked();
+
   late MyToast undoToast = MyToast(
     title: Text(toastTitle),
     button: TextButton(
-        onPressed: () {
-          undoToast.closeOverlay();
-          undo();
-        },
-        child: const Text("undo")),
+      onPressed: () {
+        undoToast.closeOverlay();
+        undo();
+      },
+      child: const Text("undo"),
+    ),
   );
 
   late String toastTitle;
+
   void undo();
 
   final int iconId;
@@ -40,6 +42,7 @@ abstract class TileWithCounter extends StatefulWidget {
   final int id;
   static const double width = 100;
   int totalTimes;
+
   @override
   State<TileWithCounter> createState() => _TileWithCounterState();
 }
@@ -61,19 +64,21 @@ class _TileWithCounterState extends State<TileWithCounter> {
         elevation: 0,
       ),
       badgeContent: SizedBox(
-          width: 20,
-          height: 20,
-          child: FittedBox(
-              child: Text(
+        width: 20,
+        height: 20,
+        child: FittedBox(
+          child: Text(
             "${widget.totalTimes}",
             textAlign: TextAlign.center,
-          ))),
+          ),
+        ),
+      ),
       child: GestureDetector(
         onLongPress: () => widget.openEditPage(),
         onTap: used,
         child: Container(
           width: TileWithCounter.width,
-          height: 140,
+          height: 150, // Increase the height to provide more space
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -88,18 +93,22 @@ class _TileWithCounterState extends State<TileWithCounter> {
               ),
               IconImage(
                 iconName: iconNames[widget.iconId],
-                size: 50,
+                size: 40,
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Center(
-                    child: Text(widget.name,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      widget.name,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -114,7 +123,10 @@ class _TileWithCounterState extends State<TileWithCounter> {
                   const SizedBox(
                     width: 5,
                   ),
-                  Text("${widget.price}"),
+                  Text(
+                    "${widget.price}",
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
               Container(
@@ -125,7 +137,7 @@ class _TileWithCounterState extends State<TileWithCounter> {
                     widget.openEditPage();
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

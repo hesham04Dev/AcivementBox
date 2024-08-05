@@ -238,7 +238,7 @@ SELECT lh.DateOnly, SUM(lh.Count * h.Price) AS Total
 FROM habit AS h
 INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
 GROUP BY lh.DateOnly
-ORDER BY lh.DateOnly
+ORDER BY lh.DateOnly desc
 LIMIT 7;
   ''');
 
@@ -256,10 +256,11 @@ setAccentColor(val) {
 
 bool getDarkMode() {
   var x = db.select('''SELECT Val from setting where Name = 'DarkMode' ''');
-  if (x[0]['Val'] == 1)
+  if (x[0]['Val'] == 1) {
     return true;
-  else
+  } else {
     return false;
+  }
 }
 
 setDarkMode(val) {
@@ -289,6 +290,7 @@ updateHabit(Habit habit) {
 }
 
 updateCategory({required int id, required int iconId, required String name}) {
+  print(iconId);
   db.execute('''UPDATE category set Name = '$name',
   IconId = $iconId
   WHERE Id = $id ''');

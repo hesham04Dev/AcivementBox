@@ -64,7 +64,10 @@ class _EditCategoryPageState extends NewCategoryPageState {
 
   @override
   void save(BuildContext context) {
-    updateCategory(id: categoryId, iconId: categoryIcon, name: super.name.text);
+    updateCategory(
+        id: categoryId,
+        iconId: selectIcon.selectedIconId ?? 0,
+        name: super.name.text);
     context.read<CategoryProvider>().categoryUpdated();
     Navigator.pop(context);
   }

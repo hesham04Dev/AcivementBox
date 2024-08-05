@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../AddNewPages/newGift.dart';
-import '../../../AddNewPages/newHabit.dart';
-import '../providers/pageIndexProvider.dart';
+import '../../AddNewPages/newGift.dart';
+import '../../AddNewPages/newHabit.dart';
+import '../Bodies/providers/pageIndexProvider.dart';
 
 class MyFab extends StatelessWidget {
   const MyFab({super.key});
@@ -15,6 +15,8 @@ class MyFab extends StatelessWidget {
       return const SizedBox();
     } else {
       return FloatingActionButton(
+          heroTag: "add",
+          elevation: 0,
           shape: ContinuousRectangleBorder(
               borderRadius: BorderRadius.circular(50)),
           onPressed: () {

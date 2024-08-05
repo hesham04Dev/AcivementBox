@@ -24,7 +24,11 @@ class LevelBar extends StatelessWidget {
         child: Text("$currentXp / $maxXp",
             style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
       ),
-      ChartBar(text: "level: $level", percent: percent)
+      ChartBar(
+        text: "level: $level",
+        percent: percent,
+        thickness: 15,
+      )
     ]);
   }
 }

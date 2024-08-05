@@ -25,7 +25,6 @@ class _SettingBodyState extends State<SettingBody> {
       title: "darkMode",
       value: getDarkMode(),
       onChange: (bool value) {
-        print("Dark Mode");
         value ? setDarkMode(1) : setDarkMode(0);
         context.read<ThemeProvider>().toggleMode();
       },
@@ -59,7 +58,7 @@ class _SettingBodyState extends State<SettingBody> {
             },
           ),
           MyListTile(
-            title: 'Version: 0.7.0',
+            title: 'Version: 0.7.5',
             onTap: () {},
           ),
         ],

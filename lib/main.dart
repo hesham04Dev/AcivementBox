@@ -1,11 +1,11 @@
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/pageIndexProvider.dart';
+import 'package:achivement_box/pages/homePage/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'db/sql.dart';
 import 'output/generated/colors.dart';
-import 'pages/homePage/homePage.dart';
 import 'rootProvider/ThemeProvider.dart';
 import 'rootProvider/categoryProvider.dart';
 import 'rootProvider/giftProvider.dart';
@@ -58,28 +58,32 @@ class MyApp extends StatelessWidget {
           bool isDarkMode = getDarkMode();
           Color accentColor = context.watch<ThemeProvider>().AccentColor;
           return MaterialApp(
-            title: 'Flutter Demo',
-            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            debugShowCheckedModeBanner: false,
-            theme: _buildTheme(accentColor, isDarkMode),
-            home: const HomePage(),
-          );
+              title: 'Flutter Demo',
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              debugShowCheckedModeBanner: false,
+              theme: _buildTheme(accentColor, isDarkMode),
+              home: const HomePage());
         }));
   }
 
   ThemeData _buildTheme(Color accentColor, bool isDark) {
     final ThemeData base = isDark ? ThemeData.dark() : ThemeData.light();
-    Color primaryColor = isDark ? kDarkGrey : kWhite;
-    primaryColor = accentColor;
+    Color backgroundColor = isDark ? kDarkGrey : kWhite;
+    Color primaryColor = accentColor;
     print(primaryColor);
     final swatch = ColorScheme.fromSwatch(
         primarySwatch: colors[getAccentColorIndex()],
         brightness: isDark ? Brightness.dark : Brightness.light);
     return base.copyWith(
+      dropdownMenuTheme: DropdownMenuThemeData(
+          menuStyle: MenuStyle(
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25))))),
       segmentedButtonTheme: SegmentedButtonThemeData(
           style: SegmentedButton.styleFrom(
-        selectedBackgroundColor: swatch.primary,
-      )),
+              /*selectedBackgroundColor: swatch.primary,*/
+
+              )),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.transparent,
           type: BottomNavigationBarType.fixed,
@@ -101,8 +105,7 @@ class MyApp extends StatelessWidget {
         swatch.primary,
       ))),
       inputDecorationTheme: InputDecorationTheme(
-          hintStyle:
-              TextStyle(color: isDark ? Colors.white70 : Colors.black54)),
+          hintStyle: TextStyle(color: isDark ? Colors.white : Colors.black)),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
               textStyle: WidgetStatePropertyAll(TextStyle(
@@ -112,7 +115,9 @@ class MyApp extends StatelessWidget {
       scaffoldBackgroundColor: isDark ? kDarkGrey : kWhite,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           shape: const CircleBorder(),
-          backgroundColor: swatch.primary.withOpacity(0.7)),
+          backgroundColor: swatch.primary.withOpacity(0.9),
+          elevation: 0,
+          hoverElevation: 0),
       iconTheme: IconThemeData(
         color: swatch.primary,
       ),
@@ -142,34 +147,24 @@ class MyApp extends StatelessWidget {
 
   TextTheme _buildTextTheme(TextTheme base, Color color) {
     return base.copyWith(
-      bodyMedium: base.bodyMedium!.copyWith(
-        fontSize: 16,
-      ),
+      bodyMedium: base.bodyMedium!.copyWith(fontSize: 16, fontFamily: "Dubai"),
       bodyLarge: base.bodyLarge!.copyWith(
-        color: color,
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-      ),
-      labelLarge: base.labelLarge!.copyWith(
-        color: color,
-      ),
-      bodySmall: base.bodySmall!.copyWith(
-        color: color,
-        fontSize: 14,
-      ),
-      headlineSmall: base.headlineSmall!.copyWith(
-        color: color,
-        fontSize: 22,
-      ),
-      titleMedium: base.titleMedium!.copyWith(
-        color: color,
-        fontSize: 16,
-      ),
+          color: color,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Dubai"),
+      labelLarge: base.labelLarge!.copyWith(color: color, fontFamily: "Dubai"),
+      bodySmall: base.bodySmall!
+          .copyWith(color: color, fontSize: 14, fontFamily: "Dubai"),
+      headlineSmall: base.headlineSmall!
+          .copyWith(color: color, fontSize: 22, fontFamily: "Dubai"),
+      titleMedium: base.titleMedium!
+          .copyWith(color: color, fontSize: 16, fontFamily: "Dubai"),
       titleLarge: base.titleLarge!.copyWith(
-        color: color,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
+          color: color,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Dubai"),
     );
   }
 

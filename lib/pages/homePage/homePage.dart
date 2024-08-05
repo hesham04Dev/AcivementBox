@@ -1,6 +1,4 @@
 import "package:achivement_box/pages/homePage/Bodies/providers/pageIndexProvider.dart";
-import "package:achivement_box/pages/homePage/Bodies/widget/BottomNavigationBar.dart";
-import "package:achivement_box/pages/homePage/Bodies/widget/myFab.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
@@ -8,6 +6,8 @@ import "Bodies/HomeBody/homeBody.dart";
 import "Bodies/giftsBody/giftsPage.dart";
 import "Bodies/satisticBody/statisticBody.dart";
 import "Bodies/settingBody/settingPage.dart";
+import "widget/BottomNavigationBar.dart";
+import "widget/myFab.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage() : super();

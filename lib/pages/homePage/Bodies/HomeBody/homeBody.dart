@@ -81,11 +81,13 @@ class HomeBody extends StatelessWidget {
                         timeInMinutes: habits[index]['TimeInMinutes'],
                       ),
                   itemCount: habits.length,
+                  shrinkWrap: false,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 140,
-                      mainAxisExtent: 140,
-                      childAspectRatio: 0.72,
-                      crossAxisSpacing: 8)),
+                    mainAxisSpacing: 10.0, // Vertical spacing between items
+                    crossAxisSpacing: 10.0, // Horizontal spacing between items
+                    childAspectRatio: 110 / 150,
+                    maxCrossAxisExtent: 110, // Aspect ratio of the widgets
+                  )),
             ),
           ),
         ],

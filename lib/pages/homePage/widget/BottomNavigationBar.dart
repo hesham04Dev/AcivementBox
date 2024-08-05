@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../models/imageIcon.dart';
 import '../../../../rootProvider/ThemeProvider.dart';
-import '../providers/pageIndexProvider.dart';
+import '../Bodies/providers/pageIndexProvider.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({super.key});

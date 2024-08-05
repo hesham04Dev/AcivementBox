@@ -13,6 +13,7 @@ import '../rootProvider/habitProvider.dart';
 import 'tileWithCounter.dart';
 
 class Habit extends TileWithCounter {
+  static const width = 110;
   final bool isBadHabit;
   final int priority;
   final int hardness;
