@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 class IconsDialog extends StatelessWidget {
   const IconsDialog({super.key});
-  //int selectedIconId = 0;
-
   @override
   Widget build(BuildContext context) {
     return Dialog(

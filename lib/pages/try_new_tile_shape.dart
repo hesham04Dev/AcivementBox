@@ -7,6 +7,7 @@ class NewShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int crossCount = ((MediaQuery.sizeOf(context).width - 40) / 110).floor();
     Habit habit = Habit(
         id: 0,
         iconId: 0,
@@ -20,9 +21,23 @@ class NewShape extends StatelessWidget {
         hardness: 5,
         timeInMinutes: 10);
     return Scaffold(
-      body: Center(
-        child: habit,
-      ),
+      body: GridView.builder(
+          itemBuilder: (context, index) => Habit(
+              context: context,
+              categoryId: habit.categoryId,
+              id: habit.id,
+              totalTimes: 0,
+              hardness: 1,
+              iconId: 1,
+              isBadHabit: 0 == 1 ? true : false,
+              name: habit.name,
+              price: habit.price,
+              priority: 5,
+              timeInMinutes: 5),
+          itemCount: 20,
+          shrinkWrap: false,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossCount, childAspectRatio: 110 / 150)),
     );
   }
 }

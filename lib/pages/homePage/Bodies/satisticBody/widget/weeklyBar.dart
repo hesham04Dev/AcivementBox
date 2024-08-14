@@ -1,5 +1,5 @@
+import 'package:achivement_box/config/styles.dart';
 import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:achivement_box/models/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../db/sql.dart';

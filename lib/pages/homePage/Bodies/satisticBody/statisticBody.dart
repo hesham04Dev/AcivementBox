@@ -34,21 +34,21 @@ class StatisticsBody extends StatelessWidget {
                   valueName: "${topHabit[0]?['Name']}",
                   icon: Text("${topHabit[0]?['Total']} Times"),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           topGift.length > 0
               ? StatisticBar(
                   statisticName: "Top Gift",
                   valueName: "${topGift[0]['Name']}",
                   icon: Text("${topGift[0]['Total']} Times"),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           topDay.length > 0
               ? StatisticBar(
                   statisticName: "Top Day",
                   valueName: "${topDay[0]['DateOnly']}",
                   icon: Text("${topDay[0]['Total']} Coins"),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
     );

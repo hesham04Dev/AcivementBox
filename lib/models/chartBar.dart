@@ -54,11 +54,6 @@ class ChartBar extends StatelessWidget {
           height: totalHeight,
           width: totalWidth,
           child: const SizedBox(),
-          /*decoration: BoxDecoration(
-            color: Colors.grey[50],
-            border: Border.all(color: Colors.grey.shade100, width: 2),
-            borderRadius: BorderRadius.circular(100),
-          ),*/
         ),
         Container(
           margin: margin,

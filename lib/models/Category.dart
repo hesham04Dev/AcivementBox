@@ -1,7 +1,6 @@
 class Category {
   int id;
   String name;
-  int colorId;
   int iconId;
   int earnedXp;
   int maxXp;
@@ -10,7 +9,6 @@ class Category {
   Category(
       {required this.id,
       required this.name,
-      required this.colorId,
       required this.iconId,
       required this.earnedXp,
       required this.level,

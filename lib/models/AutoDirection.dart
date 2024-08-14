@@ -7,11 +7,10 @@ class AutoDirection extends StatefulWidget {
   final void Function(bool isRTL)? onDirectionChange;
 
   const AutoDirection(
-      {Key? key,
+      {super.key,
       required this.text,
       required this.child,
-      this.onDirectionChange})
-      : super(key: key);
+      this.onDirectionChange});
 
   @override
   _AutoDirectionState createState() => _AutoDirectionState();

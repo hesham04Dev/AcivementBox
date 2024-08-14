@@ -1,7 +1,7 @@
 import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
+import 'package:achivement_box/models/my_toast.dart';
 import 'package:achivement_box/pages/AddNewPages/widget/icon.dart';
 import 'package:achivement_box/rootProvider/categoryProvider.dart';
-import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,13 +25,14 @@ class NewCategoryPageState extends State<NewCategoryPage> {
     if (name.text.isNotEmpty) {
       try {
         newCategory(
-            name: name.text,
-            iconId: selectIcon.selectedIconId ?? NewCategoryPage.categoryIconId,
-            colorId: 1);
+          name: name.text,
+          iconId: selectIcon.selectedIconId ?? NewCategoryPage.categoryIconId,
+        );
         context.read<CategoryProvider>().newCategory();
         Navigator.pop(context);
       } catch (e) {
-        CherryToast.error(
+        print(e);
+        MyToast(
           title: const Text("you already have this category"),
           animationType: AnimationType.fromTop,
           displayCloseButton: false,

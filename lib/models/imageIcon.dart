@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class IconImage extends StatelessWidget {
   final String iconName;
   final double size;
-  final opacity;
+  final double opacity;
   Color? color;
   IconImage(
       {super.key,
       required this.iconName,
       this.size = 25,
       this.color,
-      this.opacity = 0.8});
+      this.opacity = 1.0});
   @override
   Widget build(BuildContext context) {
     color ??= Theme.of(context).primaryColor.withOpacity(opacity);

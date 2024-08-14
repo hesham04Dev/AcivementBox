@@ -5,11 +5,6 @@ class PageIndexProvider with ChangeNotifier {
 
   int _pageIndex = homepageIndex;
   PageController bodiesController = PageController(initialPage: homepageIndex);
-/*
-  void jumpTo(double index) {
-    _pageIndex = index.round();
-    bodiesController.jumpTo(index);
-  }*/
 
   void pageIndexChanged(index) {
     _pageIndex = index.round();

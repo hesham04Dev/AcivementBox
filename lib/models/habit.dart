@@ -29,10 +29,12 @@ class Habit extends TileWithCounter {
   @override
   void clicked() {
     if (super.totalTimes == 1) {
+      //TODO move to db
       db.execute('''
       insert into logHabit values('$formattedDate',${super.id},1)
       ''');
     } else {
+      //TODO move to db
       db.execute('''
       update  logHabit set
       count = ${super.totalTimes}
@@ -46,15 +48,11 @@ class Habit extends TileWithCounter {
       context.read<CoinsProvider>().addCoins(super.price);
       context.read<LevelProvider>().xpIncreased();
       toastTitle = "habit done";
-      //super.showToast(context);
       undoToast.show(context);
-      /*undoToast;
-      undoOverlayController.show();*/
-      //showOverlay(context);
 
-      int? res =
+      int newLevel =
           updateLevel(value: super.price + hardness + priority, id: categoryId);
-      if (res != null) {
+      if (newLevel != 0) {
         MyToast(
           title: const Text("Level up"),
           animationType: AnimationType.fromBottom,
@@ -72,11 +70,13 @@ class Habit extends TileWithCounter {
   @override
   void undo() {
     if (super.totalTimes == 1) {
+      //TODO move to db`
       db.execute('''
       delete from logHabit where HabitId = ${super.id} and DateOnly = '$formattedDate'
       ''');
       super.totalTimes -= 1;
     } else {
+      //TODO move to db
       db.execute('''
       update  logHabit set
       count = ${--super.totalTimes}
@@ -108,4 +108,19 @@ class Habit extends TileWithCounter {
     required this.hardness,
     required this.timeInMinutes,
   });
+  static Widget habitBuilder(context, habit) {
+    return Habit(
+      context: context,
+      categoryId: habit['Category'],
+      id: habit['Id'],
+      totalTimes: habit['count'] ?? 0,
+      hardness: habit['Hardness'],
+      iconId: habit['IconId'],
+      isBadHabit: habit['IsBad'] == 1 ? true : false,
+      name: habit['Name'],
+      price: habit['Price'],
+      priority: habit['Priority'],
+      timeInMinutes: habit['TimeInMinutes'],
+    );
+  }
 }

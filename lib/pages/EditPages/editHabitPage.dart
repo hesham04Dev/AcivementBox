@@ -1,3 +1,4 @@
+import 'package:achivement_box/models/imageIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,11 +27,11 @@ class _EditHabitPageState extends NewHabitPageState {
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
             onPressed: () {
-              deleteHabit(id: habit.id);
+              archiveHabit(id: habit.id);
               context.read<HabitProvider>().habitUpdated();
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.delete)),
+            icon: IconImage(iconName: "box-archive.png")),
       )
     ];
     return super.build(context);

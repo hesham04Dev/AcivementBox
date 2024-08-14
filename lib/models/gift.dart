@@ -10,6 +10,7 @@ import '../rootProvider/giftProvider.dart';
 import 'tileWithCounter.dart';
 
 class Gift extends TileWithCounter {
+  @override
   void openEditPage() {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return EditGiftsPage(
@@ -22,10 +23,12 @@ class Gift extends TileWithCounter {
   void clicked() {
     if (getCoins() >= super.price) {
       if (super.totalTimes == 1) {
+        //TODO move to the db helper
         db.execute('''
       insert into logGift values('$formattedDate',${super.id},1)
       ''');
       } else {
+        //TODO move to the db helper
         db.execute('''
       update  logGift set
       count = ${super.totalTimes}
@@ -33,6 +36,7 @@ class Gift extends TileWithCounter {
       and GiftId =${super.id}
       ''');
       }
+      //TODO move to the db helper
       db.execute('''
     update  gift set NoOfUsed = NoOfUsed + 1 where
     Id = ${super.id};
@@ -43,8 +47,6 @@ class Gift extends TileWithCounter {
 
       toastTitle = "Gift purchased";
       undoToast.show(context);
-
-      // show alert to undo
     } else {
       super.totalTimes--;
       MyToast(
@@ -58,11 +60,13 @@ class Gift extends TileWithCounter {
   @override
   void undo() {
     if (super.totalTimes == 1) {
+      //TODO move to the db helper
       db.execute('''
       delete from logGift where GiftId = ${super.id} and DateOnly = '$formattedDate'
       ''');
       super.totalTimes -= 1;
     } else {
+      //TODO move to the db helper
       db.execute('''
       update  logGift set
       count = ${--super.totalTimes}
@@ -87,4 +91,13 @@ class Gift extends TileWithCounter {
     required super.name,
     required super.price,
   });
+  static Gift giftBuilder(BuildContext context, Map<String, dynamic> gift) {
+    return Gift(
+        totalTimes: gift['NoOfUsed'],
+        context: context,
+        iconId: gift['IconId'],
+        id: gift['Id'],
+        name: gift['Name'],
+        price: gift['Price']);
+  }
 }

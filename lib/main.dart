@@ -1,3 +1,4 @@
+import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/pageIndexProvider.dart';
 import 'package:achivement_box/pages/homePage/homePage.dart';
@@ -14,23 +15,17 @@ import 'rootProvider/habitProvider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await openDb();
+
   runApp(const MyApp());
 }
 
-/*final _defaultLightColorScheme = ColorScheme.fromSwatch(
-    primarySwatch: colors[getAccentColor()], brightness: Brightness.light);
-
-final _defaultDarkColorScheme = ColorScheme.fromSwatch(
-    primarySwatch: colors[getAccentColor()], brightness: Brightness.dark);*/
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (context) => LevelProvider()),
           ChangeNotifierProvider(
             create: (context) => HabitProvider(),
           ),
@@ -62,19 +57,10 @@ class MyApp extends StatelessWidget {
         }));
   }
 }
-//
-/*
-*
-*
-*
-*
-*
-* start with templating
-* then db
-* then provider
-* -then design-
-*
-* x then locales
-* refractoring
-* ...
-* */
+// Todo add the counter in the edit page of the habit and gift  note check with the gift
+// TODO show data about the habit or gift purchased dates
+// TODO edit page if is archived show delete or restore
+// todo refactor db sql injection err
+// todo sqldb helper
+// todo last refactor
+// todo adding the welcome for new users

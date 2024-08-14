@@ -18,29 +18,24 @@ class ColorDialog extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
-              itemBuilder: (context, index) => SizedBox(
-                    width: 35,
-                    height: 35,
-                    child: TextButton(
-                      onPressed: () {
-                        setAccentColor(index);
-                        context
-                            .read<ThemeProvider>()
-                            .accentColorChanged(colors[index]);
+              itemBuilder: (context, index) => IconButton(
+                    onPressed: () {
+                      setAccentColor(index);
+                      context
+                          .read<ThemeProvider>()
+                          .accentColorChanged(colors[index]);
 
-                        Navigator.pop(context);
-                      },
-                      child: IconImage(
-                        iconName: "droplet.png",
-                        size: 25,
-                        color: colors[index],
-                      ),
+                      Navigator.pop(context);
+                    },
+                    icon: IconImage(
+                      iconName: "circle.png",
+                      color: colors[index],
                     ),
                   ),
               itemCount: colors.length,
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 75 / 2 + 10,
-                  mainAxisExtent: 75 / 2 + 10,
+                  maxCrossAxisExtent: 50,
+                  mainAxisExtent: 50,
                   childAspectRatio: 1,
                   crossAxisSpacing: 4)),
         ),

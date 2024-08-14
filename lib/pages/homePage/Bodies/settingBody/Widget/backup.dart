@@ -28,7 +28,7 @@ class BackupTile extends StatelessWidget {
     return MyListTile(
       title: 'Backup',
       trailing: IconImage(
-        iconName: "arrow-up-from-arc.png",
+        iconName: "copy.png",
       ),
       onTap: () async {
         if (Platform.isAndroid) {

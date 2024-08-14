@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../db/sql.dart';
 import '../../models/gift.dart';
+import '../../models/imageIcon.dart';
 import '../../output/generated/icon_names.dart';
 import '../../rootProvider/giftProvider.dart';
 import '../AddNewPages/widget/icon.dart';
@@ -26,11 +27,11 @@ class _EditGiftPageState extends NewGiftPageState {
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
             onPressed: () {
-              deleteGift(id: gift.id);
+              archiveGift(id: gift.id);
               context.read<GiftProvider>().giftUpdated();
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.delete)),
+            icon: IconImage(iconName: "box-archive.png")),
       )
     ];
     return super.build(context);

@@ -33,6 +33,14 @@ void deleteHabit({required int id}) {
   db.execute("delete from habit where Id = $id");
 }
 
+void archiveHabit({required int id}) {
+  db.execute("update habit set IsArchived = 1  where Id = ?", [id]);
+}
+
+void archiveGift({required int id}) {
+  db.execute("update gift set IsArchived = 1  where Id = ?", [id]);
+}
+
 void deleteCategory({required int id}) {
   db.execute("update habit set Category = 1 where Category = $id");
   db.execute("delete from category where Id = $id");
@@ -54,11 +62,9 @@ void newGift({
 
 void newCategory({
   required String name,
-  required int colorId,
   required int iconId,
 }) {
-  db.execute(
-      "INSERT INTO category('Name','ColorId','IconId') VALUES ('$name',$colorId,$iconId)");
+  db.execute("INSERT INTO category('Name','IconId') VALUES ('$name',$iconId)");
 }
 
 late Database db;
@@ -73,24 +79,38 @@ LEFT JOIN (
     SELECT HabitId, count
     FROM logHabit
     WHERE DateOnly = '$formattedDate'
-) AS logHabit ON habit.Id = logHabit.HabitId;
+) AS logHabit ON habit.Id = logHabit.HabitId
+WHERE IsArchived =0;
   ''');
-/*
-  for (Row row in resultSet) {
-    //print(row);
-  }*/
-
   return resultSet;
 }
 
+ResultSet getArchivedHabits() {
+  ResultSet resultSet = db.select('''
+  SELECT * FROM habit WHERE IsArchived = 1;
+  ''');
+  return resultSet;
+}
+
+void printResults(ResultSet resultSet) {
+  for (Row row in resultSet) {
+    print(row);
+  }
+}
+
 ResultSet getGifts() {
-  ResultSet resultSet = db.select("SELECT * FROM gift ;");
+  ResultSet resultSet = db.select("SELECT * FROM gift where IsArchived =0;");
+  return resultSet;
+}
+
+ResultSet getArchivedGifts() {
+  ResultSet resultSet = db.select("SELECT * FROM gift where IsArchived =1;");
   return resultSet;
 }
 
 ResultSet getMostUsedGifts(int limit) {
   ResultSet resultSet = db.select(
-      '''SELECT * FROM gift  WHERE NoOfUsed > 0  ORDER BY NoOfUsed DESC  LIMIT $limit;''');
+      '''SELECT * FROM gift  WHERE NoOfUsed > 0 and IsArchived = 0 ORDER BY NoOfUsed DESC  LIMIT $limit;''');
   return resultSet;
 }
 
@@ -102,20 +122,11 @@ getLevel({required String name}) {
 DateTime now = DateTime.now();
 String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
-/*Map<int, int> getHabitCount() {
-  '''
-  select habitId,count form logHabit where
-  DateOnly = $formattedDate
-  ''';
-  return {};
-}*/
-
-int? updateLevel({required int value, required int id}) {
+int updateLevel({required int value, required int id}) {
   Row res = db.select("select * from category where id =$id")[0];
   Category category = Category(
       id: id,
       name: res['Name'],
-      colorId: res['ColorId'],
       iconId: res['IconId'],
       earnedXp: res['EarnedXp'],
       level: res['Level'],
@@ -135,7 +146,7 @@ int? updateLevel({required int value, required int id}) {
   }
   db.execute(
       "update category set EarnedXp = EarnedXp + $value where Id = ${category.id}");
-  return null;
+  return 0;
 }
 
 int? removeLevel({required int value, required int id}) {
@@ -143,7 +154,6 @@ int? removeLevel({required int value, required int id}) {
   Category category = Category(
       id: id,
       name: res['Name'],
-      colorId: res['ColorId'],
       iconId: res['IconId'],
       earnedXp: res['EarnedXp'],
       level: res['Level'],
@@ -188,7 +198,8 @@ updateCoins(int num) {
 }
 
 getCategories() {
-  return db.select("select * from category");
+  return db.select(
+      "SELECT * FROM category ORDER BY CASE WHEN id = 1 THEN 0 ELSE 1 END, Level DESC;");
 }
 
 getCategory(int id) {
@@ -232,6 +243,26 @@ LIMIT 1;
   return x;
 }
 
+getLogHabitByDate(String date) {
+  return db.select(
+      "select  logHabit.*,habit.Name from logHabit inner join habit on logHabit.HabitId = habit.Id where DateOnly = '$date'");
+}
+
+getLogGiftByDate(String date) {
+  return db.select(
+      "select  logGift.*,gift.Name from logGift inner join gift on logGift.GiftId = gift.Id where DateOnly = '$date'");
+}
+
+getDatesOfLogHabit() {
+  return db
+      .select("select distinct DateOnly from logHabit order by DateOnly desc ");
+}
+
+getDatesOfLogGift() {
+  return db
+      .select("select distinct DateOnly from logGift order by DateOnly desc ");
+}
+
 getWeeklyData() {
   var x = db.select('''
 SELECT lh.DateOnly, SUM(lh.Count * h.Price) AS Total
@@ -263,8 +294,22 @@ bool getDarkMode() {
   }
 }
 
+bool isListView() {
+  var x = db.select('''SELECT Val from setting where Name = 'ListView' ''');
+  if (x[0]['Val'] == 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 setDarkMode(val) {
   db.execute("UPDATE setting set Val = $val WHERE Name = 'DarkMode' ");
+}
+
+setIsListView(bool val) {
+  db.execute(
+      "UPDATE setting set Val = ${val ? 1 : 0} WHERE Name = 'ListView' ");
 }
 
 getNotificationTime() {
@@ -318,17 +363,16 @@ void updateStreak() {
 Future<void> openDb() async {
   var dir = await getApplicationSupportDirectory();
   String dbPath = '${dir.path}/hcody_ab.db';
+  print(dbPath);
   File restored = File('${dir.path}/restored.db');
   if (await restored.exists()) {
     print(dbPath);
     print("restoreing");
     File old = File(dbPath);
-    //db = sqlite3.openInMemory();
     await old.delete();
     await restored.rename(dbPath);
   }
   db = sqlite3.open(dbPath);
-
   createTablesIfNotExists(db);
   updateStreak();
 }

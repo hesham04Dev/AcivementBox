@@ -6,6 +6,7 @@ class PrimaryContainer extends StatelessWidget {
   final double? width;
   final double opacity;
   final double padding;
+  final bool withBorder;
   final double? paddingHorizontal;
   final double margin;
   const PrimaryContainer({
@@ -13,10 +14,11 @@ class PrimaryContainer extends StatelessWidget {
     required this.child,
     this.height,
     this.width,
-    this.opacity = 0.2,
+    this.opacity = 0.1,
     this.padding = 8,
     this.paddingHorizontal,
     this.margin = 8,
+    this.withBorder = false,
   });
 
   @override
@@ -32,7 +34,7 @@ class PrimaryContainer extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(45),
           color: color.withOpacity(opacity),
-          border: Border.all(color: color, width: 2)),
+          border: withBorder ? Border.all(color: color, width: 2) : null),
       child: child,
     );
   }

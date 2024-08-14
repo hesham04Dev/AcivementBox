@@ -88,4 +88,8 @@ const List<String> iconNames = [
   'box-archive.png',
   'arrow-up-to-arc.png',
   'arrow-up-from-arc.png',
+  'rectangle-history.png',
+  'circle.png',
+  'time-back.png',
+  'copy.png'
 ];

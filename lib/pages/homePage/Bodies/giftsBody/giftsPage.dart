@@ -1,5 +1,5 @@
+import "package:achivement_box/db/sql.dart";
 import "package:achivement_box/models/gift.dart";
-import "package:achivement_box/models/tileWithCounter.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
@@ -10,27 +10,19 @@ import "../../../../rootProvider/giftProvider.dart";
 
 class GiftsBody extends StatelessWidget {
   const GiftsBody({super.key});
-  Gift gift(Map<String, dynamic> gift, BuildContext context) {
-    return Gift(
-        totalTimes: gift['NoOfUsed'],
-        context: context,
-        iconId: gift['IconId'],
-        id: gift['Id'],
-        name: gift['Name'],
-        price: gift['Price']);
-  }
 
   @override
   Widget build(BuildContext context) {
+    bool listView = isListView();
     var gifts = context.watch<GiftProvider>().Gifts;
 
     final List<Widget>? mostUsed;
-    int maxOfMostUsed =
-        ((MediaQuery.sizeOf(context).width - 18) / TileWithCounter.width)
-            .floor();
+    int maxOfMostUsed = 3;
+    // ((MediaQuery.sizeOf(context).width - 18) / TileWithCounter.width)
+    //     .floor();
     context.read<GiftProvider>().MaxOfMostUsed = maxOfMostUsed;
     var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
-    if (mostUsedGifts.length > 0) {
+    if (mostUsedGifts.length > 0 || listView) {
       mostUsed = [
         const Text("most used"),
         PrimaryContainer(
@@ -41,7 +33,7 @@ class GiftsBody extends StatelessWidget {
               //clipBehavior: Clip.antiAliasWithSaveLayer,
               scrollDirection: Axis.horizontal,
               children: List.generate(mostUsedGifts.length,
-                  (index) => gift(mostUsedGifts[index], context))),
+                  (index) => Gift.giftBuilder(context, mostUsedGifts[index]))),
         ),
       ];
     } else
@@ -61,19 +53,27 @@ class GiftsBody extends StatelessWidget {
             ],
           ),
         ),
-        ...mostUsed,
+        if (listView) const SizedBox() else ...mostUsed,
         const Text("all items"),
         Expanded(
           child: PrimaryContainer(
             opacity: 0.1,
-            child: GridView.builder(
-                itemBuilder: (context, index) => gift(gifts[index], context),
-                itemCount: gifts.length,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 130,
-                    mainAxisExtent: 140,
-                    childAspectRatio: 0.5,
-                    crossAxisSpacing: 8)),
+            child: listView
+                ? ListView.builder(
+                    itemBuilder: (BuildContext context, int index) =>
+                        Gift.giftBuilder(context, gifts[index]),
+                    itemCount: gifts.length,
+                  )
+                : GridView.builder(
+                    itemBuilder: (context, index) =>
+                        Gift.giftBuilder(context, gifts[index]),
+                    itemCount: gifts.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 130,
+                            mainAxisExtent: 140,
+                            childAspectRatio: 0.5,
+                            crossAxisSpacing: 8)),
           ),
         ),
       ],

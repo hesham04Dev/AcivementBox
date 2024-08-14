@@ -2,7 +2,7 @@ name: achivement_box
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.7.5+1
+version: 0.9.0+2
 
 environment:
   sdk: '>=3.1.4 <4.0.0'
@@ -29,6 +29,7 @@ dependencies:
   http: ^1.2.2
   auto_height_grid_view: ^1.0.0
   animated_custom_dropdown: ^3.1.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

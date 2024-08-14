@@ -1,5 +1,6 @@
-import 'package:achivement_box/models/TileShape.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../config/styles.dart';
 
 class MyListTile extends StatelessWidget {
   const MyListTile(
@@ -21,7 +22,7 @@ class MyListTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: ListTile(
         shape: tileShape,
-        title: Text("$title"),
+        title: Text(title),
         trailing: trailing,
         subtitle: subtitle != null ? Text(subtitle!) : null,
         leading: leading,

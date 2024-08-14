@@ -69,7 +69,7 @@ class RestoreTile extends StatelessWidget {
     return MyListTile(
       title: 'Restore',
       trailing: IconImage(
-        iconName: "arrow-up-to-arc.png",
+        iconName: "time-back.png",
       ),
       onTap: () async {
         //var allowStorage = await Permission.storage.request();

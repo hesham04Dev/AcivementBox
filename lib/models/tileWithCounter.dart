@@ -1,8 +1,11 @@
+import 'package:achivement_box/db/sql.dart';
 import 'package:achivement_box/models/imageIcon.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 import '../output/generated/icon_names.dart';
+import 'PrimaryContainer.dart';
 import 'my_toast.dart';
 
 abstract class TileWithCounter extends StatefulWidget {
@@ -44,18 +47,17 @@ abstract class TileWithCounter extends StatefulWidget {
   int totalTimes;
 
   @override
-  State<TileWithCounter> createState() => _TileWithCounterState();
+  State<TileWithCounter> createState() => _TileWithCounterVerticalState();
 }
 
-class _TileWithCounterState extends State<TileWithCounter> {
+class _TileWithCounterVerticalState extends State<TileWithCounter> {
   void used() {
     widget.totalTimes++;
     widget.clicked();
     setState(() {});
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget gridBuild() {
     return badges.Badge(
       position: badges.BadgePosition.topEnd(top: 2, end: 2),
       badgeStyle: badges.BadgeStyle(
@@ -74,42 +76,32 @@ class _TileWithCounterState extends State<TileWithCounter> {
         ),
       ),
       child: GestureDetector(
-        onLongPress: () => widget.openEditPage(),
+        onLongPress: widget.openEditPage,
         onTap: used,
-        child: Container(
+        child: PrimaryContainer(
           width: TileWithCounter.width,
           height: 150, // Increase the height to provide more space
-          padding: const EdgeInsets.all(2),
-          margin: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Theme.of(context).primaryColor),
-            borderRadius: BorderRadius.circular(50),
-          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(
                 height: 10,
               ),
               IconImage(
                 iconName: iconNames[widget.iconId],
-                size: 40,
+                size: 35,
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Center(
-                    child: Text(
-                      widget.name,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                child: AutoSizeText(
+                  widget.name,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  minFontSize: 5,
+                  maxFontSize: 10,
                 ),
               ),
               Row(
@@ -129,19 +121,59 @@ class _TileWithCounterState extends State<TileWithCounter> {
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 0),
-                child: GestureDetector(
-                  child: IconImage(iconName: "ellipsis-stroke.png", size: 20),
-                  onTap: () {
-                    widget.openEditPage();
-                  },
-                ),
+              GestureDetector(
+                onTap: widget.openEditPage,
+                child: IconImage(iconName: "ellipsis-stroke.png", size: 15),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget listBuild() {
+    return GestureDetector(
+      onLongPress: widget.openEditPage,
+      child: PrimaryContainer(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: [
+            IconImage(
+              iconName: iconNames[widget.iconId],
+              size: 35,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.name),
+                    Row(children: [
+                      IconImage(
+                        iconName: "coin-front.png",
+                        size: 15,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text("${widget.price}"),
+                    ])
+                  ]),
+            ),
+            const Expanded(
+              child: SizedBox(),
+            ),
+            TextButton(onPressed: used, child: Text("${widget.totalTimes}"))
+          ],
+        ),
+      )),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isListView() ? listBuild() : gridBuild();
   }
 }

@@ -22,8 +22,8 @@ OverlayEntry _createOverlayEntry() {
       effects: const [FadeEffect(), AlignEffect()],
       child: Positioned(
         top: top,
-        left: MediaQuery.of(context).size.width * 0.1,
-        width: MediaQuery.of(context).size.width * 0.8,
+        left: MediaQuery.sizeOf(context).width * 0.1,
+        width: MediaQuery.sizeOf(context).width * 0.8,
         child: Material(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
@@ -37,7 +37,7 @@ OverlayEntry _createOverlayEntry() {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Expanded(child: Text("toastTitle")),
-                    TextButton(onPressed: () {}, child: const Text("undo")),
+                    IconButton(onPressed: () {}, icon: const Text("undo")),
                     IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.highlight_remove_rounded))

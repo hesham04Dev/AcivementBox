@@ -1,5 +1,6 @@
-import 'package:achivement_box/models/TileShape.dart';
 import 'package:flutter/material.dart';
+
+import '../config/styles.dart';
 
 class MySwitchTile extends StatefulWidget {
   MySwitchTile(

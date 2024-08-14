@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'PrimaryContainer.dart';
@@ -16,26 +17,26 @@ class VerticalBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
+        AutoSizeText(
           text,
-          maxLines: 2,
+          maxLines: 1,
           textAlign: TextAlign.center,
+          maxFontSize: 12,
+          minFontSize: 9,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 12,
           ),
         ),
         const SizedBox(
           height: 5,
         ),
         PrimaryContainer(
-          opacity: 0.5,
+          opacity: 1,
           margin: 0,
           height: filledHeight,
           width: filledWidth,
           child: const SizedBox(),
         ),
-        // const Text("d")
       ],
     );
   }

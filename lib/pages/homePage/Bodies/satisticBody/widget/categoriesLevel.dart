@@ -1,5 +1,5 @@
+import 'package:achivement_box/config/styles.dart';
 import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:achivement_box/models/styles.dart';
 import 'package:achivement_box/output/generated/icon_names.dart';
 import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:achivement_box/pages/EditPages/editCategoriesPage.dart';

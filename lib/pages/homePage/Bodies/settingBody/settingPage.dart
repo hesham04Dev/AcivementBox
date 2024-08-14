@@ -1,5 +1,6 @@
 import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/models/mySwitchTile.dart';
+import 'package:achivement_box/pages/ArchivePage/archivePage.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/ColorDialog.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/backup.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../db/sql.dart';
 import '../../../../rootProvider/ThemeProvider.dart';
+import '../../../logPage/log_page.dart';
 import 'Widget/restore_tile.dart';
 
 class SettingBody extends StatefulWidget {
@@ -29,15 +31,24 @@ class _SettingBodyState extends State<SettingBody> {
         context.read<ThemeProvider>().toggleMode();
       },
     );
+    Widget listViewTile = MySwitchTile(
+      title: "ListView",
+      value: isListView(),
+      onChange: (bool value) {
+        setIsListView(value);
+        context.read<ThemeProvider>().toggleMode();
+      },
+    );
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView(
         children: [
+          listViewTile,
           darkModeTile,
           MyListTile(
             title: 'Accent Color',
             trailing: IconImage(
-              iconName: "droplet.png",
+              iconName: "circle.png",
             ),
             onTap: () {
               showDialog(context: context, builder: (context) => ColorDialog());
@@ -58,7 +69,27 @@ class _SettingBodyState extends State<SettingBody> {
             },
           ),
           MyListTile(
-            title: 'Version: 0.7.5',
+              title: "Log page",
+              trailing: IconImage(
+                iconName: "rectangle-history.png",
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LogPage()));
+              }),
+          MyListTile(
+              title: "Archive Page",
+              trailing: IconImage(
+                iconName: "box-archive.png",
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ArchivePage()));
+              }),
+          MyListTile(
+            title: 'Version: 0.9.0',
             onTap: () {},
           ),
         ],
