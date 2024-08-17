@@ -349,6 +349,16 @@ updateGift(Gift gift) {
   WHERE Id = ${gift.id} ''');
 }
 
+updateGiftCount({required int id, String sign = '+'}) {
+  if (sign == '+' || sign == '-') {
+    db.execute('''
+    update  gift set NoOfUsed = NoOfUsed $sign 1 where
+    Id = $id;
+    ''');
+  } else
+    print("invalid operation in update gift");
+}
+
 void updateStreak() {
   DateTime lastDay = DateTime.parse(getLastDay() ?? DateTime.now().toString());
   print(now.difference(lastDay).inDays);
@@ -375,4 +385,46 @@ Future<void> openDb() async {
   db = sqlite3.open(dbPath);
   createTablesIfNotExists(db);
   updateStreak();
+}
+
+addToHabitLog(int id) {
+  db.execute('''
+      insert into logHabit values('$formattedDate',$id,1)
+      ''');
+}
+
+updateHabitLog({required int id, required int count}) {
+  db.execute('''
+      update  logHabit set
+      count = $count
+      where DateOnly = '$formattedDate'
+      and HabitId =$id
+      ''');
+}
+
+deleteFromHabitLog(int id) {
+  db.execute('''
+      delete from logHabit where HabitId = $id and DateOnly = '$formattedDate'
+      ''');
+}
+
+addToGiftLog(int id) {
+  db.execute('''
+      insert into logGift values('$formattedDate',$id,1)
+      ''');
+}
+
+updateGiftLog({required int id, required int count}) {
+  db.execute('''
+      update  logGift set
+      count = $count
+      where DateOnly = '$formattedDate'
+      and GiftId =$id
+      ''');
+}
+
+deleteFromLogGift(int id) {
+  db.execute('''
+      delete from logGift where GiftId = $id and DateOnly = '$formattedDate'
+      ''');
 }

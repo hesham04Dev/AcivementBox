@@ -23,25 +23,11 @@ class Gift extends TileWithCounter {
   void clicked() {
     if (getCoins() >= super.price) {
       if (super.totalTimes == 1) {
-        //TODO move to the db helper
-        db.execute('''
-      insert into logGift values('$formattedDate',${super.id},1)
-      ''');
+        addToGiftLog(super.id);
       } else {
-        //TODO move to the db helper
-        db.execute('''
-      update  logGift set
-      count = ${super.totalTimes}
-      where DateOnly = '$formattedDate'
-      and GiftId =${super.id}
-      ''');
+        updateGiftLog(id: super.id, count: super.totalTimes);
       }
-      //TODO move to the db helper
-      db.execute('''
-    update  gift set NoOfUsed = NoOfUsed + 1 where
-    Id = ${super.id};
-    ''');
-
+      updateGiftCount(id: super.id, sign: '+');
       context.read<GiftProvider>().giftUpdated();
       context.read<CoinsProvider>().removeCoins(super.price);
 
@@ -60,24 +46,12 @@ class Gift extends TileWithCounter {
   @override
   void undo() {
     if (super.totalTimes == 1) {
-      //TODO move to the db helper
-      db.execute('''
-      delete from logGift where GiftId = ${super.id} and DateOnly = '$formattedDate'
-      ''');
+      deleteFromLogGift(id);
       super.totalTimes -= 1;
     } else {
-      //TODO move to the db helper
-      db.execute('''
-      update  logGift set
-      count = ${--super.totalTimes}
-      where DateOnly = '$formattedDate'
-      and GiftId =${super.id}
-      ''');
+      updateGiftLog(id: id, count: --super.totalTimes);
     }
-    db.execute('''
-    update  gift set NoOfUsed = NoOfUsed - 1 where
-    Id = ${super.id};
-    ''');
+    updateGiftCount(id: super.id, sign: '-');
     context.read<GiftProvider>().giftUpdated();
     context.read<CoinsProvider>().addCoins(super.price);
   }

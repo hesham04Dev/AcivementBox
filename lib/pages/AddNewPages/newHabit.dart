@@ -1,19 +1,20 @@
-import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
-import 'package:achivement_box/models/mySwitchTile.dart';
-import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/sql.dart';
+import '../../models/AutoDirectionTextFormField.dart';
+import '../../models/mySwitchTile.dart';
 import '../../rootProvider/habitProvider.dart';
+import 'newCategory.dart';
 import 'widget/CategoryDropDown.dart';
 import 'widget/NumericField.dart';
 import 'widget/icon.dart';
 import 'widget/select with name.dart';
 
 class NewHabitPage extends StatefulWidget {
-  NewHabitPage({super.key});
+  NewHabitPage({super.key, this.title = "New Habit"});
   List<Widget>? actions;
+  final String title;
   static const int gearIconId = 39;
 
   @override
@@ -30,6 +31,7 @@ class NewHabitPageState extends State<NewHabitPage> {
   late final Select hardness;
   late final MySwitchTile isBad;
   late SelectIcon selectIcon;
+  late final List<Widget>? children;
   late final CategoryDropDown categoryDropDown;
 
   void save(BuildContext context) {
@@ -64,6 +66,7 @@ class NewHabitPageState extends State<NewHabitPage> {
       label: "hardness",
       length: 5,
     );
+
     isBad = MySwitchTile(title: "Is Bad?");
     categoryDropDown = CategoryDropDown(
       controller: category,
@@ -76,7 +79,7 @@ class NewHabitPageState extends State<NewHabitPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("new habit"),
+        title: Text(widget.title),
         actions: widget.actions,
       ),
       body: ListView(
@@ -122,6 +125,7 @@ class NewHabitPageState extends State<NewHabitPage> {
                       hintText: "Time in minute",
                       maxValue: 24 * 60,
                     ),
+                    ...?children,
                     const SizedBox(
                       height: 10,
                     ),

@@ -74,7 +74,6 @@ class NewGiftPageState extends State<NewGiftPage> {
                         save(context);
                       },
                       child: const Text("save"),
-                      //color: Theme.of(context).primaryColor.withOpacity(0.5),
                     )
                   ],
                 )),

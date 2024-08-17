@@ -13,10 +13,10 @@ class MyGridView extends StatelessWidget {
         itemCount: itemCount,
         shrinkWrap: false,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: 5.0,
-          crossAxisSpacing: 5.0,
-          childAspectRatio: 110 / 165,
-          maxCrossAxisExtent: 110,
-        ));
+            mainAxisSpacing: 5.0,
+            crossAxisSpacing: 5.0,
+            childAspectRatio: 110 / 150,
+            maxCrossAxisExtent: 120,
+            mainAxisExtent: 160));
   }
 }

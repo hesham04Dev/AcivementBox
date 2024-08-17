@@ -20,6 +20,7 @@ class Habit extends TileWithCounter {
   final int categoryId;
   final int timeInMinutes;
 
+  @override
   void openEditPage() {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return EditHabitsPage(habit: this);
@@ -29,18 +30,9 @@ class Habit extends TileWithCounter {
   @override
   void clicked() {
     if (super.totalTimes == 1) {
-      //TODO move to db
-      db.execute('''
-      insert into logHabit values('$formattedDate',${super.id},1)
-      ''');
+      addToHabitLog(super.id);
     } else {
-      //TODO move to db
-      db.execute('''
-      update  logHabit set
-      count = ${super.totalTimes}
-      where DateOnly = '$formattedDate'
-      and HabitId =${super.id}
-      ''');
+      updateHabitLog(id: super.id, count: super.totalTimes);
     }
     if (isBadHabit) {
       context.read<CoinsProvider>().removeCoins(super.price);
@@ -70,19 +62,10 @@ class Habit extends TileWithCounter {
   @override
   void undo() {
     if (super.totalTimes == 1) {
-      //TODO move to db`
-      db.execute('''
-      delete from logHabit where HabitId = ${super.id} and DateOnly = '$formattedDate'
-      ''');
+      deleteFromHabitLog(super.id);
       super.totalTimes -= 1;
     } else {
-      //TODO move to db
-      db.execute('''
-      update  logHabit set
-      count = ${--super.totalTimes}
-      where DateOnly = '$formattedDate'
-      and HabitId =${super.id}
-      ''');
+      updateHabitLog(id: id, count: --super.totalTimes);
     }
 
     context.read<HabitProvider>().habitUpdated();

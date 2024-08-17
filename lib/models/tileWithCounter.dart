@@ -1,11 +1,11 @@
-import 'package:achivement_box/db/sql.dart';
-import 'package:achivement_box/models/imageIcon.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
+import '../db/sql.dart';
 import '../output/generated/icon_names.dart';
 import 'PrimaryContainer.dart';
+import 'imageIcon.dart';
 import 'my_toast.dart';
 
 abstract class TileWithCounter extends StatefulWidget {
@@ -80,7 +80,7 @@ class _TileWithCounterVerticalState extends State<TileWithCounter> {
         onTap: used,
         child: PrimaryContainer(
           width: TileWithCounter.width,
-          height: 150, // Increase the height to provide more space
+          height: 150,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

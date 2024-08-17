@@ -72,6 +72,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
                 const SizedBox(
                   height: 10,
                 ),
+                //...children,
                 TextButton(
                   onPressed: () {
                     save(context);
