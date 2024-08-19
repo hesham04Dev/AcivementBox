@@ -1,3 +1,5 @@
+/*
+not used tel now
 int formatToSet(int hour, int minute) {
   if (minute < 10) {
     return int.parse("${hour}0$minute");
@@ -14,4 +16,4 @@ String formatToGet(int hoursMinutes) {
     return "${x.substring(0, 1)}:${x.substring(2)}";
   } else
     return "${x.substring(0, 0)}:${x.substring(1)}";
-}
+}*/

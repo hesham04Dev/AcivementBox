@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:achivement_box/db/sql_class.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 /*
 * strike go to the log habit see the last two days then if the minus of them give 1 then add the strike else strike = 1
-*/
+*/ /*
 void createTablesIfNotExists(Database db) {
   const String createCategoryTable = '''
   CREATE TABLE IF NOT EXISTS category(
@@ -51,7 +55,7 @@ void createTablesIfNotExists(Database db) {
   const String createLogGiftTable = '''
   CREATE TABLE IF NOT EXISTS logGift(
   DateOnly TEXT,
-  GiftId INTEGER, 
+  GiftId INTEGER,
   Count INTEGER,
   PRIMARY KEY (GiftId, DateOnly),
   FOREIGN KEY (GiftId) REFERENCES gift(Id)
@@ -59,7 +63,7 @@ void createTablesIfNotExists(Database db) {
   const String createLogHabitTable = '''
   CREATE TABLE IF NOT EXISTS logHabit(
   DateOnly TEXT,
-  HabitId INTEGER, 
+  HabitId INTEGER,
   Count INTEGER,
   PRIMARY KEY (HabitId, DateOnly),
   FOREIGN KEY (HabitId) REFERENCES habit(Id)
@@ -80,12 +84,22 @@ void createTablesIfNotExists(Database db) {
     print(row);
   }
 }
-
+*/
 class DbHelper {
+  final _supportDir = getApplicationSupportDirectory();
+  late String dbPath;
+  DbHelper() {
+    _supportDir.then((val) {
+      dbPath = "${val.path}/hcody_ab.db";
+    });
+    openDb().then((_) {
+      sql = Sql(db);
+    });
+  }
   late Database db;
+  late Sql sql;
   final DateTime now = DateTime.now();
   final String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-
   void createTablesIfNotExists(Database db) {
     const String createCategoryTable = '''
   CREATE TABLE IF NOT EXISTS category(
@@ -156,6 +170,29 @@ class DbHelper {
     ];
     for (String sql in sqlList) {
       db.execute(sql);
+    }
+    ResultSet result = db.select("select * from category ");
+    for (Row row in result) {
+      print(row);
+    }
+  }
+
+  Future<void> openDb() async {
+    print(dbPath);
+    _restoreIfExists();
+    db = sqlite3.open(dbPath);
+    createTablesIfNotExists(db);
+    sql.settings.updateStreak();
+  }
+
+  void _restoreIfExists() async {
+    var dir = await _supportDir;
+    File restored = File('${dir.path}/restored.db');
+    if (await restored.exists()) {
+      print("restoring");
+      File old = File(dbPath);
+      await old.delete();
+      await restored.rename(dbPath);
     }
   }
 }

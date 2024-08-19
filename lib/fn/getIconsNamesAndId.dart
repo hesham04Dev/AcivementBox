@@ -1,5 +1,6 @@
 import 'dart:io';
 
+//this is a file generator that gernerates the iconNames
 void main() async {
   final dir = Directory('../../assets/icons/');
   final List<FileSystemEntity> entities = await dir.list().toList();
