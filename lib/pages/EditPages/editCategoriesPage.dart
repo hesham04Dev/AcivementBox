@@ -2,7 +2,7 @@ import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 import '../../output/generated/icon_names.dart';
 import '../../rootProvider/categoryProvider.dart';
 import '../AddNewPages/widget/icon.dart';
@@ -51,7 +51,7 @@ class _EditCategoryPageState extends NewCategoryPageState {
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
             onPressed: () {
-              deleteCategory(id: categoryId);
+              db.sql.categories.delete(id: categoryId);
               context.read<CategoryProvider>().categoryUpdated();
               Navigator.pop(context);
             },
@@ -64,7 +64,7 @@ class _EditCategoryPageState extends NewCategoryPageState {
 
   @override
   void save(BuildContext context) {
-    updateCategory(
+    db.sql.categories.update(
         id: categoryId,
         iconId: selectIcon.selectedIconId ?? 0,
         name: super.name.text);

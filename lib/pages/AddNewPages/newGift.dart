@@ -3,7 +3,7 @@ import 'package:achivement_box/pages/AddNewPages/widget/NumericField.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 import '../../rootProvider/giftProvider.dart';
 import 'widget/icon.dart';
 
@@ -22,7 +22,7 @@ class NewGiftPageState extends State<NewGiftPage> {
   late SelectIcon selectIcon;
   void save(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      newGift(
+      db.sql.gifts.add(
         name: name.text,
         price: int.parse(coins.text),
         iconId: selectIcon.selectedIconId ?? NewGiftPage.giftIconId,

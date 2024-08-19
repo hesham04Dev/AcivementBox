@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../db/sql.dart';
+import '../db/db.dart';
 
 class CategoryProvider with ChangeNotifier {
   CategoryProvider() {
-    _Category = getCategories();
+    _Category = db.sql.categories.get();
   }
   newCategory() {
-    _Category = getCategories();
+    _Category = db.sql.categories.get();
     notifyListeners();
   }
 
   categoryUpdated() {
-    _Category = getCategories();
+    _Category = db.sql.categories.get();
     notifyListeners();
   }
 

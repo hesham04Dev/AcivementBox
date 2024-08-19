@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
-import "../../../../db/sql.dart";
+import "../../../../db/db.dart";
 import "../../../../models/PrimaryContainer.dart";
 import "../../../../models/gift.dart";
 import "../../../../models/my_grid_view.dart";
@@ -13,7 +13,7 @@ class GiftsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool listView = isListView();
+    bool listView = db.sql.settings.isListView();
     var gifts = context.watch<GiftProvider>().Gifts;
 
     final List<Widget>? mostUsed;

@@ -3,7 +3,7 @@ import 'package:achivement_box/models/imageIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 import '../../models/habit.dart';
 import '../../output/generated/icon_names.dart';
 import '../../rootProvider/habitProvider.dart';
@@ -29,7 +29,7 @@ class _EditHabitPageState extends NewHabitPageState {
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
             onPressed: () {
-              archiveHabit(id: habit.id);
+              db.sql.habits.archive(id: habit.id);
               context.read<HabitProvider>().habitUpdated();
               Navigator.pop(context);
             },
@@ -44,7 +44,8 @@ class _EditHabitPageState extends NewHabitPageState {
     super.initState();
     super.name.text = habit.name;
     super.coins.text = "${habit.price}";
-    super.category.text = "${getCategory(habit.categoryId)['Name']}";
+    super.category.text =
+        "${db.sql.categories.getById(habit.categoryId)['Name']}";
     super.categoryDropDown.selectedId = habit.categoryId;
     super.time.text = "${habit.timeInMinutes}";
     super.hardness.selected = habit.hardness;
@@ -97,7 +98,7 @@ class _EditHabitPageState extends NewHabitPageState {
         totalTimes: habit.totalTimes,
         context: context,
       );
-      updateHabit(h);
+      db.sql.habits.update(h);
       context.read<HabitProvider>().habitUpdated();
       Navigator.pop(context);
     }

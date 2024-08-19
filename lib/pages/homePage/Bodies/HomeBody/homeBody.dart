@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../config/const.dart';
-import '../../../../db/sql.dart';
+import '../../../../db/db.dart';
 import '../../../../models/PrimaryContainer.dart';
 import '../../../../models/habit.dart';
 import '../../../../models/my_grid_view.dart';
@@ -30,7 +30,7 @@ class HomeBody extends StatelessWidget {
         Expanded(
           child: PrimaryContainer(
             opacity: 0.1,
-            child: isListView()
+            child: db.sql.settings.isListView()
                 ? ListView.builder(
                     itemBuilder: (child, index) =>
                         Habit.habitBuilder(context, habits[index]),

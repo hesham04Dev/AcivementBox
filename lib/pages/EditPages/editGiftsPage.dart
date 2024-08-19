@@ -2,7 +2,7 @@ import 'package:achivement_box/pages/AddNewPages/newGift.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 import '../../models/gift.dart';
 import '../../models/imageIcon.dart';
 import '../../output/generated/icon_names.dart';
@@ -27,7 +27,7 @@ class _EditGiftPageState extends NewGiftPageState {
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
             onPressed: () {
-              archiveGift(id: gift.id);
+              db.sql.gifts.archive(id: gift.id);
               context.read<GiftProvider>().giftUpdated();
               Navigator.pop(context);
             },
@@ -62,7 +62,7 @@ class _EditGiftPageState extends NewGiftPageState {
         totalTimes: gift.totalTimes,
         context: context,
       );
-      updateGift(h);
+      db.sql.gifts.update(h);
       context.read<GiftProvider>().giftUpdated();
       Navigator.pop(context);
     }

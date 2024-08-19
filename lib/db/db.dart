@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:achivement_box/db/sql_class.dart';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
@@ -87,19 +86,33 @@ void createTablesIfNotExists(Database db) {
 */
 class DbHelper {
   final _supportDir = getApplicationSupportDirectory();
-  late String dbPath;
-  DbHelper() {
-    _supportDir.then((val) {
-      dbPath = "${val.path}/hcody_ab.db";
-    });
-    openDb().then((_) {
-      sql = Sql(db);
-    });
-  }
+  late final String dbPath;
+
   late Database db;
   late Sql sql;
-  final DateTime now = DateTime.now();
-  final String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+  Future<void> openDb() async {
+    final dir = await _supportDir;
+    dbPath = "${dir.path}/hcody_ab.db";
+    print(dbPath);
+    _restoreIfExists();
+    db = sqlite3.open(dbPath);
+    createTablesIfNotExists(db);
+    sql = Sql(db);
+    sql.settings.updateStreak();
+  }
+
+  void _restoreIfExists() async {
+    var dir = await _supportDir;
+    File restored = File('${dir.path}/restored.db');
+    if (await restored.exists()) {
+      print("restoring");
+      File old = File(dbPath);
+      await old.delete();
+      await restored.rename(dbPath);
+    }
+  }
+
   void createTablesIfNotExists(Database db) {
     const String createCategoryTable = '''
   CREATE TABLE IF NOT EXISTS category(
@@ -171,28 +184,7 @@ class DbHelper {
     for (String sql in sqlList) {
       db.execute(sql);
     }
-    ResultSet result = db.select("select * from category ");
-    for (Row row in result) {
-      print(row);
-    }
-  }
-
-  Future<void> openDb() async {
-    print(dbPath);
-    _restoreIfExists();
-    db = sqlite3.open(dbPath);
-    createTablesIfNotExists(db);
-    sql.settings.updateStreak();
-  }
-
-  void _restoreIfExists() async {
-    var dir = await _supportDir;
-    File restored = File('${dir.path}/restored.db');
-    if (await restored.exists()) {
-      print("restoring");
-      File old = File(dbPath);
-      await old.delete();
-      await restored.rename(dbPath);
-    }
   }
 }
+
+var db = DbHelper();

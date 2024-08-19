@@ -7,7 +7,7 @@ import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../db/sql.dart';
+import '../db/db.dart';
 import '../pages/EditPages/editHabitPage.dart';
 import '../rootProvider/habitProvider.dart';
 import 'tileWithCounter.dart';
@@ -30,9 +30,9 @@ class Habit extends TileWithCounter {
   @override
   void clicked() {
     if (super.totalTimes == 1) {
-      addToHabitLog(super.id);
+      db.sql.habits.addToLog(super.id);
     } else {
-      updateHabitLog(id: super.id, count: super.totalTimes);
+      db.sql.habits.updateLog(id: super.id, count: super.totalTimes);
     }
     if (isBadHabit) {
       context.read<CoinsProvider>().removeCoins(super.price);
@@ -42,15 +42,16 @@ class Habit extends TileWithCounter {
       toastTitle = "habit done";
       undoToast.show(context);
 
-      int newLevel =
-          updateLevel(value: super.price + hardness + priority, id: categoryId);
+      int newLevel = db.sql.categories.updateLevel(
+          value: super.price + hardness + priority, id: categoryId);
       if (newLevel != 0) {
         MyToast(
           title: const Text("Level up"),
           animationType: AnimationType.fromBottom,
           toastPosition: Position.bottom,
           iconWidget: IconImage(
-            iconName: iconNames[getCategory(categoryId)['IconId']],
+            iconName:
+                iconNames[db.sql.categories.getById(categoryId)['IconId']],
           ),
           displayCloseButton: true,
         ).show(context);
@@ -62,10 +63,10 @@ class Habit extends TileWithCounter {
   @override
   void undo() {
     if (super.totalTimes == 1) {
-      deleteFromHabitLog(super.id);
+      db.sql.habits.deleteFromLog(super.id);
       super.totalTimes -= 1;
     } else {
-      updateHabitLog(id: id, count: --super.totalTimes);
+      db.sql.habits.updateLog(id: id, count: --super.totalTimes);
     }
 
     context.read<HabitProvider>().habitUpdated();
@@ -74,7 +75,8 @@ class Habit extends TileWithCounter {
     } else {
       context.read<CoinsProvider>().removeCoins(super.price);
       context.read<LevelProvider>().xpIncreased();
-      removeLevel(value: super.price + hardness + priority, id: categoryId);
+      db.sql.categories.removeLevel(
+          value: super.price + hardness + priority, id: categoryId);
     }
   }
 

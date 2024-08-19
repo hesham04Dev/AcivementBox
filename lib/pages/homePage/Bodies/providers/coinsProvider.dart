@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../db/sql.dart';
+import '../../../../db/db.dart';
 
 class CoinsProvider with ChangeNotifier {
   CoinsProvider() {
-    _coins = getCoins();
+    _coins = db.sql.categories.getCoins();
   }
 
   late int _coins;
@@ -13,13 +13,13 @@ class CoinsProvider with ChangeNotifier {
 
   addCoins(int num) async {
     _coins += num;
-    updateCoins(_coins);
+    db.sql.categories.updateCoins(_coins);
     notifyListeners();
   }
 
   removeCoins(int num) async {
     _coins -= num;
-    updateCoins(_coins);
+    db.sql.categories.updateCoins(_coins);
     notifyListeners();
   }
 }

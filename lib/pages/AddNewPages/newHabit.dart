@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 import '../../models/AutoDirectionTextFormField.dart';
 import '../../models/mySwitchTile.dart';
 import '../../rootProvider/habitProvider.dart';
@@ -36,9 +36,9 @@ class NewHabitPageState extends State<NewHabitPage> {
 
   void save(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      newHabit(
+      db.sql.habits.add(
           name: name.text,
-          category: categoryDropDown.selectedId,
+          categoryId: categoryDropDown.selectedId,
           isBad: isBad.value,
           price: int.parse(coins.text),
           iconId: selectIcon.selectedIconId ?? NewHabitPage.gearIconId,

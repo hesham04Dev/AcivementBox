@@ -6,7 +6,7 @@ import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 
 class NewCategoryPage extends StatefulWidget {
   NewCategoryPage({super.key});
@@ -24,7 +24,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
   void save(BuildContext context) {
     if (name.text.isNotEmpty) {
       try {
-        newCategory(
+        db.sql.categories.add(
           name: name.text,
           iconId: selectIcon.selectedIconId ?? NewCategoryPage.categoryIconId,
         );

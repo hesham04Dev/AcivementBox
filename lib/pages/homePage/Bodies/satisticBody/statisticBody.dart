@@ -1,7 +1,7 @@
 import 'package:achivement_box/pages/homePage/Bodies/satisticBody/widget/statisticBar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../db/sql.dart';
+import '../../../../db/db.dart';
 import '../../../../models/imageIcon.dart';
 import 'widget/categoriesLevel.dart';
 import 'widget/weeklyBar.dart';
@@ -11,10 +11,10 @@ class StatisticsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final topHabit = getTopHabit();
-    final topGift = getTopGift();
-    final topDay = getTopDay();
-    final streak = getStreak();
+    final topHabit = db.sql.habits.getTop();
+    final topGift = db.sql.gifts.getTop();
+    final topDay = db.sql.habits.getTopDay();
+    final streak = db.sql.settings.getStreak();
 
     return Scaffold(
       body: ListView(

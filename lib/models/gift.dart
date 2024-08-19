@@ -5,7 +5,7 @@ import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../db/sql.dart';
+import '../db/db.dart';
 import '../rootProvider/giftProvider.dart';
 import 'tileWithCounter.dart';
 
@@ -21,13 +21,13 @@ class Gift extends TileWithCounter {
 
   @override
   void clicked() {
-    if (getCoins() >= super.price) {
+    if (db.sql.categories.getCoins() >= super.price) {
       if (super.totalTimes == 1) {
-        addToGiftLog(super.id);
+        db.sql.gifts.addToLog(super.id);
       } else {
-        updateGiftLog(id: super.id, count: super.totalTimes);
+        db.sql.gifts.updateLog(id: super.id, count: super.totalTimes);
       }
-      updateGiftCount(id: super.id, sign: '+');
+      db.sql.gifts.updateCount(id: super.id, sign: '+');
       context.read<GiftProvider>().giftUpdated();
       context.read<CoinsProvider>().removeCoins(super.price);
 
@@ -46,12 +46,12 @@ class Gift extends TileWithCounter {
   @override
   void undo() {
     if (super.totalTimes == 1) {
-      deleteFromLogGift(id);
+      db.sql.gifts.deleteFromLog(id);
       super.totalTimes -= 1;
     } else {
-      updateGiftLog(id: id, count: --super.totalTimes);
+      db.sql.gifts.updateLog(id: id, count: --super.totalTimes);
     }
-    updateGiftCount(id: super.id, sign: '-');
+    db.sql.gifts.updateCount(id: super.id, sign: '-');
     context.read<GiftProvider>().giftUpdated();
     context.read<CoinsProvider>().addCoins(super.price);
   }

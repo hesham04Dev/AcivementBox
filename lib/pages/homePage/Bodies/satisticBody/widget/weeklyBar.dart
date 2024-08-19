@@ -2,7 +2,7 @@ import 'package:achivement_box/config/styles.dart';
 import 'package:achivement_box/models/PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../db/sql.dart';
+import '../../../../../db/db.dart';
 import '../../../../../fn/money_labeling.dart';
 import '../../../../../models/verticalBar.dart';
 
@@ -13,7 +13,7 @@ class WeeklyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> x = getWeeklyData();
+    List<Map<String, dynamic>> x = db.sql.habits.getWeeklyData();
     if (x.isNotEmpty) {
       int maxValue = 0;
       for (int i = 0; i < x.length; i++) {

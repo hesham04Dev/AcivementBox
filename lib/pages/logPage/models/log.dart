@@ -1,4 +1,4 @@
-import 'package:achivement_box/db/sql.dart';
+import '../../../db/db.dart';
 
 abstract class Log {
   final String name;
@@ -10,7 +10,7 @@ class LogHabit extends Log {
   LogHabit() : super("Habit");
   @override
   getLogsPerDate(String date) {
-    return getLogHabitByDate(date);
+    return db.sql.habits.getLogByDate(date);
   }
 }
 
@@ -18,6 +18,6 @@ class LogGift extends Log {
   LogGift() : super("Gift");
   @override
   getLogsPerDate(String date) {
-    return getLogGiftByDate(date);
+    return db.sql.gifts.getLogByDate(date);
   }
 }

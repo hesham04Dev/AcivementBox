@@ -1,9 +1,9 @@
-import 'package:achivement_box/db/sql.dart';
 import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/rootProvider/ThemeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../db/db.dart';
 import '../../../../../output/generated/colors.dart';
 
 class ColorDialog extends StatelessWidget {
@@ -20,7 +20,7 @@ class ColorDialog extends StatelessWidget {
           child: GridView.builder(
               itemBuilder: (context, index) => IconButton(
                     onPressed: () {
-                      setAccentColor(index);
+                      db.sql.settings.setAccentColor(index);
                       context
                           .read<ThemeProvider>()
                           .accentColorChanged(colors[index]);

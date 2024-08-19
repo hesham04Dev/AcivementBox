@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-import '../db/sql.dart';
+import '../db/db.dart';
 import '../output/generated/icon_names.dart';
 import 'PrimaryContainer.dart';
 import 'imageIcon.dart';
@@ -174,6 +174,6 @@ class _TileWithCounterVerticalState extends State<TileWithCounter> {
 
   @override
   Widget build(BuildContext context) {
-    return isListView() ? listBuild() : gridBuild();
+    return db.sql.settings.isListView() ? listBuild() : gridBuild();
   }
 }

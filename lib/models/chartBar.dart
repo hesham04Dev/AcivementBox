@@ -1,6 +1,6 @@
-import 'package:achivement_box/db/sql.dart';
 import 'package:flutter/material.dart';
 
+import '../db/db.dart';
 import '../output/generated/colors.dart';
 import 'PrimaryContainer.dart';
 
@@ -60,7 +60,7 @@ class ChartBar extends StatelessWidget {
           height: filledHeight,
           width: filledWidth,
           decoration: BoxDecoration(
-              color: colors[getAccentColorIndex()],
+              color: colors[db.sql.settings.getAccentColorIndex()],
               borderRadius: BorderRadius.circular(10)),
         ),
         SizedBox(

@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
-import '../db/sql.dart';
+import '../db/db.dart';
 
 class GiftProvider with ChangeNotifier {
   GiftProvider() {
-    _Gifts = getGifts();
-    _mostUsedGits = getMostUsedGifts(_maxOfMostUsed);
+    _Gifts = db.sql.gifts.get();
+    _mostUsedGits = db.sql.gifts.getMostUsed(_maxOfMostUsed);
   }
 
   newGift() {
-    _Gifts = getGifts();
+    _Gifts = db.sql.gifts.get();
     notifyListeners();
   }
 
   giftPurchased() {
-    _mostUsedGits = getMostUsedGifts(_maxOfMostUsed);
+    _mostUsedGits = db.sql.gifts.getMostUsed(_maxOfMostUsed);
     notifyListeners();
   }
 
   giftUpdated() {
-    _mostUsedGits = getMostUsedGifts(_maxOfMostUsed);
-    _Gifts = getGifts();
+    _mostUsedGits = db.sql.gifts.getMostUsed(_maxOfMostUsed);
+    _Gifts = db.sql.gifts.get();
     notifyListeners();
   }
 

@@ -1,8 +1,12 @@
+import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 import '../models/Category.dart';
 import '../models/gift.dart';
 import '../models/habit.dart';
+
+final DateTime now = DateTime.now();
+final String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
 class Sql {
   late final Database _db;
@@ -135,9 +139,17 @@ LIMIT 7;
     _db.execute("update habit set IsArchived = 1  where Id = ?", [id]);
   }
 
-  void add({required Habit habit}) {
+  void add(
+      {required String name,
+      required int categoryId,
+      required bool isBad,
+      required int price,
+      required int iconId,
+      required int priority,
+      required int hardness,
+      required int timeInMinutes}) {
     _db.execute(
-        "INSERT INTO habit('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes') VALUES ('${habit.name}',${habit.categoryId},${habit.isBadHabit},${habit.price},${habit.iconId},${habit.priority},${habit.hardness},${habit.timeInMinutes})");
+        "INSERT INTO habit('Name','Category','IsBad','Price','IconId','Priority','Hardness','TimeInMinutes') VALUES ('$name',$categoryId,$isBad,$price,$iconId,$priority,$hardness,$timeInMinutes)");
   }
 }
 
@@ -203,9 +215,13 @@ LIMIT 1;
       ''');
   }
 
-  void add({required Gift gift}) {
+  void add({
+    required String name,
+    required int price,
+    required int iconId,
+  }) {
     _db.execute(
-        "INSERT INTO gift('Name','Price','IconId') VALUES ('${gift.name}',${gift.price},${gift.iconId})");
+        "INSERT INTO gift('Name','Price','IconId') VALUES ('$name',$price,$iconId)");
   }
 
   void update(Gift gift) {
@@ -253,6 +269,26 @@ class CategoryFn {
     ResultSet result =
         _db.select("select * from category where Name = '$name'");
     return result[0];
+  }
+
+  void add({
+    required String name,
+    required int iconId,
+  }) {
+    _db.execute(
+        "INSERT INTO category('Name','IconId') VALUES ('$name',$iconId)");
+  }
+
+  void delete({required int id}) {
+    _db.execute("update habit set Category = 1 where Category = $id");
+    _db.execute("delete from category where Id = $id");
+  }
+
+  update({required int id, required int iconId, required String name}) {
+    print(iconId);
+    _db.execute('''UPDATE category set Name = '$name',
+  IconId = $iconId
+  WHERE Id = $id ''');
   }
 
   int updateLevel({required int value, required int id}) {
@@ -325,7 +361,7 @@ class SettingFn {
   SettingFn(this._db);
   void updateStreak() {
     DateTime lastDay =
-        DateTime.parse(getLastDay() ?? DateTime.now().toString());
+        DateTime.parse(_getLastDay() ?? DateTime.now().toString());
     print(now.difference(lastDay).inDays);
     int diff = now.difference(lastDay).inDays;
     if (diff == 1) {
@@ -334,6 +370,17 @@ class SettingFn {
     } else if (diff != 0) {
       _db.execute('''UPDATE setting set Val = 1  WHERE Name = 'Streak' ''');
     }
+  }
+
+  int getStreak() {
+    ResultSet r = _db.select("select Val from setting where Name = 'Streak'");
+    return r[0]["Val"];
+  }
+
+  String? _getLastDay() {
+    ResultSet r = _db
+        .select("select DateOnly from logHabit Order by DateOnly DESC Limit 1");
+    return r.isEmpty ? null : r[0]["DateOnly"];
   }
 
   int getAccentColorIndex() {

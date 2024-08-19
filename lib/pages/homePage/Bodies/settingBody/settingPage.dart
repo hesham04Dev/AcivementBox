@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../db/sql.dart';
+import '../../../../db/db.dart';
 import '../../../../rootProvider/ThemeProvider.dart';
 import '../../../logPage/log_page.dart';
 import 'Widget/restore_tile.dart';
@@ -25,17 +25,17 @@ class _SettingBodyState extends State<SettingBody> {
   Widget build(BuildContext context) {
     Widget darkModeTile = MySwitchTile(
       title: "darkMode",
-      value: getDarkMode(),
+      value: db.sql.settings.getDarkMode(),
       onChange: (bool value) {
-        value ? setDarkMode(1) : setDarkMode(0);
+        value ? db.sql.settings.setDarkMode(1) : db.sql.settings.setDarkMode(0);
         context.read<ThemeProvider>().toggleMode();
       },
     );
     Widget listViewTile = MySwitchTile(
       title: "ListView",
-      value: isListView(),
+      value: db.sql.settings.isListView(),
       onChange: (bool value) {
-        setIsListView(value);
+        db.sql.settings.setIsListView(value);
         context.read<ThemeProvider>().toggleMode();
       },
     );

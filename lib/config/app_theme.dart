@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../db/sql.dart';
+import '../db/db.dart';
 import '../output/generated/colors.dart';
 import 'const.dart';
 
@@ -10,7 +10,7 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
   Color primaryColor = accentColor;
   print(primaryColor);
   final swatch = ColorScheme.fromSwatch(
-      primarySwatch: colors[getAccentColorIndex()],
+      primarySwatch: colors[db.sql.settings.getAccentColorIndex()],
       brightness: isDark ? Brightness.dark : Brightness.light);
   return base.copyWith(
     dropdownMenuTheme: DropdownMenuThemeData(

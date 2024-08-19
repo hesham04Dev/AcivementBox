@@ -2,7 +2,7 @@ import 'package:achivement_box/models/habitGiftTabPage.dart';
 import 'package:achivement_box/models/my_grid_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../db/sql.dart';
+import '../../db/db.dart';
 import '../../models/gift.dart';
 import '../../models/habit.dart';
 
@@ -11,11 +11,11 @@ class ArchivePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var habits = getArchivedHabits();
-    var gifts = getArchivedGifts();
+    var habits = db.sql.habits.getArchived();
+    var gifts = db.sql.gifts.getArchived();
     StatelessWidget habitsData;
     StatelessWidget giftsData;
-    if (isListView()) {
+    if (db.sql.settings.isListView()) {
       habitsData = ListView.builder(
         itemBuilder: (context, index) {
           return Habit.habitBuilder(context, habits[index]);

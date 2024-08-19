@@ -1,9 +1,9 @@
-import 'package:achivement_box/db/sql.dart';
 import 'package:achivement_box/models/imageIcon.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../db/db.dart';
 import '../output/generated/colors.dart';
 
 class CoinsBar extends StatelessWidget {
@@ -17,7 +17,8 @@ class CoinsBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: colors[getAccentColorIndex()].withOpacity(0.3)),
+          color:
+              colors[db.sql.settings.getAccentColorIndex()].withOpacity(0.3)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

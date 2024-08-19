@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'config/app_theme.dart';
-import 'db/sql.dart';
+import 'db/db.dart';
 import 'rootProvider/ThemeProvider.dart';
 import 'rootProvider/categoryProvider.dart';
 import 'rootProvider/giftProvider.dart';
@@ -14,7 +14,7 @@ import 'rootProvider/habitProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await openDb();
+  await db.openDb();
 
   runApp(const MyApp());
 }
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: Builder(builder: (context) {
-          bool isDarkMode = getDarkMode();
+          bool isDarkMode = db.sql.settings.getDarkMode();
           Color accentColor = context.watch<ThemeProvider>().AccentColor;
           return MaterialApp(
               title: 'Achievement Box',
