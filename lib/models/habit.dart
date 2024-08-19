@@ -29,6 +29,7 @@ class Habit extends TileWithCounter {
 
   @override
   void clicked() {
+    totalTimes++;
     if (super.totalTimes == 1) {
       db.sql.habits.addToLog(super.id);
     } else {
@@ -81,6 +82,7 @@ class Habit extends TileWithCounter {
   }
 
   Habit({
+    super.key,
     required super.id,
     required super.iconId,
     required super.name,

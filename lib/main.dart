@@ -57,10 +57,10 @@ class MyApp extends StatelessWidget {
         }));
   }
 }
-// Todo add the counter in the edit page of the habit and gift  note check with the gift
 // TODO show data about the habit or gift purchased dates
+
 // TODO edit page if is archived show delete or restore
+
 // todo refactor db sql injection err
-// todo sqldb helper
 // todo last refactor
 // todo adding the welcome for new users

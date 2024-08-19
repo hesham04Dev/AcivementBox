@@ -31,7 +31,7 @@ class NewHabitPageState extends State<NewHabitPage> {
   late final Select hardness;
   late final MySwitchTile isBad;
   late SelectIcon selectIcon;
-  late final List<Widget>? children;
+  List<Widget>? children;
   late final CategoryDropDown categoryDropDown;
 
   void save(BuildContext context) {

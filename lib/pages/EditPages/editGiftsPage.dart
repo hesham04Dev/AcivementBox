@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/db.dart';
+import '../../models/PrimaryContainer.dart';
 import '../../models/gift.dart';
 import '../../models/imageIcon.dart';
 import '../../output/generated/icon_names.dart';
@@ -19,7 +20,23 @@ class EditGiftsPage extends NewGiftPage {
 
 class _EditGiftPageState extends NewGiftPageState {
   _EditGiftPageState({required this.gift});
-  final gift;
+
+  final Gift gift;
+
+  @override
+  void initState() {
+    super.initState();
+
+    super.name.text = gift.name;
+
+    super.coins.text = "${gift.price}";
+
+    super.selectIcon = SelectIcon(
+      selectedIconName: iconNames[gift.iconId],
+    );
+    selectIcon.selectedIconId = gift.iconId;
+  }
+
   @override
   Widget build(BuildContext context) {
     widget.actions = [
@@ -34,21 +51,33 @@ class _EditGiftPageState extends NewGiftPageState {
             icon: IconImage(iconName: "box-archive.png")),
       )
     ];
+    children = [
+      PrimaryContainer(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+              onPressed: () {
+                if (gift.totalTimes > 0) {
+                  gift.undo();
+                }
+                setState(() {});
+              },
+              child: const Text("-")),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(gift.totalTimes.toString()),
+          ),
+          TextButton(
+              onPressed: () {
+                gift.clicked();
+                setState(() {});
+              },
+              child: const Text("+"))
+        ],
+      ))
+    ];
     return super.build(context);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    super.name.text = gift.name;
-
-    super.coins.text = "${gift.price}";
-
-    super.selectIcon = SelectIcon(
-      selectedIconName: iconNames[gift.iconId],
-    );
-    selectIcon.selectedIconId = gift.iconId;
   }
 
   @override

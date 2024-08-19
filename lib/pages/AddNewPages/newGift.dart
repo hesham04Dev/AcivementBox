@@ -20,6 +20,7 @@ class NewGiftPageState extends State<NewGiftPage> {
   final TextEditingController coins = TextEditingController();
   final formKey = GlobalKey<FormState>();
   late SelectIcon selectIcon;
+  List<Widget>? children;
   void save(BuildContext context) {
     if (formKey.currentState!.validate()) {
       db.sql.gifts.add(
@@ -69,6 +70,7 @@ class NewGiftPageState extends State<NewGiftPage> {
                     const SizedBox(
                       height: 10,
                     ),
+                    ...?children,
                     TextButton(
                       onPressed: () {
                         save(context);

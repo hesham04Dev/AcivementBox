@@ -52,7 +52,6 @@ abstract class TileWithCounter extends StatefulWidget {
 
 class _TileWithCounterVerticalState extends State<TileWithCounter> {
   void used() {
-    widget.totalTimes++;
     widget.clicked();
     setState(() {});
   }

@@ -23,6 +23,26 @@ class _EditHabitPageState extends NewHabitPageState {
   final Habit habit;
   _EditHabitPageState({required this.habit});
   @override
+  void initState() {
+    super.initState();
+    super.name.text = habit.name;
+    super.coins.text = "${habit.price}";
+    super.category.text =
+        "${db.sql.categories.getById(habit.categoryId)['Name']}";
+    super.categoryDropDown.selectedId = habit.categoryId;
+    super.time.text = "${habit.timeInMinutes}";
+    super.hardness.selected = habit.hardness;
+    super.priority.selected = habit.priority;
+    super.isBad.value = habit.isBadHabit;
+
+    super.selectIcon = SelectIcon(
+      selectedIconName: iconNames[habit.iconId],
+    );
+
+    super.selectIcon.selectedIconId = habit.iconId;
+  }
+
+  @override
   Widget build(BuildContext context) {
     widget.actions = [
       Padding(
@@ -36,21 +56,6 @@ class _EditHabitPageState extends NewHabitPageState {
             icon: IconImage(iconName: "box-archive.png")),
       )
     ];
-    return super.build(context);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    super.name.text = habit.name;
-    super.coins.text = "${habit.price}";
-    super.category.text =
-        "${db.sql.categories.getById(habit.categoryId)['Name']}";
-    super.categoryDropDown.selectedId = habit.categoryId;
-    super.time.text = "${habit.timeInMinutes}";
-    super.hardness.selected = habit.hardness;
-    super.priority.selected = habit.priority;
-    super.isBad.value = habit.isBadHabit;
     super.children = [
       PrimaryContainer(
           child: Row(
@@ -58,7 +63,9 @@ class _EditHabitPageState extends NewHabitPageState {
         children: [
           TextButton(
               onPressed: () {
-                habit.undo();
+                if (habit.totalTimes > 0) {
+                  habit.undo();
+                }
                 setState(() {});
               },
               child: const Text("-")),
@@ -75,11 +82,7 @@ class _EditHabitPageState extends NewHabitPageState {
         ],
       ))
     ];
-    super.selectIcon = SelectIcon(
-      selectedIconName: iconNames[habit.iconId],
-    );
-
-    super.selectIcon.selectedIconId = habit.iconId;
+    return super.build(context);
   }
 
   @override

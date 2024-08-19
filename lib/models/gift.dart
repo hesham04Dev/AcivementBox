@@ -21,6 +21,7 @@ class Gift extends TileWithCounter {
 
   @override
   void clicked() {
+    totalTimes++;
     if (db.sql.categories.getCoins() >= super.price) {
       if (super.totalTimes == 1) {
         db.sql.gifts.addToLog(super.id);
