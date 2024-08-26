@@ -9,6 +9,7 @@ import '../../output/generated/icon_names.dart';
 import '../../rootProvider/habitProvider.dart';
 import '../AddNewPages/newHabit.dart';
 import '../AddNewPages/widget/icon.dart';
+import '../ArchivePage/archivePage.dart';
 
 class EditHabitsPage extends NewHabitPage {
   final Habit habit;
@@ -44,18 +45,55 @@ class _EditHabitPageState extends NewHabitPageState {
 
   @override
   Widget build(BuildContext context) {
-    widget.actions = [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: IconButton(
-            onPressed: () {
-              db.sql.habits.archive(id: habit.id);
-              context.read<HabitProvider>().habitUpdated();
-              Navigator.pop(context);
-            },
-            icon: IconImage(iconName: "box-archive.png")),
-      )
-    ];
+    List<Widget> actions = [];
+    if (habit.isArchived) {
+      actions = [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {
+                db.sql.habits.delete(id: habit.id);
+                context.read<HabitProvider>().habitUpdated();
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ArchivePage(),
+                    ));
+              },
+              icon: const Icon(Icons.delete)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {
+                db.sql.habits.restore(id: habit.id);
+                context.read<HabitProvider>().habitUpdated();
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ArchivePage(),
+                    ));
+              },
+              icon: const Icon(Icons.settings_backup_restore_rounded)),
+        )
+      ];
+    } else {
+      actions = [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {
+                db.sql.habits.archive(id: habit.id);
+                context.read<HabitProvider>().habitUpdated();
+                Navigator.pop(context);
+              },
+              icon: IconImage(iconName: "box-archive.png")),
+        )
+      ];
+    }
+    widget.actions = actions;
     super.children = [
       PrimaryContainer(
           child: Row(
@@ -100,6 +138,7 @@ class _EditHabitPageState extends NewHabitPageState {
         timeInMinutes: int.parse(super.time.text),
         totalTimes: habit.totalTimes,
         context: context,
+        isArchived: false,
       );
       db.sql.habits.update(h);
       context.read<HabitProvider>().habitUpdated();

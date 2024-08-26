@@ -15,6 +15,12 @@ class VerticalBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double filledHeight;
+    if (this.filledHeight < 0) {
+      filledHeight = 0;
+    } else {
+      filledHeight = this.filledHeight;
+    }
     return Column(
       children: [
         AutoSizeText(

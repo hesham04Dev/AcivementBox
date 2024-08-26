@@ -1,4 +1,5 @@
 import 'package:achivement_box/pages/AddNewPages/newGift.dart';
+import 'package:achivement_box/pages/ArchivePage/archivePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,11 +23,11 @@ class _EditGiftPageState extends NewGiftPageState {
   _EditGiftPageState({required this.gift});
 
   final Gift gift;
-
+  late int thisDayCount;
   @override
   void initState() {
     super.initState();
-
+    thisDayCount = db.sql.gifts.thisDayCount(giftId: gift.id);
     super.name.text = gift.name;
 
     super.coins.text = "${gift.price}";
@@ -39,18 +40,55 @@ class _EditGiftPageState extends NewGiftPageState {
 
   @override
   Widget build(BuildContext context) {
-    widget.actions = [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: IconButton(
-            onPressed: () {
-              db.sql.gifts.archive(id: gift.id);
-              context.read<GiftProvider>().giftUpdated();
-              Navigator.pop(context);
-            },
-            icon: IconImage(iconName: "box-archive.png")),
-      )
-    ];
+    List<Widget> actions = [];
+    if (gift.isArchived) {
+      actions = [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {
+                db.sql.gifts.delete(id: gift.id);
+                context.read<GiftProvider>().giftUpdated();
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ArchivePage(),
+                    ));
+              },
+              icon: const Icon(Icons.delete)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {
+                db.sql.gifts.restore(id: gift.id);
+                context.read<GiftProvider>().giftUpdated();
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ArchivePage(),
+                    ));
+              },
+              icon: const Icon(Icons.settings_backup_restore_rounded)),
+        )
+      ];
+    } else {
+      actions = [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {
+                db.sql.gifts.archive(id: gift.id);
+                context.read<GiftProvider>().giftUpdated();
+                Navigator.pop(context);
+              },
+              icon: IconImage(iconName: "box-archive.png")),
+        )
+      ];
+    }
+    widget.actions = actions;
     children = [
       PrimaryContainer(
           child: Row(
@@ -58,10 +96,12 @@ class _EditGiftPageState extends NewGiftPageState {
         children: [
           TextButton(
               onPressed: () {
-                if (gift.totalTimes > 0) {
+                if (thisDayCount > 0) {
+                  thisDayCount--;
                   gift.undo();
+                  print("456: $thisDayCount");
+                  setState(() {});
                 }
-                setState(() {});
               },
               child: const Text("-")),
           Padding(
@@ -70,6 +110,7 @@ class _EditGiftPageState extends NewGiftPageState {
           ),
           TextButton(
               onPressed: () {
+                thisDayCount++;
                 gift.clicked();
                 setState(() {});
               },
@@ -90,6 +131,7 @@ class _EditGiftPageState extends NewGiftPageState {
         iconId: selectIcon.selectedIconId ?? NewGiftPage.giftIconId,
         totalTimes: gift.totalTimes,
         context: context,
+        isArchived: false,
       );
       db.sql.gifts.update(h);
       context.read<GiftProvider>().giftUpdated();

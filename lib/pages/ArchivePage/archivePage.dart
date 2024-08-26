@@ -40,8 +40,9 @@ class ArchivePage extends StatelessWidget {
           itemCount: gifts.length);
     }
     return HabitGiftTabPage(
+        title: "Archive",
         tabBarView: TabBarView(
-      children: [habitsData, giftsData],
-    ));
+          children: [habitsData, giftsData],
+        ));
   }
 }

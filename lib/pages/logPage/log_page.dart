@@ -14,11 +14,12 @@ class LogPage extends StatelessWidget {
     sqlite.ResultSet logHabitDates = db.sql.habits.getDatesOfLog();
     sqlite.ResultSet logGiftDates = db.sql.gifts.getDatesOfLog();
     return HabitGiftTabPage(
+        title: "Log",
         tabBarView: TabBarView(
-      children: [
-        LogContainer(dates: logHabitDates, log: LogHabit()),
-        LogContainer(dates: logGiftDates, log: LogGift())
-      ],
-    ));
+          children: [
+            LogContainer(dates: logHabitDates, log: LogHabit()),
+            LogContainer(dates: logGiftDates, log: LogGift())
+          ],
+        ));
   }
 }

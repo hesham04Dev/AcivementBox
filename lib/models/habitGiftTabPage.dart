@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class HabitGiftTabPage extends StatelessWidget {
   final TabBarView tabBarView;
-  const HabitGiftTabPage({super.key, required this.tabBarView});
+  final String title;
+  const HabitGiftTabPage(
+      {super.key, required this.tabBarView, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class HabitGiftTabPage extends StatelessWidget {
       initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Archive"),
+          title: Text(title),
           bottom: const PreferredSize(
               preferredSize: Size(double.infinity, 5),
               child: TabBar(tabs: [Text("Habits"), Text("Gifts")])),

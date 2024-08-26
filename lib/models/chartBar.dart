@@ -20,7 +20,12 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double percent = this.percent;
+    double percent;
+    if (this.percent < 0) {
+      percent = 0;
+    } else {
+      percent = this.percent;
+    }
     double totalHeight;
     double totalWidth;
     double filledHeight;

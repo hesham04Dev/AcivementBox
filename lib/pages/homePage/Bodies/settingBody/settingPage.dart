@@ -89,7 +89,7 @@ class _SettingBodyState extends State<SettingBody> {
                         builder: (context) => const ArchivePage()));
               }),
           MyListTile(
-            title: 'Version: 0.9.0',
+            title: 'Version: 1.0.0',
             onTap: () {},
           ),
         ],

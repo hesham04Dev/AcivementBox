@@ -15,8 +15,8 @@ class MyGridView extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             mainAxisSpacing: 5.0,
             crossAxisSpacing: 5.0,
-            childAspectRatio: 110 / 150,
-            maxCrossAxisExtent: 120,
+            childAspectRatio: 135 / 160,
+            maxCrossAxisExtent: 135,
             mainAxisExtent: 160));
   }
 }

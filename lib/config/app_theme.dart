@@ -13,6 +13,7 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
       primarySwatch: colors[db.sql.settings.getAccentColorIndex()],
       brightness: isDark ? Brightness.dark : Brightness.light);
   return base.copyWith(
+    tabBarTheme: const TabBarTheme(dividerColor: Colors.transparent),
     dropdownMenuTheme: DropdownMenuThemeData(
         menuStyle: MenuStyle(
             alignment: const Alignment(-1, 1.3),

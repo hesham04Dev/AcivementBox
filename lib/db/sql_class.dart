@@ -10,12 +10,14 @@ final String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
 class Sql {
   late final Database _db;
+
   Sql(this._db) {
     habits = HabitFn(_db);
     gifts = GiftFn(_db);
     categories = CategoryFn(_db);
     settings = SettingFn(_db);
   }
+
   late HabitFn habits;
   late GiftFn gifts;
   late CategoryFn categories;
@@ -24,6 +26,7 @@ class Sql {
 
 class HabitFn {
   final Database _db;
+
   HabitFn(this._db);
 
   ResultSet get() {
@@ -75,15 +78,23 @@ LIMIT 1;
   }
 
   ResultSet getWeeklyData() {
-    var x = _db.select('''
+    /*var x = _db.select('''
 SELECT lh.DateOnly, SUM(lh.Count * h.Price) AS Total
 FROM habit AS h
 INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+WHERE h.IsBad = False
 GROUP BY lh.DateOnly
 ORDER BY lh.DateOnly desc
 LIMIT 7;
-  ''');
-
+  ''');*/
+    var x = _db.select('''
+    SELECT lh.DateOnly, 
+    SUM(CASE WHEN h.IsBad = False THEN lh.Count * h.Price ELSE 0 END) - 
+    SUM(CASE WHEN h.IsBad = True THEN lh.Count * h.Price ELSE 0 END) AS Total
+    FROM habit AS h INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+    GROUP BY lh.DateOnly
+    ORDER BY lh.DateOnly DESC
+    LIMIT 7;''');
     return x;
   }
 
@@ -139,6 +150,10 @@ LIMIT 7;
     _db.execute("update habit set IsArchived = 1  where Id = ?", [id]);
   }
 
+  void restore({required int id}) {
+    _db.execute("update habit set IsArchived = 0  where Id = ?", [id]);
+  }
+
   void add(
       {required String name,
       required int categoryId,
@@ -155,6 +170,7 @@ LIMIT 7;
 
 class GiftFn {
   final _db;
+
   GiftFn(this._db);
 
   ResultSet get() {
@@ -209,10 +225,30 @@ LIMIT 1;
       ''');
   }
 
+  void updateLogCount({required int id, String sign = '+'}) {
+    if (sign == '+' || sign == '-') {
+      _db.execute('''
+    update  logGift set Count = Count $sign 1 where
+    GiftId = $id;
+    ''');
+    } else
+      print("invalid operation in update gift");
+  }
+
   void deleteFromLog(int id) {
     _db.execute('''
       delete from logGift where GiftId = $id and DateOnly = '$formattedDate'
       ''');
+  }
+
+  int thisDayCount({required int giftId}) {
+    ResultSet x = _db.select(
+        "select Count from logGift where GiftId =$giftId and DateOnly = '$formattedDate'");
+    if (x.isEmpty) {
+      return 0;
+    }
+    print(x);
+    return x[0]['Count'];
   }
 
   void add({
@@ -250,10 +286,15 @@ LIMIT 1;
   void archive({required int id}) {
     _db.execute("update gift set IsArchived = 1  where Id = ?", [id]);
   }
+
+  void restore({required int id}) {
+    _db.execute("update gift set IsArchived = 0  where Id = ?", [id]);
+  }
 }
 
 class CategoryFn {
   final Database _db;
+
   CategoryFn(this._db);
 
   ResultSet get() {
@@ -358,7 +399,9 @@ class CategoryFn {
 
 class SettingFn {
   final Database _db;
+
   SettingFn(this._db);
+
   void updateStreak() {
     DateTime lastDay =
         DateTime.parse(_getLastDay() ?? DateTime.now().toString());

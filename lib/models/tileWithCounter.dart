@@ -9,15 +9,15 @@ import 'imageIcon.dart';
 import 'my_toast.dart';
 
 abstract class TileWithCounter extends StatefulWidget {
-  TileWithCounter({
-    super.key,
-    required this.id,
-    required this.iconId,
-    required this.name,
-    required this.price,
-    required this.context,
-    required this.totalTimes,
-  });
+  TileWithCounter(
+      {super.key,
+      required this.id,
+      required this.iconId,
+      required this.name,
+      required this.price,
+      required this.context,
+      required this.totalTimes,
+      required this.isArchived});
 
   void openEditPage();
 
@@ -43,6 +43,7 @@ abstract class TileWithCounter extends StatefulWidget {
   final int price;
   final BuildContext context;
   final int id;
+  final bool isArchived;
   static const double width = 100;
   int totalTimes;
 
@@ -89,7 +90,7 @@ class _TileWithCounterVerticalState extends State<TileWithCounter> {
               ),
               IconImage(
                 iconName: iconNames[widget.iconId],
-                size: 35,
+                size: 40,
               ),
               Padding(
                 padding:
@@ -99,8 +100,8 @@ class _TileWithCounterVerticalState extends State<TileWithCounter> {
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  minFontSize: 5,
-                  maxFontSize: 10,
+                  minFontSize: 11,
+                  maxFontSize: 14,
                 ),
               ),
               Row(
