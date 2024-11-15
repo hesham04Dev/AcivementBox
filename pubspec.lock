@@ -336,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  localization_lite:
+    dependency: "direct main"
+    description:
+      name: localization_lite
+      sha256: dbb16cebfe6d4197d742e2e37e31c51a15fbe0ab02d2f6da3d742d5c9a446b3f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   matcher:
     dependency: transitive
     description:
@@ -649,10 +657,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.4"
+    version: "14.2.5"
   web:
     dependency: transitive
     description:
@@ -686,5 +694,5 @@ packages:
     source: hosted
     version: "1.0.4"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.5.3 <4.0.0"
   flutter: ">=3.22.0"
