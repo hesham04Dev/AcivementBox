@@ -4,6 +4,7 @@ import 'package:achivement_box/pages/ArchivePage/archivePage.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/ColorDialog.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
 import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/backup.dart';
+import 'package:achivement_box/rootProvider/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -89,7 +90,7 @@ class _SettingBodyState extends State<SettingBody> {
                         builder: (context) => const ArchivePage()));
               }),
           MyListTile(
-            title: 'Version: 1.1.0',
+            title: 'Version: ${SettingsController.appVersion}',
             onTap: () {},
           ),
         ],

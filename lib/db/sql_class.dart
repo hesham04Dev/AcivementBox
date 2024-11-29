@@ -333,6 +333,10 @@ class CategoryFn {
   }
 
   int updateLevel({required int value, required int id}) {
+    const mainCategoryId = 1;
+    if(id != mainCategoryId){
+      updateLevel(value: value,id: mainCategoryId);
+    }
     Row res = _db.select("select * from category where id =$id")[0];
     Category category = Category(
         id: id,

@@ -2,7 +2,9 @@ import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProv
 import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:achivement_box/pages/homePage/Bodies/providers/pageIndexProvider.dart';
 import 'package:achivement_box/pages/homePage/homePage.dart';
+import 'package:achivement_box/rootProvider/settings_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'config/app_theme.dart';
@@ -15,7 +17,7 @@ import 'rootProvider/habitProvider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await db.openDb();
-
+  SettingsController.appVersion = (await PackageInfo.fromPlatform()).version;
   runApp(const MyApp());
 }
 
