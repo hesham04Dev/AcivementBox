@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/imageIcon.dart';
@@ -33,24 +34,24 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               color: accentColor.withOpacity(0.8),
               iconName: "gear.png",
             ),
-            label: "settings"),
+            label: tr("settings")),
         BottomNavigationBarItem(
             icon: IconImage(
               color: accentColor.withOpacity(0.8),
               iconName: "igloo.png",
             ),
-            label: "home"),
+            label: tr("home")),
         BottomNavigationBarItem(
             icon: IconImage(
               color: accentColor.withOpacity(0.8),
               iconName: "gift.png",
             ),
-            label: "gifts"),
+            label: tr("gifts")),
         BottomNavigationBarItem(
             icon: IconImage(
                 color: accentColor.withOpacity(0.8),
                 iconName: "chart-simple.png"),
-            label: "statistics"),
+            label: tr("statistics")),
       ],
     );
   }

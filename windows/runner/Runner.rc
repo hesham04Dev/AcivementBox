@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "hcody.hesham.achivementBox" "\0"
-            VALUE "FileDescription", "achivement_box" "\0"
+            VALUE "FileDescription", "achievement_box" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "achivement_box" "\0"
+            VALUE "InternalName", "achievement_box" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 hcody.hesham.achivementBox. All rights reserved." "\0"
-            VALUE "OriginalFilename", "achivement_box.exe" "\0"
-            VALUE "ProductName", "achivement_box" "\0"
+            VALUE "OriginalFilename", "achievement_box.exe" "\0"
+            VALUE "ProductName", "achievement_box" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

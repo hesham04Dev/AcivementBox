@@ -1,8 +1,11 @@
-import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:achivement_box/rootProvider/categoryProvider.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite3/common.dart';
+
+import '../../../models/PrimaryContainer.dart';
+import '../../../rootProvider/categoryProvider.dart';
 
 class CategoryDropDown extends StatelessWidget {
   final TextEditingController controller;
@@ -32,10 +35,10 @@ class CategoryDropDown extends StatelessWidget {
           inputDecorationTheme: const InputDecorationTheme(
             border: InputBorder.none,
           ),
-          hintText: "Category",
-          label: const Text(
-            "Category",
-            style: TextStyle(fontSize: 14),
+          hintText: tr("category"),
+          label: Text(
+            tr("category"),
+            style: const TextStyle(fontSize: 14),
           ),
           dropdownMenuEntries: categoryList),
     );

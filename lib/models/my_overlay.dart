@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:localization_lite/translate.dart';
 
 import 'PrimaryContainer.dart';
 
@@ -36,8 +37,8 @@ OverlayEntry _createOverlayEntry() {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Expanded(child: Text("toastTitle")),
-                    IconButton(onPressed: () {}, icon: const Text("undo")),
+                    Expanded(child: Text(tr("toastTitle"))),
+                    IconButton(onPressed: () {}, icon: Text(tr("undo"))),
                     IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.highlight_remove_rounded))

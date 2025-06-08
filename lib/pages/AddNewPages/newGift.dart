@@ -1,10 +1,12 @@
-import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
-import 'package:achivement_box/pages/AddNewPages/widget/NumericField.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/db.dart';
+import '../../models/AutoDirectionTextFormField.dart';
 import '../../rootProvider/giftProvider.dart';
+import '../../pages/AddNewPages/widget/NumericField.dart';
 import 'widget/icon.dart';
 
 class NewGiftPage extends StatefulWidget {
@@ -43,7 +45,7 @@ class NewGiftPageState extends State<NewGiftPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("new gift"),
+        title: Text(tr("newGift")),
         actions: widget.actions,
       ),
       body: ListView(
@@ -60,10 +62,10 @@ class NewGiftPageState extends State<NewGiftPage> {
                     ),
                     AutoDirectionTextFormField(
                         controller: name,
-                        errMessage: "errMessage",
-                        hintText: "name"),
+                        errMessage: tr("errMessage"),
+                        hintText: tr("name")),
                     NumericField(
-                      hintText: "Coins",
+                      hintText: tr("coins"),
                       controller: coins,
                       maxValue: 9999999,
                     ),
@@ -75,7 +77,7 @@ class NewGiftPageState extends State<NewGiftPage> {
                       onPressed: () {
                         save(context);
                       },
-                      child: const Text("save"),
+                      child: Text(tr("save")),
                     )
                   ],
                 )),

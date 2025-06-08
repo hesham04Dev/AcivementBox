@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:achivement_box/db/sql_class.dart';
+import 'sql_class.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 

@@ -1,10 +1,12 @@
-import 'package:achivement_box/models/habitGiftTabPage.dart';
-import 'package:achivement_box/models/my_grid_view.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 
 import '../../db/db.dart';
 import '../../models/gift.dart';
 import '../../models/habit.dart';
+import '../../models/habitGiftTabPage.dart';
+import '../../models/my_grid_view.dart';
 
 class ArchivePage extends StatelessWidget {
   const ArchivePage({super.key});
@@ -40,7 +42,7 @@ class ArchivePage extends StatelessWidget {
           itemCount: gifts.length);
     }
     return HabitGiftTabPage(
-        title: "Archive",
+        title: tr("archive"),
         tabBarView: TabBarView(
           children: [habitsData, giftsData],
         ));

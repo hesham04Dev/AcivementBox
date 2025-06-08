@@ -1,4 +1,3 @@
-import 'package:achivement_box/pages/AddNewPages/newCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,6 +5,7 @@ import '../../db/db.dart';
 import '../../output/generated/icon_names.dart';
 import '../../rootProvider/categoryProvider.dart';
 import '../AddNewPages/widget/icon.dart';
+import '../../pages/AddNewPages/newCategory.dart';
 
 class EditCategoriesPage extends NewCategoryPage {
   final int categoryId;

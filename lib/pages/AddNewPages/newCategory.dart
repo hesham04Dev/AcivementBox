@@ -1,9 +1,10 @@
-import 'package:achivement_box/models/AutoDirectionTextFormField.dart';
-import 'package:achivement_box/models/my_toast.dart';
-import 'package:achivement_box/pages/AddNewPages/widget/icon.dart';
-import 'package:achivement_box/rootProvider/categoryProvider.dart';
+import '../../rootProvider/categoryProvider.dart';
+import '../../models/AutoDirectionTextFormField.dart';
+import '../../models/my_toast.dart';
+import 'widget/icon.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/db.dart';
@@ -33,7 +34,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
       } catch (e) {
         print(e);
         MyToast(
-          title: const Text("you already have this category"),
+          title: Text(tr("youAlreadyHaveThisCategory")),
           animationType: AnimationType.fromTop,
           displayCloseButton: false,
         ).show(context);
@@ -51,7 +52,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("new Category"),
+        title: Text(tr("newCategory")),
         actions: widget.actions,
       ),
       body: ListView(
@@ -67,8 +68,8 @@ class NewCategoryPageState extends State<NewCategoryPage> {
                 ),
                 AutoDirectionTextFormField(
                     controller: name,
-                    errMessage: "errMessage",
-                    hintText: "name"),
+                    errMessage: tr("errMessage"),
+                    hintText: tr("name")),
                 const SizedBox(
                   height: 10,
                 ),
@@ -77,7 +78,7 @@ class NewCategoryPageState extends State<NewCategoryPage> {
                   onPressed: () {
                     save(context);
                   },
-                  child: const Text("save"),
+                  child: Text(tr("save")),
                   //color: Theme.of(context).primaryColor.withOpacity(0.5),
                 )
               ],

@@ -1,5 +1,5 @@
-import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/output/generated/icon_names.dart';
+import '../../../models/imageIcon.dart';
+import '../../../output/generated/icon_names.dart';
 import 'package:flutter/material.dart';
 
 class IconsDialog extends StatelessWidget {

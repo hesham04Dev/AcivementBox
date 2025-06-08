@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../fn/restoreDB.dart';
@@ -16,17 +17,17 @@ class BackupTile extends StatelessWidget {
     void showBackupDialog() {
       showDialog(
         context: context,
-        builder: (context) => const Dialog(
+        builder: (context) => Dialog(
           child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text("the database copied to Downloads/achievement_box"),
+            padding: const EdgeInsets.all(20.0),
+            child: Text(tr("theDatabaseCopiedTo_Downloads/achievement_box")),
           ),
         ),
       );
     }
 
     return MyListTile(
-      title: 'Backup',
+      title: tr('backup'),
       trailing: IconImage(
         iconName: "copy.png",
       ),

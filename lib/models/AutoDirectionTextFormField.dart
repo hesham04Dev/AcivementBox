@@ -1,4 +1,4 @@
-import 'package:achivement_box/models/PrimaryContainer.dart';
+import 'PrimaryContainer.dart';
 import 'package:flutter/material.dart';
 
 import 'AutoDirection.dart';

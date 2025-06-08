@@ -1,12 +1,15 @@
-import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:achivement_box/models/imageIcon.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/db.dart';
 import '../../models/habit.dart';
 import '../../output/generated/icon_names.dart';
 import '../../rootProvider/habitProvider.dart';
+import '../../models/PrimaryContainer.dart';
+import '../../models/imageIcon.dart';
+
 import '../AddNewPages/newHabit.dart';
 import '../AddNewPages/widget/icon.dart';
 import '../ArchivePage/archivePage.dart';
@@ -14,7 +17,7 @@ import '../ArchivePage/archivePage.dart';
 class EditHabitsPage extends NewHabitPage {
   final Habit habit;
 
-  EditHabitsPage({super.key, required this.habit, super.title = "Edit Habit"});
+  EditHabitsPage({super.key, required this.habit, super.title = ""});
 
   @override
   State<NewHabitPage> createState() => _EditHabitPageState(habit: habit);
@@ -45,6 +48,9 @@ class _EditHabitPageState extends NewHabitPageState {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.title==""){
+      widget.title = tr("editHabit");
+    }
     List<Widget> actions = [];
     if (habit.isArchived) {
       actions = [

@@ -1,10 +1,12 @@
-import 'package:achivement_box/config/styles.dart';
-import 'package:achivement_box/models/PrimaryContainer.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 
 import '../../../../../db/db.dart';
 import '../../../../../fn/money_labeling.dart';
 import '../../../../../models/verticalBar.dart';
+import '../../../../../config/styles.dart';
+import '../../../../../models/PrimaryContainer.dart';
 
 class WeeklyBar extends StatelessWidget {
   const WeeklyBar({super.key});
@@ -27,7 +29,7 @@ class WeeklyBar extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "Coins bar",
+              tr("coinsBar"),
               style: titleStyle(context),
             ),
             SizedBox(
@@ -77,11 +79,11 @@ class WeeklyBar extends StatelessWidget {
         ),
       );
     } else {
-      return const PrimaryContainer(
+      return  PrimaryContainer(
         opacity: 0.1,
         height: 150,
         child: Center(
-          child: Text("do some habits to gather statistics on."),
+          child: Text(tr("doSomeHabitsToGatherStatisticsOn")),
         ),
       );
     }

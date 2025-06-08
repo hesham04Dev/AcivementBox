@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -20,10 +21,10 @@ class RestoreTile extends StatelessWidget {
         context: context,
         builder: (context) => Dialog(
           backgroundColor: Colors.red.withOpacity(0.2),
-          child: const Padding(
-            padding: EdgeInsets.all(20.0),
+          child: Padding(
+            padding:const EdgeInsets.all(20.0),
             child: Text(
-              "incorrect file",
+              tr("incorrectFile"),
               textAlign: TextAlign.center,
             ),
           ),
@@ -40,8 +41,8 @@ class RestoreTile extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  "do you want to backup before restore",
+                 Text(
+                  tr("doYouWantToBackupBeforeRestore"),
                   textAlign: TextAlign.center,
                 ),
                 Row(
@@ -50,13 +51,13 @@ class RestoreTile extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Cancel')),
+                        child: Text(tr('cancel'))),
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                           backup();
                         },
-                        child: const Text('Backup')),
+                        child: Text(tr('backup'))),
                   ],
                 )
               ],
@@ -67,7 +68,7 @@ class RestoreTile extends StatelessWidget {
     }
 
     return MyListTile(
-      title: 'Restore',
+      title: tr('restore'),
       trailing: IconImage(
         iconName: "time-back.png",
       ),

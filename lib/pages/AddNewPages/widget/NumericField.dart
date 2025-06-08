@@ -1,6 +1,8 @@
-import 'package:achivement_box/models/PrimaryContainer.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
+
+import '../../../models/PrimaryContainer.dart';
 class NumericField extends StatelessWidget {
   const NumericField(
       {super.key,
@@ -22,11 +24,11 @@ class NumericField extends StatelessWidget {
         validator: (value) {
           int val = int.parse(value ?? "0");
           if (value == null || value.isEmpty) {
-            return "please enter a number";
+            return tr("pleaseEnterNumber");
           } else if (val > maxValue) {
-            return "value must be less than $maxValue";
+            return "${tr("valueMustBeLessThan")} $maxValue";
           } else if (val < 0) {
-            return "value must be greater than 0";
+            return "${tr("valueMustBeGreaterThan")} 0";
           }
           return null;
         },

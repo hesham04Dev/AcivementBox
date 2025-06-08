@@ -1,5 +1,3 @@
-import 'package:achivement_box/pages/AddNewPages/newGift.dart';
-import 'package:achivement_box/pages/ArchivePage/archivePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +7,9 @@ import '../../models/gift.dart';
 import '../../models/imageIcon.dart';
 import '../../output/generated/icon_names.dart';
 import '../../rootProvider/giftProvider.dart';
+import '../../pages/AddNewPages/newGift.dart';
+import '../../pages/ArchivePage/archivePage.dart';
+
 import '../AddNewPages/widget/icon.dart';
 
 class EditGiftsPage extends NewGiftPage {

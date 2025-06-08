@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/db.dart';
@@ -12,9 +13,9 @@ import 'widget/icon.dart';
 import 'widget/select with name.dart';
 
 class NewHabitPage extends StatefulWidget {
-  NewHabitPage({super.key, this.title = "New Habit"});
+  NewHabitPage({super.key, this.title = ""});
   List<Widget>? actions;
-  final String title;
+  String title;
   static const int gearIconId = 39;
 
   @override
@@ -59,15 +60,15 @@ class NewHabitPageState extends State<NewHabitPage> {
     category = TextEditingController();
     formKey = GlobalKey<FormState>();
     priority = Select(
-      label: "priority",
+      label: tr("priority"),
       length: 5,
     );
     hardness = Select(
-      label: "hardness",
+      label: tr("hardness"),
       length: 5,
     );
 
-    isBad = MySwitchTile(title: "Is Bad?");
+    isBad = MySwitchTile(title: "${tr("isBad")}?");
     categoryDropDown = CategoryDropDown(
       controller: category,
     );
@@ -79,7 +80,7 @@ class NewHabitPageState extends State<NewHabitPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title ==""?tr("newHabit"):widget.title),
         actions: widget.actions,
       ),
       body: ListView(
@@ -96,8 +97,8 @@ class NewHabitPageState extends State<NewHabitPage> {
                     ),
                     AutoDirectionTextFormField(
                         controller: name,
-                        errMessage: "please enter a name",
-                        hintText: "name"),
+                        errMessage: tr("pleaseEnterName"),
+                        hintText: tr("name")),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -109,7 +110,7 @@ class NewHabitPageState extends State<NewHabitPage> {
                                 MaterialPageRoute(
                                     builder: (_) => NewCategoryPage()));
                           },
-                          child: const Text("new category"),
+                          child: Text(tr("newCategory")),
                         )
                       ],
                     ),
@@ -117,12 +118,12 @@ class NewHabitPageState extends State<NewHabitPage> {
                     hardness,
                     NumericField(
                       controller: coins,
-                      hintText: "Coins",
+                      hintText: tr("coins"),
                       maxValue: 10000,
                     ),
                     NumericField(
                       controller: time,
-                      hintText: "Time in minute",
+                      hintText: tr("timeInMinute"),
                       maxValue: 24 * 60,
                     ),
                     ...?children,
@@ -134,7 +135,7 @@ class NewHabitPageState extends State<NewHabitPage> {
                       onPressed: () {
                         save(context);
                       },
-                      child: const Text("save"),
+                      child:  Text(tr("save")),
                       //color: Theme.of(context).primaryColor.withOpacity(0.5),
                     )
                   ],

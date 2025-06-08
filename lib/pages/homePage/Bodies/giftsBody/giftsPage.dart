@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:localization_lite/translate.dart";
 import "package:provider/provider.dart";
 
 import "../../../../db/db.dart";
@@ -22,7 +23,7 @@ class GiftsBody extends StatelessWidget {
     var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
     if (mostUsedGifts.length > 0 || listView) {
       mostUsed = [
-        const Text("most used"),
+        Text(tr("mostUsed")),
         PrimaryContainer(
           opacity: 0.1,
           height: 170,
@@ -44,7 +45,7 @@ class GiftsBody extends StatelessWidget {
           canLevelChange: false,
         ),
         if (listView) const SizedBox() else ...mostUsed,
-        const Text("all items"),
+        Text(tr("allItems")),
         Expanded(
           child: PrimaryContainer(
             opacity: 0.1,

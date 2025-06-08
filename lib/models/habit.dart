@@ -1,15 +1,16 @@
-import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/models/my_toast.dart';
-import 'package:achivement_box/output/generated/icon_names.dart';
-import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
-import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
-import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 
+import '../output/generated/icon_names.dart';
+import '../pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
+import '../pages/homePage/Bodies/providers/coinsProvider.dart';
 import '../db/db.dart';
 import '../pages/EditPages/editHabitPage.dart';
 import '../rootProvider/habitProvider.dart';
+import 'imageIcon.dart';
+import 'my_toast.dart';
 import 'tileWithCounter.dart';
 
 class Habit extends TileWithCounter {
@@ -40,14 +41,14 @@ class Habit extends TileWithCounter {
     } else {
       context.read<CoinsProvider>().addCoins(super.price);
       context.read<LevelProvider>().xpIncreased();
-      toastTitle = "habit done";
+      toastTitle = tr("habitDone");
       undoToast.show(context);
 
       int newLevel = db.sql.categories.updateLevel(
           value: super.price + hardness + priority, id: categoryId);
       if (newLevel != 0) {
         MyToast(
-          title: const Text("Level up"),
+          title: Text(tr("levelUp")),
           animationType: AnimationType.fromBottom,
           toastPosition: Position.bottom,
           iconWidget: IconImage(

@@ -1,8 +1,11 @@
-import 'package:achivement_box/pages/homePage/Bodies/satisticBody/widget/statisticBar.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 
 import '../../../../db/db.dart';
 import '../../../../models/imageIcon.dart';
+import '../../../../pages/homePage/Bodies/satisticBody/widget/statisticBar.dart';
+
 import 'widget/categoriesLevel.dart';
 import 'widget/weeklyBar.dart';
 
@@ -22,31 +25,31 @@ class StatisticsBody extends StatelessWidget {
           const WeeklyBar(),
           const CategoriesLevel(),
           StatisticBar(
-            statisticName: "Streak",
+            statisticName: tr("streak"),
             valueName: "$streak",
             icon: IconImage(
               iconName: 'fire-flame.png',
             ),
           ),
-          topHabit.length > 0
+          topHabit.isNotEmpty
               ? StatisticBar(
-                  statisticName: "Top Habit",
+                  statisticName: tr("topHabit"),
                   valueName: "${topHabit[0]?['Name']}",
-                  icon: Text("${topHabit[0]?['Total']} Times"),
+                  icon: Text("${topHabit[0]?['Total']} ${tr("times")}"),
                 )
               : const SizedBox(),
-          topGift.length > 0
+          topGift.isNotEmpty
               ? StatisticBar(
                   statisticName: "Top Gift",
                   valueName: "${topGift[0]['Name']}",
-                  icon: Text("${topGift[0]['Total']} Times"),
+                  icon: Text("${topGift[0]['Total']} ${tr("times")}"),
                 )
               : const SizedBox(),
-          topDay.length > 0
+          topDay.isNotEmpty
               ? StatisticBar(
-                  statisticName: "Top Day",
+                  statisticName: tr("topDay"),
                   valueName: "${topDay[0]['DateOnly']}",
-                  icon: Text("${topDay[0]['Total']} Coins"),
+                  icon: Text("${topDay[0]['Total']} ${tr("coins")}"),
                 )
               : const SizedBox(),
         ],

@@ -1,3 +1,5 @@
+import 'package:localization_lite/translate.dart';
+
 import '../../../db/db.dart';
 
 abstract class Log {
@@ -7,7 +9,7 @@ abstract class Log {
 }
 
 class LogHabit extends Log {
-  LogHabit() : super("Habit");
+  LogHabit() : super(tr("habits"));
   @override
   getLogsPerDate(String date) {
     return db.sql.habits.getLogByDate(date);
@@ -15,7 +17,7 @@ class LogHabit extends Log {
 }
 
 class LogGift extends Log {
-  LogGift() : super("Gift");
+  LogGift() : super(tr("gifts"));
   @override
   getLogsPerDate(String date) {
     return db.sql.gifts.getLogByDate(date);

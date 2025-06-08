@@ -1,10 +1,11 @@
-import 'package:achivement_box/models/chartBar.dart';
-import 'package:achivement_box/pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
+
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
+import 'chartBar.dart';
 import '../db/db.dart';
-
+import '../pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 class LevelBar extends StatelessWidget {
   const LevelBar(
       {super.key, required this.canChange, this.categoryName = 'main'});
@@ -25,7 +26,7 @@ class LevelBar extends StatelessWidget {
             style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
       ),
       ChartBar(
-        text: "level: $level",
+        text: "${tr("level")}: $level",
         percent: percent,
         thickness: 15,
       )

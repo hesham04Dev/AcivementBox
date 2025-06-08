@@ -1,17 +1,19 @@
-import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/models/mySwitchTile.dart';
-import 'package:achivement_box/pages/ArchivePage/archivePage.dart';
-import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/ColorDialog.dart';
-import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
-import 'package:achivement_box/pages/homePage/Bodies/settingBody/Widget/backup.dart';
-import 'package:achivement_box/rootProvider/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization_lite/translate.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../db/db.dart';
 import '../../../../rootProvider/ThemeProvider.dart';
 import '../../../logPage/log_page.dart';
+import '../../../../models/imageIcon.dart';
+import '../../../../models/mySwitchTile.dart';
+import '../../../../pages/ArchivePage/archivePage.dart';
+import '../../../../pages/homePage/Bodies/settingBody/Widget/ColorDialog.dart';
+import '../../../../pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
+import '../../../../pages/homePage/Bodies/settingBody/Widget/backup.dart';
+import '../../../../rootProvider/settings_controller.dart';
+
 import 'Widget/restore_tile.dart';
 
 class SettingBody extends StatefulWidget {
@@ -25,7 +27,7 @@ class _SettingBodyState extends State<SettingBody> {
   @override
   Widget build(BuildContext context) {
     Widget darkModeTile = MySwitchTile(
-      title: "darkMode",
+      title: tr("darkMode"),
       value: db.sql.settings.getDarkMode(),
       onChange: (bool value) {
         value ? db.sql.settings.setDarkMode(1) : db.sql.settings.setDarkMode(0);
@@ -33,7 +35,7 @@ class _SettingBodyState extends State<SettingBody> {
       },
     );
     Widget listViewTile = MySwitchTile(
-      title: "ListView",
+      title: tr("listView"),
       value: db.sql.settings.isListView(),
       onChange: (bool value) {
         db.sql.settings.setIsListView(value);
@@ -47,7 +49,7 @@ class _SettingBodyState extends State<SettingBody> {
           listViewTile,
           darkModeTile,
           MyListTile(
-            title: 'Accent Color',
+            title: tr('accentColor'),
             trailing: IconImage(
               iconName: "circle.png",
             ),
@@ -60,7 +62,7 @@ class _SettingBodyState extends State<SettingBody> {
           RestoreTile(),
           /*not constant*/
           MyListTile(
-            title: 'View on Github',
+            title: tr('viewOnGithub'),
             trailing: IconImage(
               iconName: "github-alt.png",
             ),
@@ -70,7 +72,7 @@ class _SettingBodyState extends State<SettingBody> {
             },
           ),
           MyListTile(
-              title: "Log page",
+              title: tr("logPage"),
               trailing: IconImage(
                 iconName: "rectangle-history.png",
               ),
@@ -79,7 +81,7 @@ class _SettingBodyState extends State<SettingBody> {
                     MaterialPageRoute(builder: (context) => const LogPage()));
               }),
           MyListTile(
-              title: "Archive Page",
+              title: tr("archivePage"),
               trailing: IconImage(
                 iconName: "box-archive.png",
               ),
@@ -90,7 +92,7 @@ class _SettingBodyState extends State<SettingBody> {
                         builder: (context) => const ArchivePage()));
               }),
           MyListTile(
-            title: 'Version: ${SettingsController.appVersion}',
+            title: '${tr("version")}: ${SettingsController.appVersion}',
             onTap: () {},
           ),
         ],

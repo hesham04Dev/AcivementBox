@@ -1,5 +1,5 @@
-import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/pages/homePage/Bodies/providers/coinsProvider.dart';
+import 'imageIcon.dart';
+import '../pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

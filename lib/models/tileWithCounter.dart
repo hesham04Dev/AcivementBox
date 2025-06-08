@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:localization_lite/translate.dart';
 
 import '../db/db.dart';
 import '../output/generated/icon_names.dart';
@@ -30,7 +31,7 @@ abstract class TileWithCounter extends StatefulWidget {
         undoToast.closeOverlay();
         undo();
       },
-      child: const Text("undo"),
+      child: Text(tr("undo")),
     ),
   );
 

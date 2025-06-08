@@ -1,10 +1,11 @@
-import 'package:achivement_box/models/imageIcon.dart';
-import 'package:achivement_box/rootProvider/ThemeProvider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../db/db.dart';
 import '../../../../../output/generated/colors.dart';
+import '../../../../../models/imageIcon.dart';
+import '../../../../../rootProvider/ThemeProvider.dart';
 
 class ColorDialog extends StatelessWidget {
   ColorDialog({super.key});

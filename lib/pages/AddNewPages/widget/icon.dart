@@ -1,6 +1,7 @@
-import 'package:achivement_box/models/imageIcon.dart';
+
 import 'package:flutter/material.dart';
 
+import '../../../models/imageIcon.dart';
 import '../../../models/PrimaryContainer.dart';
 import '../../../output/generated/icon_names.dart';
 import 'iconsDialog.dart';
