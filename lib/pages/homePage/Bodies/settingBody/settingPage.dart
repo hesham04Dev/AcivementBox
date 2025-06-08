@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization_lite/translate.dart';
+import 'package:mailto/mailto.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../db/db.dart';
 import '../../../../rootProvider/ThemeProvider.dart';
@@ -90,6 +92,21 @@ class _SettingBodyState extends State<SettingBody> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ArchivePage()));
+              }),
+          MyListTile(
+              title: tr("reportErrorInTranslation"),
+              trailing: IconImage(
+                iconName: "bug.png",
+              ),
+              onTap: () async {
+                final mailtoLink = Mailto(
+                  to: ['to@example.com'],
+                  cc: ['cc1@example.com', 'cc2@example.com'],
+                  subject: 'mailto example subject',
+                  body: 'mailto example body',
+                );
+
+                await launchUrl(Uri.parse('$mailtoLink'));
               }),
           MyListTile(
             title: '${tr("version")}: ${SettingsController.appVersion}',
