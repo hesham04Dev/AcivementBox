@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../fn/restoreDB.dart';

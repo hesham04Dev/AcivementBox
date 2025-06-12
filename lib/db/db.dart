@@ -156,7 +156,9 @@ class DbHelper {
   Name TEXT,
   Val INTEGER
   );
-  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'Streak',1),(6,'ListView',0);  ''';
+  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'Streak',1),(6,'ListView',0),(7,'LanguageId',0);
+  
+    ''';
     const String createLogGiftTable = '''
   CREATE TABLE IF NOT EXISTS logGift(
   DateOnly TEXT,

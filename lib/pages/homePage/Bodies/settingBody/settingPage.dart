@@ -1,6 +1,9 @@
+import 'package:achievement_box/config/const.dart';
+import 'package:achievement_box/rootProvider/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 import 'package:mailto/mailto.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,6 +19,7 @@ import '../../../../pages/homePage/Bodies/settingBody/Widget/MyListTile.dart';
 import '../../../../pages/homePage/Bodies/settingBody/Widget/backup.dart';
 import '../../../../rootProvider/settings_controller.dart';
 
+import 'Widget/lang_dialog.dart';
 import 'Widget/restore_tile.dart';
 
 class SettingBody extends StatefulWidget {
@@ -50,13 +54,24 @@ class _SettingBodyState extends State<SettingBody> {
         children: [
           listViewTile,
           darkModeTile,
+          
           MyListTile(
             title: tr('accentColor'),
             trailing: IconImage(
               iconName: "circle.png",
             ),
             onTap: () {
-              showDialog(context: context, builder: (context) => ColorDialog());
+              showDialog(context: context, builder: (context) => const ColorDialog(key: Key("colorDialog"),));
+            },
+          ),
+          MyListTile(
+            title: tr('language'),
+            trailing: Text(
+             context.read<LocaleProvider>().Language,
+             style: const TextStyle(fontSize: 16),
+            ),
+            onTap: () {
+              showDialog(context: context, builder: (context) =>const LangDialog(key: Key("langDialog"),));
             },
           ),
           BackupTile(),
@@ -100,10 +115,9 @@ class _SettingBodyState extends State<SettingBody> {
               ),
               onTap: () async {
                 final mailtoLink = Mailto(
-                  to: ['to@example.com'],
-                  cc: ['cc1@example.com', 'cc2@example.com'],
-                  subject: 'mailto example subject',
-                  body: 'mailto example body',
+                  to: [kEmail],
+                  subject: 'Report Error in Translation',
+                  body: 'eg: [قائمة الطعام] should be القائمة',
                 );
 
                 await launchUrl(Uri.parse('$mailtoLink'));

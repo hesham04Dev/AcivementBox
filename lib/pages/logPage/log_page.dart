@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 import 'package:sqlite3/sqlite3.dart' as sqlite;
 
 import '../../db/db.dart';

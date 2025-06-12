@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 
 import "Bodies/HomeBody/homeBody.dart";
 import "Bodies/giftsBody/giftsPage.dart";
@@ -13,8 +14,8 @@ import "widget/myFab.dart";
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({super.key,this.title = "" });
+  final String title;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -35,7 +36,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           scrolledUnderElevation: 0,
           title:  Text(
-            tr("appName"),
+            widget.title.isEmpty ? tr("appName") : widget.title,
+            
           ),
         ),
         body: PageView(

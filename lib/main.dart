@@ -1,8 +1,11 @@
+import 'package:achievement_box/rootProvider/locale_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+import 'config/const.dart';
 import 'pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'pages/homePage/Bodies/providers/pageIndexProvider.dart';
@@ -19,7 +22,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await db.openDb();
   SettingsController.appVersion = (await PackageInfo.fromPlatform()).version;
-  Translate.init(defaultLangCode: 'en',);
+  await Translate.init(defaultLangCode: 'en',);
+  await Translate.setLang(Translate.supportedLangs[db.sql.settings.getLanguageId()]);
   runApp(const MyApp());
 }
 
@@ -35,6 +39,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => ThemeProvider(),
+          ),
+           ChangeNotifierProvider(
+            create: (context) =>  LocaleProvider(),
           ),
           ChangeNotifierProvider(
             create: (context) => CoinsProvider(),
@@ -52,12 +59,15 @@ class MyApp extends StatelessWidget {
         child: Builder(builder: (context) {
           bool isDarkMode = db.sql.settings.getDarkMode();
           Color accentColor = context.watch<ThemeProvider>().AccentColor;
+        //  var c= context.watch<LocaleProvider>().Language;
+         
           return MaterialApp(
               title: 'Achievement Box',
+              locale: Locale( context.read<LocaleProvider>().Language),
               themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
               debugShowCheckedModeBanner: false,
               theme: buildTheme(accentColor, isDarkMode),
-              home: const HomePage());
+              home:  HomePage(title:tr("appName")),);
         }));
   }
 }

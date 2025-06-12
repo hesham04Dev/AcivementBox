@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 
 class HabitGiftTabPage extends StatelessWidget {
   final TabBarView tabBarView;

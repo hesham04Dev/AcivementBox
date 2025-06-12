@@ -4,7 +4,8 @@ import '../../models/my_toast.dart';
 import 'widget/icon.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 import 'package:provider/provider.dart';
 
 import '../../db/db.dart';

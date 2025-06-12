@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 
 import '../../../../../db/db.dart';
 import '../../../../../fn/money_labeling.dart';

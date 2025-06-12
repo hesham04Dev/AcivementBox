@@ -4,6 +4,7 @@ import 'package:sqlite3/sqlite3.dart';
 import '../models/Category.dart';
 import '../models/gift.dart';
 import '../models/habit.dart';
+import '../config/const.dart';
 
 final DateTime now = DateTime.now();
 final String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -476,5 +477,19 @@ class SettingFn {
   void setNotificationTime(val) {
     _db.execute(
         "UPDATE setting set Val = $val WHERE Name = 'NotificationTime' ");
+  }
+
+  int getLanguageId() {
+    var x = _db.select('''SELECT Val from setting where Name = 'LanguageId' ''');
+    if(x.isNotEmpty){
+      print("language id is ${x[0]['Val']}");
+      return x[0]['Val'];
+    }
+    print("x is $x");
+    return 0;
+  }
+
+  void setLanguageId(langId){
+    _db.execute("UPDATE setting set Val = $langId WHERE Name = 'LanguageId' ");
   }
 }

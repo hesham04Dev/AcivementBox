@@ -1,4 +1,5 @@
-import 'package:localization_lite/translate.dart';
+import "package:localization_lite/translate.dart";
+
 
 import '../../../db/db.dart';
 

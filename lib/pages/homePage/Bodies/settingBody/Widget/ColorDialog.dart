@@ -8,8 +8,8 @@ import '../../../../../models/imageIcon.dart';
 import '../../../../../rootProvider/ThemeProvider.dart';
 
 class ColorDialog extends StatelessWidget {
-  ColorDialog({super.key});
-  int chosenColorId = 0;
+  const ColorDialog({super.key});
+  // int chosenColorId = 0;
 
   @override
   Widget build(BuildContext context) {

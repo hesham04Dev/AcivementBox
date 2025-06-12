@@ -6,6 +6,22 @@ const kWhite = Colors.white;
 
 final primaryBorderRadius = BorderRadius.circular(45); /*not used*/
 final secondaryBorderRadius = BorderRadius.circular(25); /*not used*/
+
+const kEmail = "hesham04.developer@gmail.com";
+
+// const List<Locale> kSupportedLocales = [
+//   Locale('en'),
+//   Locale('ar'),
+//   Locale('fr'),
+//   Locale('es'),
+//   // Locale('de'),
+//   Locale("hi"),
+//   Locale("zh"),
+//   Locale("pt"),
+//   Locale("ru"),
+//   Locale("zh"),
+//   Locale("ja")
+// ];
 const List<String> somethingChangedEveryTime = [
   "Small daily habits lead to big achievements over time.",
   "Every step you take brings you closer to your goal.",
@@ -28,3 +44,4 @@ const List<String> somethingChangedEveryTime = [
   "Dedicate yourself to your goals, and they will be within reach.",
   "Your achievements are the sum of your daily actions; make each day count.",
 ];
+var x= ["smallDailyHabits","EveryStepYouTake","ConsistencyIsKey","BelieveInYourself","CelebrateSmallVictories","FocusOnProgress","YourOnlyLimitIsYourMind","CommitToYourGoals","StayMotivated","EmbraceChallenges","StayDisciplined","EveryHabitYouBuild","VisualizeYourSuccess","RememberTheJourney","PushYourself","KeepYourGoalsInSight","YouHaveThePower","StayPositive","DedicateYourselfToYourGoals","MakeEachDayCount"];
