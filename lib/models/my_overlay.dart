@@ -10,7 +10,7 @@ double top = 10;
 void showOverlay(BuildContext context) {
   _overlays.add(_createOverlayEntry());
   top += 0.1;
-  Overlay.of(context).insert(_overlays.last!);
+  Overlay.of(context).insert(_overlays.last);
 }
 
 void removeOverlay() {

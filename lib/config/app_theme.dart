@@ -41,8 +41,8 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
         selectedLabelStyle: TextStyle(color: swatch.primary)),
     switchTheme: SwitchThemeData(
       trackOutlineColor:
-          WidgetStatePropertyAll(swatch.primary.withOpacity(0.2)),
-      thumbColor: WidgetStatePropertyAll(swatch.primary.withOpacity(0.2)),
+          WidgetStatePropertyAll(swatch.primary.withValues(alpha: 0.2)),
+      thumbColor: WidgetStatePropertyAll(swatch.primary.withValues(alpha:0.2)),
     ),
     dialogTheme:
         DialogTheme(backgroundColor: isDark ? Colors.black : Colors.white),
@@ -62,7 +62,7 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
     scaffoldBackgroundColor: isDark ? kDarkGrey : kWhite,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         shape: const CircleBorder(),
-        backgroundColor: swatch.primary.withOpacity(0.9),
+        backgroundColor: swatch.primary.withValues(alpha:0.9),
         elevation: 0,
         hoverElevation: 0),
     iconTheme: IconThemeData(

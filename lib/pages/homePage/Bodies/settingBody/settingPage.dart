@@ -1,7 +1,7 @@
 import 'package:achievement_box/config/const.dart';
+import 'package:achievement_box/models/my_toast.dart';
 import 'package:achievement_box/rootProvider/locale_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import "package:localization_lite/translate.dart";
 
 import 'package:mailto/mailto.dart';
@@ -84,8 +84,7 @@ class _SettingBodyState extends State<SettingBody> {
               iconName: "github-alt.png",
             ),
             onTap: () async {
-              await Clipboard.setData(const ClipboardData(
-                  text: "https://github.com/hesham04Dev/AcivementBox"));
+              await  launchUrl(Uri.parse('https://github.com/hesham04Dev/AchievementBox'));
             },
           ),
           MyListTile(
@@ -124,7 +123,12 @@ class _SettingBodyState extends State<SettingBody> {
               }),
           MyListTile(
             title: '${tr("version")}: ${SettingsController.appVersion}',
-            onTap: () {},
+            onTap: () {
+              if(db.sql.settings.getEasterEggs() ==1){
+                MyToast(title:Text("you found the first Easter egg"),).show(context);
+              }
+              
+            },
           ),
         ],
       ),

@@ -35,8 +35,8 @@ class StatisticsBody extends StatelessWidget {
           topHabit.isNotEmpty
               ? StatisticBar(
                   statisticName: tr("topHabit"),
-                  valueName: "${topHabit[0]?['Name']}",
-                  icon: Text("${topHabit[0]?['Total']} ${tr("times")}"),
+                  valueName: "${topHabit[0]['Name']}",
+                  icon: Text("${topHabit[0]['Total']} ${tr("times")}"),
                 )
               : const SizedBox(),
           topGift.isNotEmpty

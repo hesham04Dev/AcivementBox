@@ -5,7 +5,6 @@ import "package:localization_lite/translate.dart";
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
-import 'config/const.dart';
 import 'pages/homePage/Bodies/HomeBody/provider/levelProvider.dart';
 import 'pages/homePage/Bodies/providers/coinsProvider.dart';
 import 'pages/homePage/Bodies/providers/pageIndexProvider.dart';

@@ -26,7 +26,7 @@ if(Platform.isAndroid || Platform.isIOS){
 	);
 }else{
    MyToast(
-    title: Text("need To restart app"),).show(context);
+    title: const Text("need To restart app"),).show(context);
    
 }
     

@@ -4,7 +4,6 @@ import 'package:sqlite3/sqlite3.dart';
 import '../models/Category.dart';
 import '../models/gift.dart';
 import '../models/habit.dart';
-import '../config/const.dart';
 
 final DateTime now = DateTime.now();
 final String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -232,8 +231,9 @@ LIMIT 1;
     update  logGift set Count = Count $sign 1 where
     GiftId = $id;
     ''');
-    } else
+    } else {
       print("invalid operation in update gift");
+    }
   }
 
   void deleteFromLog(int id) {
@@ -275,8 +275,9 @@ LIMIT 1;
     update  gift set NoOfUsed = NoOfUsed $sign 1 where
     Id = $id;
     ''');
-    } else
+    } else {
       print("invalid operation in update gift");
+    }
   }
 
   void delete({required int id}) {
@@ -491,5 +492,16 @@ class SettingFn {
 
   void setLanguageId(langId){
     _db.execute("UPDATE setting set Val = $langId WHERE Name = 'LanguageId' ");
+  }
+
+  int getEasterEggs(){
+    var x = _db.select('''SELECT Val from setting where Name = 'EasterEggs' ''');
+    if(x.isNotEmpty){
+      return x[0]['Val'];
+    }
+    return 0;
+  }
+  void foundEasterEggs(){
+    _db.execute("UPDATE setting set Val = Val +1 WHERE Name = 'EasterEggs' ");
   }
 }
