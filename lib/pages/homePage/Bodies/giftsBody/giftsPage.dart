@@ -15,13 +15,31 @@ class GiftsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool listView = db.sql.settings.isListView();
+    print("is listview is $listView");
     var gifts = context.watch<GiftProvider>().Gifts;
-
+    var allGifts = Expanded(
+          child: PrimaryContainer(
+            opacity: 0.1,
+            child: listView
+                ? ListView.builder(
+                    itemBuilder: (BuildContext context, int index) =>
+                        Gift.giftBuilder(context, gifts[index]),
+                    itemCount: gifts.length,
+                  )
+                : MyGridView(
+                    itemBuilder: (context, index) =>
+                        Gift.giftBuilder(context, gifts[index]),
+                    itemCount: gifts.length,
+                  ),
+          ),
+        );
     final List<Widget>? mostUsed;
     int maxOfMostUsed = 3;
     context.read<GiftProvider>().MaxOfMostUsed = maxOfMostUsed;
     var mostUsedGifts = context.watch<GiftProvider>().MostUsedGifts ?? [""];
-    if (mostUsedGifts.length > 0 || listView) {
+    if ((mostUsedGifts.length > 0 || !listView ) && (MediaQuery.sizeOf(context).height > 600)) {
+      print("the hieght is dd");
+      print(MediaQuery.sizeOf(context).height);
       mostUsed = [
         Text(tr("mostUsed")),
         PrimaryContainer(
@@ -46,22 +64,7 @@ class GiftsBody extends StatelessWidget {
         ),
         if (listView) const SizedBox() else ...mostUsed,
         Text(tr("allItems")),
-        Expanded(
-          child: PrimaryContainer(
-            opacity: 0.1,
-            child: listView
-                ? ListView.builder(
-                    itemBuilder: (BuildContext context, int index) =>
-                        Gift.giftBuilder(context, gifts[index]),
-                    itemCount: gifts.length,
-                  )
-                : MyGridView(
-                    itemBuilder: (context, index) =>
-                        Gift.giftBuilder(context, gifts[index]),
-                    itemCount: gifts.length,
-                  ),
-          ),
-        ),
+        allGifts,
       ],
     );
   }

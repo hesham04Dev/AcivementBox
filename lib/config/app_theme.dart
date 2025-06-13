@@ -56,7 +56,8 @@ ThemeData buildTheme(Color accentColor, bool isDark) {
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
             textStyle: WidgetStatePropertyAll(TextStyle(
-      color: swatch.primary,
+      color:swatch.primary,
+
       fontFamily: "Dubai",
     )))),
     scaffoldBackgroundColor: isDark ? kDarkGrey : kWhite,

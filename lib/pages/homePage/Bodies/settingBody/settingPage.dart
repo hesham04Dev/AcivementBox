@@ -125,7 +125,8 @@ class _SettingBodyState extends State<SettingBody> {
             title: '${tr("version")}: ${SettingsController.appVersion}',
             onTap: () {
               if(db.sql.settings.getEasterEggs() ==1){
-                MyToast(title:Text("you found the first Easter egg"),).show(context);
+                MyToast(title:const Text("1"),).show(context);
+                db.sql.settings.foundEasterEggs();
               }
               
             },

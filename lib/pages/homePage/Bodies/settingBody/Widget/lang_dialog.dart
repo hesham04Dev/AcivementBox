@@ -66,10 +66,14 @@ class LangDialog extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Scrollbar(
+            
             thumbVisibility: true,
             child: SingleChildScrollView(
               
-              child: Wrap(children: List.generate(Translate.supportedLangs.length, (index)=>PrimaryContainer(
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                children: List.generate(Translate.supportedLangs.length, (index)=>PrimaryContainer(
+                padding: 0,
                 child: TextButton(
                   onPressed: () async{
                await context
@@ -77,9 +81,12 @@ class LangDialog extends StatelessWidget {
                     .languageChanged(index,context);
                 Navigator.pop(context);
               },
-                  child: Text(
-                    Translate.supportedLangs[index],
-                    style: const TextStyle(fontSize: 16, color: Colors.black),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      Translate.supportedLangs[index],
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ),
                 ),
               ),),
