@@ -27,13 +27,6 @@ abstract class TileWithCounter extends StatefulWidget {
 
   late MyToast undoToast = MyToast(
     title: Text(toastTitle),
-    button: TextButton(
-      onPressed: () {
-        undoToast.closeOverlay();
-        undo();
-      },
-      child: Text(tr("undo")),
-    ),
   );
 
   late String toastTitle;

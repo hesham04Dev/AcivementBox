@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => ThemeProvider(),
           ),
-          ChangeNotifierProvider(
+          Provider(
             create: (context) => LocaleProvider(),
           ),
           ChangeNotifierProvider(
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
 
           return MaterialApp(
             title: 'Achievement Box',
-            locale: Locale(context.read<LocaleProvider>().Language),
+            locale: Locale(context.read<LocaleProvider>().Language.toLowerCase()),
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

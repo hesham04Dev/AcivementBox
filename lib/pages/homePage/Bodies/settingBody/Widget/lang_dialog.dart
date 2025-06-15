@@ -66,7 +66,7 @@ class LangDialog extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Scrollbar(
-            
+
             thumbVisibility: true,
             child: SingleChildScrollView(
               
@@ -84,7 +84,7 @@ class LangDialog extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      Translate.supportedLangs[index],
+                      Translate.supportedLangs[index].toUpperCase(),
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),

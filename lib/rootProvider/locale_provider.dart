@@ -8,7 +8,7 @@ import 'package:restart_app/restart_app.dart';
 import '../db/db.dart';
 
 
-class LocaleProvider with ChangeNotifier {
+class LocaleProvider  {
   LocaleProvider() {
     _languageId = db.sql.settings.getLanguageId();
     print("lang id is $_languageId");
@@ -36,6 +36,6 @@ if(Platform.isAndroid || Platform.isIOS){
 
   late int _languageId;
   int get LanguageId => _languageId;
-  String get Language => Translate.supportedLangs[_languageId];
+  String get Language => Translate.supportedLangs[_languageId].toUpperCase();
   
 }

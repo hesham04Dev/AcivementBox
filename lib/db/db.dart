@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import '../config/const.dart';
 import 'sql_class.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
@@ -156,7 +157,7 @@ class DbHelper {
   Name TEXT,
   Val INTEGER
   );
-  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'Streak',1),(6,'ListView',0),(7,'LanguageId',0),(8,'EasterEggs',0);
+  INSERT OR IGNORE INTO setting(Id,Name,Val) values (1,'Coins',0),(2,'DarkMode',0),(3,'AccentColor',0),(4,'NotificationTime',0),(5,'Streak',1),(6,'ListView',0),(7,'LanguageId',0),(8,'EasterEggs',0),(9,'DBVersion',1);
   
     ''';
     const String createLogGiftTable = '''
@@ -175,18 +176,76 @@ class DbHelper {
   PRIMARY KEY (HabitId, DateOnly),
   FOREIGN KEY (HabitId) REFERENCES habit(Id)
   )''';
-    const List<String> sqlList = [
-      createCategoryTable,
-      createHabitTable,
-      createGiftTable,
-      createLogGiftTable,
-      createLogHabitTable,
-      createSettingTable
-    ];
-    for (String sql in sqlList) {
-      db.execute(sql);
+
+    const addPriceToLogHabitTable =
+        "ALTER TABLE logHabit ADD COLUMN Price INTEGER;";
+    const addPriceToLogGiftTable =
+        "ALTER TABLE logGift ADD COLUMN Price INTEGER;";
+
+    const addPriceValuesToLogHabitTable = '''
+      UPDATE logHabit
+      SET Price = (
+      SELECT CASE 
+           WHEN h.IsBad = 1 THEN -1 * h.Price 
+           ELSE h.Price 
+         END
+      FROM habit h 
+      WHERE h.Id = logHabit.HabitId
+      )
+      WHERE Price IS NULL;
+    ''';
+
+    const addPriceValuesToLogGiftTable = '''
+    UPDATE logGift
+    SET Price = (
+    SELECT g.Price FROM gift g WHERE g.Id = logGift.GiftId
+    )
+    WHERE Price IS NULL;
+      ''';
+
+    const Map<int, List<String>> sqlList = {
+      1: [
+        createCategoryTable,
+        createHabitTable,
+        createGiftTable,
+        createLogGiftTable,
+        createLogHabitTable,
+        createSettingTable
+      ],
+      2: [
+        addPriceToLogHabitTable,
+        addPriceToLogGiftTable,
+        addPriceValuesToLogHabitTable,
+        addPriceValuesToLogGiftTable
+      ]
+    };
+
+    int currentVersion = getCurrentVersion(db);
+    print("Current DB Version: $currentVersion");
+    for (int version = currentVersion + 1; version <= kDBVersion; version++) {
+      final List<String>? migrationScripts = sqlList[version];
+      if (migrationScripts != null) {
+        for (final sql in migrationScripts) {
+          db.execute(sql);
+        }
+      }
     }
+    setDBVersionToLatest(db);
   }
 }
 
 var db = DbHelper();
+int getCurrentVersion(Database db) {
+  try{
+  var x = db.select('''SELECT Val from setting where Name = 'DBVersion' ''');
+    if(x.isNotEmpty){
+      return x[0]['Val'];
+    }}catch (e) {
+      print("Error getting DB version: $e");
+    }
+    return 0;
+}
+
+void setDBVersionToLatest(Database db) {
+  db.execute("UPDATE setting set Val = $kDBVersion WHERE Name = 'DBVersion' ");
+}

@@ -1,3 +1,4 @@
+import 'package:achievement_box/config/const.dart';
 import 'package:intl/intl.dart';
 import 'package:sqlite3/sqlite3.dart';
 
@@ -66,11 +67,10 @@ LIMIT 1;
 
   ResultSet getTopDay() {
     ResultSet x = _db.select('''
-SELECT lh.DateOnly , SUM(lh.Count * h.Price) AS Total
-FROM habit AS h
-INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+SELECT lh.DateOnly , SUM(lh.Count * lh.Price) AS Total
+FROM  logHabit AS lh 
 GROUP BY lh.DateOnly
-ORDER BY SUM(lh.Count * h.Price) DESC
+ORDER BY SUM(lh.Count * lh.Price) DESC
 LIMIT 1;
   ''');
 
@@ -87,11 +87,17 @@ GROUP BY lh.DateOnly
 ORDER BY lh.DateOnly desc
 LIMIT 7;
   ''');*/
+    // var x = _db.select('''
+    // SELECT lh.DateOnly, 
+    // SUM(CASE WHEN h.IsBad = False THEN lh.Count * h.Price ELSE 0 END) - 
+    // SUM(CASE WHEN h.IsBad = True THEN lh.Count * h.Price ELSE 0 END) AS Total
+    // FROM habit AS h INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+    // GROUP BY lh.DateOnly
+    // ORDER BY lh.DateOnly DESC
+    // LIMIT 7;''');
     var x = _db.select('''
-    SELECT lh.DateOnly, 
-    SUM(CASE WHEN h.IsBad = False THEN lh.Count * h.Price ELSE 0 END) - 
-    SUM(CASE WHEN h.IsBad = True THEN lh.Count * h.Price ELSE 0 END) AS Total
-    FROM habit AS h INNER JOIN logHabit AS lh ON h.Id = lh.HabitId
+    SELECT lh.DateOnly,  SUM(lh.Count * lh.Price) AS Total
+    FROM  logHabit AS lh 
     GROUP BY lh.DateOnly
     ORDER BY lh.DateOnly DESC
     LIMIT 7;''');
@@ -108,11 +114,30 @@ LIMIT 7;
         "select distinct DateOnly from logHabit order by DateOnly desc ");
   }
 
+  // void addToLog(int id) {
+  //   // _db.execute('''
+  //   //   insert into logHabit values('$formattedDate',$id,1)
+  //   //   ''');
+  // }
+
   void addToLog(int id) {
-    _db.execute('''
-      insert into logHabit values('$formattedDate',$id,1)
-      ''');
-  }
+  _db.execute('''
+    INSERT INTO logHabit (DateOnly, HabitId, Count, Price)
+    VALUES (
+      '$formattedDate',
+      $id,
+      1,
+      (
+        SELECT CASE 
+                 WHEN IsBad = 1 THEN -1 * Price 
+                 ELSE Price 
+               END
+        FROM habit
+        WHERE Id = $id
+      )
+    );
+  ''');
+}
 
   void updateLog({required int id, required int count}) {
     _db.execute('''
@@ -210,11 +235,26 @@ LIMIT 1;
         "select distinct DateOnly from logGift order by DateOnly desc ");
   }
 
+  // void addToLog(int id) {
+  //   _db.execute('''
+  //     insert into logGift values('$formattedDate',$id,1)
+  //     ''');
+  // }
   void addToLog(int id) {
-    _db.execute('''
-      insert into logGift values('$formattedDate',$id,1)
-      ''');
-  }
+  _db.execute('''
+    INSERT INTO logGift (DateOnly, GiftId, Count, Price)
+    VALUES (
+      '$formattedDate',
+      $id,
+      1,
+      (
+        SELECT  Price 
+        FROM gift
+        WHERE Id = $id
+      )
+    );
+  ''');
+}
 
   void updateLog({required int id, required int count}) {
     _db.execute('''
@@ -503,5 +543,16 @@ class SettingFn {
   }
   void foundEasterEggs(){
     _db.execute("UPDATE setting set Val = Val +1 WHERE Name = 'EasterEggs' ");
+  }
+
+  int getDBVersion(){
+    var x = _db.select('''SELECT Val from setting where Name = 'DBVersion' ''');
+    if(x.isNotEmpty){
+      return x[0]['Val'];
+    }
+    return 0;
+  }
+  void setDBVersionToLatest() {
+    _db.execute("UPDATE setting set Val = $kDBVersion WHERE Name = 'DBVersion' ");
   }
 }
