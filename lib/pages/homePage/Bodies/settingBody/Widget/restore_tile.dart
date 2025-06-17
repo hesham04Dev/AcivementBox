@@ -21,6 +21,7 @@ class RestoreTile extends StatelessWidget {
         final status = await Permission.storage.request();
         return status.isGranted;
       }
+      return true;
     }
     return true; // Not needed on iOS or Android SDK >= 33
   }
@@ -29,7 +30,7 @@ class RestoreTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor:  Colors.red.withValues(alpha: 0.2),
+        backgroundColor: Colors.red.withValues(alpha: 0.2),
         content: Text(
           tr("incorrectFile"),
           textAlign: TextAlign.center,
@@ -42,8 +43,8 @@ class RestoreTile extends StatelessWidget {
     try {
       final downloadsDir = await getDownloadsDirectory();
       final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['db'],
+        type: FileType.any,
+        // allowedExtensions: ['db'],
         initialDirectory: downloadsDir?.path,
       );
       return result?.files.single.path;
@@ -104,4 +105,5 @@ class RestoreTile extends StatelessWidget {
       onTap: () => _handleRestore(context),
     );
   }
+
 }

@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:restart_app/restart_app.dart';
 
+import '../db/db.dart';
+
 Future<void> backup() async {
   String pathToDownloadsDir;
   if (Platform.isAndroid) {
@@ -36,11 +38,12 @@ Future<void> backup() async {
 
 Future<void> restore(String path) async {
   final supportDir = await getApplicationSupportDirectory();
-  //db.dispose();
   File sourceFile = File(path);
-  sourceFile.copySync('${supportDir.path}/restored.db');
+  await sourceFile.copy('${supportDir.path}/restored.db');
   if (Platform.isAndroid) {
-    Restart.restartApp();
+    db.db.dispose();
+    await Restart.restartApp();
+    await Restart.restartApp();
   }
   //we need to restart the app to restore the db;
 }
